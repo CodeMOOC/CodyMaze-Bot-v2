@@ -15,6 +15,9 @@ namespace CodyMazeBot {
                 .AddControllers()
                 .AddNewtonsoftJson()
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
+
+            services.AddSingleton<Storage>();
+            services.AddScoped<Conversation>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

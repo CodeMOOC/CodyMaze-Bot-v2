@@ -1,0 +1,6 @@
+keys/*
+!keys/placeholder
+**/bin/**
+**/obj/**
+**/.vs
+launchSettings.json

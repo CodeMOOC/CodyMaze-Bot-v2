@@ -57,6 +57,10 @@ namespace CodyMazeBot {
             return string.Format("users/{0}", telegramId);
         }
 
+        private string GetUserPath(string userId) {
+            return string.Format("users/{0}", userId);
+        }
+
         private Task<User> FetchExistingUser(int telegramId) {
             return FetchDocument<User>(GetUserPath(telegramId));
         }
@@ -84,6 +88,22 @@ namespace CodyMazeBot {
                 throw new Exception("Snapshot of newly created user cannot be retrieved");
             }
             return snapshot.ConvertTo<User>();
+        }
+
+        public async Task UpdateUserLanguage(string userId, string languageCode) {
+            var doc = (await GetFirestore()).Document(GetUserPath(userId));
+            await doc.SetAsync(new User {
+                LanguageCodeOverride = languageCode,
+                LastUpdateOn = DateTime.UtcNow
+            }, SetOptions.MergeFields(User.LanguageCodeOverrideProp, User.LastUpdateOnProp));
+        }
+
+        public async Task UpdateUserState(string userId, int state) {
+            var doc = (await GetFirestore()).Document(GetUserPath(userId));
+            await doc.SetAsync(new User {
+                State = state,
+                LastUpdateOn = DateTime.UtcNow
+            }, SetOptions.MergeFields(User.StateProp, User.LastUpdateOnProp));
         }
 
     }

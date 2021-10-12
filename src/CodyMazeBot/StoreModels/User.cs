@@ -10,19 +10,27 @@ namespace CodyMazeBot.StoreModels {
         [FirestoreDocumentId]
         public string UserId { get; set; }
 
-        [FirestoreProperty("name")]
+        public const string NameProp = "name";
+
+        [FirestoreProperty(NameProp)]
         public string Name { get; set; }
 
-        [FirestoreProperty("state")]
+        public const string StateProp = "state";
+
+        [FirestoreProperty(StateProp)]
         public int State { get; set; }
 
         [FirestoreProperty("firstSeen")]
-        public DateTime FirstSeenOn { get; set; }
+        public DateTime FirstSeenOn { get; set; } = DateTime.UtcNow;
 
-        [FirestoreProperty("lastUpdate")]
-        public DateTime LastUpdateOn { get; set; }
+        public const string LastUpdateOnProp = "lastUpdate";
 
-        [FirestoreProperty("languageCode")]
+        [FirestoreProperty(LastUpdateOnProp)]
+        public DateTime LastUpdateOn { get; set; } = DateTime.UtcNow;
+
+        public const string LanguageCodeOverrideProp = "languageCode";
+
+        [FirestoreProperty(LanguageCodeOverrideProp)]
         public string LanguageCodeOverride { get; set; }
 
         [FirestoreProperty("memory")]

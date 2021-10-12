@@ -1,3 +1,4 @@
+using CodyMazeBot.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Telegram.Bot;
 
 namespace CodyMazeBot {
     public class Startup {
@@ -18,6 +20,15 @@ namespace CodyMazeBot {
 
             services.AddSingleton<Storage>();
             services.AddScoped<Conversation>();
+
+            services
+                .AddHttpClient("tgwebhook")
+                .AddTypedClient<ITelegramBotClient>(
+                httpClient => new TelegramBotClient(Environment.GetEnvironmentVariable("BOT_TOKEN"), httpClient)
+            );
+
+            services.AddScoped<HelpCommand>();
+            services.AddScoped<LanguageCommand>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

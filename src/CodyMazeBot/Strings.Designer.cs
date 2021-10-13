@@ -92,11 +92,20 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there..
         /// </summary>
-        public static string String1 {
+        public static string StartCommand {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("StartCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hmmm, the command you sent is not valid. Try scanning the CodyMaze QR Code again..
+        /// </summary>
+        public static string StartCommandCoordInvalid {
+            get {
+                return ResourceManager.GetString("StartCommandCoordInvalid", resourceCulture);
             }
         }
     }

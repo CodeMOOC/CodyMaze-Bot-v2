@@ -130,7 +130,10 @@
 &lt;code&gt;r&lt;/code&gt;: turn right,
 and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt;, and &lt;code&gt;while&lt;/code&gt;. Code blocks are indicated between braces (&lt;code&gt;{}&lt;/code&gt;) and can be repeated. For instance, &lt;code&gt;2{fr}&lt;/code&gt; tells you to move forward and turn right twice.</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="StartCommand" xml:space="preserve">
+    <value>🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there.</value>
+  </data>
+  <data name="StartCommandCoordInvalid" xml:space="preserve">
+    <value>Hmmm, the command you sent is not valid. Try scanning the CodyMaze QR Code again.</value>
   </data>
 </root>

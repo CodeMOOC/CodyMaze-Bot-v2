@@ -130,7 +130,10 @@
 &lt;code&gt;r&lt;/code&gt;: turn right,
 and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt;, and &lt;code&gt;while&lt;/code&gt;. Code blocks are indicated between braces (&lt;code&gt;{}&lt;/code&gt;) and can be repeated. For instance, &lt;code&gt;2{fr}&lt;/code&gt; tells you to move forward and turn right twice.</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="StartCommand" xml:space="preserve">
+    <value>🤖 Ciao, sono il &lt;b&gt;bot di CodyMaze&lt;/b&gt;! Vai su una delle caselle lungo il bordo esterno della scacchiera e scansiona il codice QR che trovi lì.</value>
+  </data>
+  <data name="StartCommandCoordInvalid" xml:space="preserve">
+    <value>Hmmm, il codice che hai scansionato non sembra valido. Riprova a scansionare uno dei codici QR della scacchiera.</value>
   </data>
 </root>

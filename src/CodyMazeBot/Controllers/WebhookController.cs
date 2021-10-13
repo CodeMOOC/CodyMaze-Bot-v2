@@ -52,6 +52,7 @@ namespace CodyMazeBot.Controllers {
             _logger.LogDebug("Received message: {0}", update.Message.Text);
 
             ICommand command = update.Message.Text.Split(' ').First() switch {
+                "/start" => _serviceProvider.GetService<StartCommand>(),
                 "/language" => _serviceProvider.GetService<LanguageCommand>(),
                 "/help" => _serviceProvider.GetService<HelpCommand>(),
                 _ => null

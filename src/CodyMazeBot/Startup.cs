@@ -27,8 +27,9 @@ namespace CodyMazeBot {
                 httpClient => new TelegramBotClient(Environment.GetEnvironmentVariable("BOT_TOKEN"), httpClient)
             );
 
-            services.AddScoped<HelpCommand>();
+            services.AddScoped<StartCommand>();
             services.AddScoped<LanguageCommand>();
+            services.AddScoped<HelpCommand>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

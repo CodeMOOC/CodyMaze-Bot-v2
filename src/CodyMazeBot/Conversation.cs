@@ -16,6 +16,15 @@ namespace CodyMazeBot {
         public StoreModels.User User { get; private set; }
         public CultureInfo CurrentLanguage { get; private set; }
 
+        public int State {
+            get {
+                if (User == null)
+                    return 0;
+                else
+                    return User.State;
+            }
+        }
+
         public Conversation(
             Storage storage,
             ILogger<Conversation> logger
@@ -39,15 +48,33 @@ namespace CodyMazeBot {
         }
 
         public async Task<bool> SetLanguage(string languageCode) {
+            if(User == null) {
+                return false;
+            }
+
             try {
                 CurrentLanguage = CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(languageCode);
-
                 await _storage.UpdateUserLanguage(User.UserId, CurrentLanguage.TwoLetterISOLanguageName);
-
                 return true;
             }
             catch(Exception ex) {
                 _logger.LogError(ex, "Failed to set language");
+                return false;
+            }
+        }
+
+        public async Task<bool> SetState(int state) {
+            if (User == null) {
+                return false;
+            }
+
+            try {
+                User.State = state;
+                await _storage.UpdateUserState(User.UserId, state);
+                return true;
+            }
+            catch(Exception ex) {
+                _logger.LogError(ex, "Failed to set state");
                 return false;
             }
         }

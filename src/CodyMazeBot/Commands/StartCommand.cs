@@ -30,7 +30,7 @@ namespace CodyMazeBot.Commands {
             else {
                 // This must be a coordinate
                 if(GridCoordinate.TryParse(payload, out var coord)) {
-                    await _bot.SendTextMessageAsync(update.Message.Chat.Id, "Hello from coord " + coord.ToString());
+
                 }
                 else {
                     await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.StartCommandCoordInvalid, parseMode: ParseMode.Html);

@@ -16,8 +16,9 @@ namespace CodyMazeBot.Game {
 
         }
 
-        public override async Task Process(Update update) {
+        public override async Task<bool> Process(Update update) {
             await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Waiting for answer");
+            return true;
         }
 
     }

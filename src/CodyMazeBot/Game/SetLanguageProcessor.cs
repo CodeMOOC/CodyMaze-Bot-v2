@@ -17,14 +17,15 @@ namespace CodyMazeBot.Game {
 
         }
 
-        public override async Task Process(Update update) {
+        public override async Task<bool> Process(Update update) {
             if(update.CallbackQuery != null) {
                 await Conversation.SetLanguage(update.CallbackQuery.Data);
                 await Bot.SendTextMessageAsync(update.CallbackQuery.From.Id, Strings.LanguageConfirm, ParseMode.Html);
-                return;
+
+                return true;
             }
 
-            await ReplyCannotHandle(update);
+            return false;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace CodyMazeBot {
 
         public StoreModels.User User { get; private set; }
         public CultureInfo CurrentLanguage { get; private set; }
+        public long TelegramId { get; private set; }
 
         public int State {
             get {
@@ -25,7 +26,7 @@ namespace CodyMazeBot {
             }
         }
 
-        public GridCoordinate IncomingCoordinate { get; set; }
+        public GridCoordinate? IncomingCoordinate { get; set; }
 
         public Conversation(
             Storage storage,
@@ -36,14 +37,13 @@ namespace CodyMazeBot {
         }
 
         public async Task LoadUser(Update update) {
-            var telegramId = update.Message?.From?.Id ?? 
-                             update.CallbackQuery?.From?.Id;
-            if(!telegramId.HasValue) {
+            TelegramId = update.GetChatId().GetValueOrDefault(0);
+            if(TelegramId == 0) {
                 return;
             }
 
-            User = await _storage.RetrieveUser(telegramId.Value);
-            _logger.LogDebug("Loaded user profile for ID {0}", telegramId);
+            User = await _storage.RetrieveUser(TelegramId);
+            _logger.LogDebug("Loaded user profile for ID {0}", TelegramId);
 
             var selectedLanguage = User.LanguageCodeOverride ?? update.Message.From.LanguageCode ?? "en-US";
             CurrentLanguage = CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(selectedLanguage);

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -15,15 +16,18 @@ namespace CodyMazeBot.Controllers {
     public class WebhookController : ControllerBase {
 
         Conversation _conversation;
+        ITelegramBotClient _bot;
         IServiceProvider _serviceProvider;
         ILogger<WebhookController> _logger;
 
         public WebhookController(
             Conversation conversation,
+            ITelegramBotClient bot,
             IServiceProvider serviceProvider,
             ILogger<WebhookController> logger
         ) {
             _conversation = conversation;
+            _bot = bot;
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
@@ -45,14 +49,16 @@ namespace CodyMazeBot.Controllers {
                 if(processorTypes.ContainsKey((BotState)_conversation.State)) {
                     var processorType = processorTypes[(BotState)_conversation.State];
                     var processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
-                    await processor.Process(update);
-
-                    return Ok();
+                    
+                    if(await processor.Process(update)) {
+                        return Ok();
+                    }
                 }
             }
 
             if(!commandHandled) {
                 // Huh?
+                await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.CannotHandle, ParseMode.Html);
             }
 
             return Ok();

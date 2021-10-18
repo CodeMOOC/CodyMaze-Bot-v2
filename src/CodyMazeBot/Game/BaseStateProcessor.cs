@@ -21,7 +21,7 @@ namespace CodyMazeBot.Game {
             Bot = bot;
         }
 
-        public abstract Task Process(Update update);
+        public abstract Task<bool> Process(Update update);
 
         protected Task ReplyCannotHandle(Update update, string prompt = null) {
             string output = Strings.CannotHandle;

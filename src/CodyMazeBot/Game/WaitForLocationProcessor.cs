@@ -16,8 +16,16 @@ namespace CodyMazeBot.Game {
 
         }
 
-        public override async Task Process(Update update) {
-            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Waiting for location");
+        public override async Task<bool> Process(Update update) {
+            if(Conversation.IncomingCoordinate.HasValue) {
+                
+            }
+            else {
+                await update.DoWithChatId(chatId => {
+                    return Bot.SendTextMessageAsync(chatId, "Waiting for location");
+                });
+            }
+            return true;
         }
 
     }

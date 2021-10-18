@@ -20,20 +20,23 @@ namespace CodyMazeBot.Commands {
             _bot = bot;
         }
 
-        public async Task ProcessCommand(Update update) {
+        public async Task<(BotState? NewState, bool ShortCircuit)> ProcessCommand(Update update) {
             string payload = update.Message.Text[6..].Trim();
 
             if(string.IsNullOrEmpty(payload)) {
                 // Direct /start command
                 await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.StartCommand, parseMode: ParseMode.Html);
+                return (null, true);
             }
             else {
                 // This must be a coordinate
                 if(GridCoordinate.TryParse(payload, out var coord)) {
-
+                    _conversation.IncomingCoordinate = coord;
+                    return (null, false);
                 }
                 else {
                     await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.StartCommandCoordInvalid, parseMode: ParseMode.Html);
+                    return (null, true);
                 }
             }
         }

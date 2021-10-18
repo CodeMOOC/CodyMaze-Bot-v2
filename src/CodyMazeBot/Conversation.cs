@@ -25,6 +25,8 @@ namespace CodyMazeBot {
             }
         }
 
+        public GridCoordinate IncomingCoordinate { get; set; }
+
         public Conversation(
             Storage storage,
             ILogger<Conversation> logger
@@ -34,7 +36,8 @@ namespace CodyMazeBot {
         }
 
         public async Task LoadUser(Update update) {
-            var telegramId = update.Message?.From?.Id;
+            var telegramId = update.Message?.From?.Id ?? 
+                             update.CallbackQuery?.From?.Id;
             if(!telegramId.HasValue) {
                 return;
             }
@@ -63,18 +66,36 @@ namespace CodyMazeBot {
             }
         }
 
-        public async Task<bool> SetState(int state) {
+        public async Task<bool> SetState(int state, bool storePrevious = false) {
             if (User == null) {
                 return false;
             }
 
             try {
+                User.PreviousState = (storePrevious) ? User.State : null;
                 User.State = state;
-                await _storage.UpdateUserState(User.UserId, state);
+                await _storage.UpdateUserState(User.UserId, state, User.PreviousState);
                 return true;
             }
             catch(Exception ex) {
                 _logger.LogError(ex, "Failed to set state");
+                return false;
+            }
+        }
+
+        public async Task<bool> RestoreState(int defaultState) {
+            if(User == null) {
+                return false;
+            }
+
+            try {
+                User.State = User.PreviousState.GetValueOrDefault(defaultState);
+                User.PreviousState = null;
+                await _storage.UpdateUserState(User.UserId, User.State, User.PreviousState);
+                return true;
+            }
+            catch(Exception ex) {
+                _logger.LogError(ex, "Failed to restore state");
                 return false;
             }
         }

@@ -1,4 +1,5 @@
 using CodyMazeBot.Commands;
+using CodyMazeBot.Game;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,12 +7,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
 
 namespace CodyMazeBot {
     public class Startup {
+
+        private static Dictionary<BotState, Type> _stateProcessors = new Dictionary<BotState, Type>();
+        public static IReadOnlyDictionary<BotState, Type> StateProcessors {
+            get {
+                return new ReadOnlyDictionary<BotState, Type>(_stateProcessors);
+            }
+        }
+
         public void ConfigureServices(IServiceCollection services) {
             services
                 .AddControllers()
@@ -28,6 +39,12 @@ namespace CodyMazeBot {
             );
 
             services.AddAllScoped<ICommand>();
+            services.AddAllScoped<BaseStateProcessor>(type => {
+                var attrs = type.GetCustomAttributes(typeof(StateHandlerAttribute), false);
+                foreach(StateHandlerAttribute attr in attrs) {
+                    _stateProcessors.Add(attr.State, type);
+                }
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -43,5 +60,6 @@ namespace CodyMazeBot {
 
             app.UseStaticFiles();
         }
+
     }
 }

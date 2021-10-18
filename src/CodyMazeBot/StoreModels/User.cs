@@ -35,5 +35,10 @@ namespace CodyMazeBot.StoreModels {
 
         [FirestoreProperty("memory")]
         public Dictionary<string, object> Memory { get; set; }
+
+        public const string PreviousStateProp = "previousState";
+
+        [FirestoreProperty(PreviousStateProp)]
+        public int? PreviousState { get; set; }
     }
 }

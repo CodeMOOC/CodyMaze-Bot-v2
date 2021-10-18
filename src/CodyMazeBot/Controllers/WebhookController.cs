@@ -1,4 +1,5 @@
 ﻿using CodyMazeBot.Commands;
+using CodyMazeBot.Game;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,25 +32,36 @@ namespace CodyMazeBot.Controllers {
         public async Task<IActionResult> Process(
             [FromBody] Update update
         ) {
-            _logger.LogDebug("Processing update {0} from {1}", update?.Id, update?.Message?.From?.Username);
+            _logger.LogDebug("Processing update {0} from {1} \"{2}\"",
+                update?.Id, update.Message?.From?.Username, update.Message?.Text);
+
             await _conversation.LoadUser(update);
 
-            var handlerTask = update.Type switch {
-                UpdateType.Message => HandleIncomingMessage(update),
-                _ => HandleUnknownUpdate(update)
-            };
-            try {
-                await handlerTask;
+            (var commandHandled, var shortCircuit) = await HandleCommand(update);
+
+            // Perform state processing, if not short-circuited
+            if(!shortCircuit && Enum.IsDefined(typeof(BotState), _conversation.State)) {
+                var processorTypes = Startup.StateProcessors;
+                if(processorTypes.ContainsKey((BotState)_conversation.State)) {
+                    var processorType = processorTypes[(BotState)_conversation.State];
+                    var processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
+                    await processor.Process(update);
+
+                    return Ok();
+                }
             }
-            catch(Exception ex) {
-                _logger.LogError(ex, "Failed handling update ({0})", ex.Message);
+
+            if(!commandHandled) {
+                // Huh?
             }
 
             return Ok();
         }
 
-        private async Task HandleIncomingMessage(Update update) {
-            _logger.LogDebug("Received message: {0}", update.Message.Text);
+        private async Task<(bool Handled, bool ShortCircuit)> HandleCommand(Update update) {
+            if(update.Message == null || string.IsNullOrEmpty(update.Message.Text)) {
+                return (false, false);
+            }
 
             ICommand command = update.Message.Text.Split(' ').First() switch {
                 "/start" => _serviceProvider.GetService<StartCommand>(),
@@ -57,18 +69,19 @@ namespace CodyMazeBot.Controllers {
                 "/help" => _serviceProvider.GetService<HelpCommand>(),
                 _ => null
             };
-            if(command != null) {
+            if (command != null) {
                 _logger.LogDebug("Processing command with processor {0}", command.GetType());
-                await command.ProcessCommand(update);
-                return;
+                (var newState, var shortCircuit) = await command.ProcessCommand(update);
+                _logger.LogDebug("Command returned new state {0} and short circuit {1}", newState, shortCircuit);
+
+                if (newState.HasValue) {
+                    await _conversation.SetState((int)newState.Value, true);
+                }
+
+                return (true, shortCircuit);
             }
 
-            // Process other messages
-        }
-
-        private Task HandleUnknownUpdate(Update update) {
-            _logger.LogDebug("Ignoring unsupported update type ({0})", update.Type);
-            return Task.CompletedTask;
+            return (false, false);
         }
 
     }

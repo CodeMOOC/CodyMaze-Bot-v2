@@ -7,7 +7,7 @@ using Telegram.Bot.Types;
 namespace CodyMazeBot.Commands {
     public interface ICommand {
 
-        Task ProcessCommand(Update update);
+        Task<(BotState? NewState, bool ShortCircuit)> ProcessCommand(Update update);
 
     }
 }

@@ -61,6 +61,15 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, I don&apos;t understand..
+        /// </summary>
+        public static string CannotHandle {
+            get {
+                return ResourceManager.GetString("CannotHandle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 🤖 Hi! I am the &lt;b&gt;CodyMaze bot&lt;/b&gt; and I will guide you through the game. The game is composed of &lt;b&gt;13 challenges&lt;/b&gt;: for each one, I will send you new instructions that you must follow exactly in order to reach the final destination on the game’s chessboard..
         /// </summary>
         public static string Help1 {
@@ -88,6 +97,24 @@ namespace CodyMazeBot {
         public static string Help3 {
             get {
                 return ResourceManager.GetString("Help3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which language should I speak?.
+        /// </summary>
+        public static string LanguageCommandAsk {
+            get {
+                return ResourceManager.GetString("LanguageCommandAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sure!.
+        /// </summary>
+        public static string LanguageConfirm {
+            get {
+                return ResourceManager.GetString("LanguageConfirm", resourceCulture);
             }
         }
         

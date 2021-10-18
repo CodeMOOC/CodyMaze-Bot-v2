@@ -98,12 +98,13 @@ namespace CodyMazeBot {
             }, SetOptions.MergeFields(User.LanguageCodeOverrideProp, User.LastUpdateOnProp));
         }
 
-        public async Task UpdateUserState(string userId, int state) {
+        public async Task UpdateUserState(string userId, int state, int? previousState) {
             var doc = (await GetFirestore()).Document(GetUserPath(userId));
             await doc.SetAsync(new User {
                 State = state,
+                PreviousState = previousState,
                 LastUpdateOn = DateTime.UtcNow
-            }, SetOptions.MergeFields(User.StateProp, User.LastUpdateOnProp));
+            }, SetOptions.MergeFields(User.StateProp, User.PreviousStateProp, User.LastUpdateOnProp));
         }
 
     }

@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+
+namespace CodyMazeBot.Game {
+    [StateHandler(BotState.SetLanguage)]
+    public class SetLanguageProcessor : BaseStateProcessor {
+
+        public SetLanguageProcessor(
+            Conversation conversation,
+            ITelegramBotClient bot
+        ) : base(conversation, bot) {
+
+        }
+
+        public override async Task Process(Update update) {
+            if(update.CallbackQuery != null) {
+                await Conversation.SetLanguage(update.CallbackQuery.Data);
+                await Bot.SendTextMessageAsync(update.CallbackQuery.From.Id, Strings.LanguageConfirm, ParseMode.Html);
+                return;
+            }
+
+            await ReplyCannotHandle(update);
+        }
+    }
+}

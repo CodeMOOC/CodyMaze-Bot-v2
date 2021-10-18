@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CannotHandle" xml:space="preserve">
+    <value>Sorry, I don't understand.</value>
+  </data>
   <data name="Help1" xml:space="preserve">
     <value>🤖 Hi! I am the &lt;b&gt;CodyMaze bot&lt;/b&gt; and I will guide you through the game. The game is composed of &lt;b&gt;13 challenges&lt;/b&gt;: for each one, I will send you new instructions that you must follow exactly in order to reach the final destination on the game’s chessboard.</value>
   </data>
@@ -129,6 +132,12 @@
 &lt;code&gt;l&lt;/code&gt;: turn left,
 &lt;code&gt;r&lt;/code&gt;: turn right,
 and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt;, and &lt;code&gt;while&lt;/code&gt;. Code blocks are indicated between braces (&lt;code&gt;{}&lt;/code&gt;) and can be repeated. For instance, &lt;code&gt;2{fr}&lt;/code&gt; tells you to move forward and turn right twice.</value>
+  </data>
+  <data name="LanguageCommandAsk" xml:space="preserve">
+    <value>Which language should I speak?</value>
+  </data>
+  <data name="LanguageConfirm" xml:space="preserve">
+    <value>Sure!</value>
   </data>
   <data name="StartCommand" xml:space="preserve">
     <value>🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there.</value>

@@ -72,11 +72,18 @@ namespace CodyMazeBot {
             if(!(obj is GridCoordinate)) {
                 return false;
             }
+            if(obj is string) {
+                return Equals((string)obj);
+            }
 
             var other = (GridCoordinate)obj;
-            return (other.ColumnIndex == this.ColumnIndex &&
-                    other.RowIndex == this.RowIndex &&
-                    other.Direction == this.Direction);
+            return (other.ColumnIndex == ColumnIndex &&
+                    other.RowIndex == RowIndex &&
+                    other.Direction == Direction);
+        }
+
+        public bool Equals(string s) {
+            return ToString().Equals(s ?? string.Empty, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public override int GetHashCode() {

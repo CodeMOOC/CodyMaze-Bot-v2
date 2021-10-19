@@ -49,6 +49,20 @@ namespace CodyMazeBot {
             return FetchDocument<Category>(string.Format("events/{0}/categories/{1}", eventCode, categoryCode));
         }
 
+        public async Task<Question> FetchRandomQuestion(string eventCode, string categoryCode) {
+            var rnd = new Random();
+
+            var collection = _firestore.Collection(string.Format("events/{0}/categories/{1}/questions", eventCode, categoryCode));
+            var documents = await collection.ListDocumentsAsync().ToListAsync();
+            var randomQuestion = (from q in documents
+                                  let weight = rnd.NextDouble()
+                                  orderby weight
+                                  select q).FirstOrDefault();
+
+            var snapshot = await randomQuestion.GetSnapshotAsync();
+            return snapshot.ConvertTo<Question>();
+        }
+
         public Task<Question> FetchQuestion(string eventCode, string categoryCode, string questionId) {
             return FetchDocument<Question>(string.Format("events/{0}/categories/{1}/questions/{2}", eventCode, categoryCode, questionId));
         }
@@ -90,21 +104,18 @@ namespace CodyMazeBot {
             return snapshot.ConvertTo<User>();
         }
 
-        public async Task UpdateUserLanguage(string userId, string languageCode) {
-            var doc = (await GetFirestore()).Document(GetUserPath(userId));
-            await doc.SetAsync(new User {
-                LanguageCodeOverride = languageCode,
-                LastUpdateOn = DateTime.UtcNow
-            }, SetOptions.MergeFields(User.LanguageCodeOverrideProp, User.LastUpdateOnProp));
-        }
+        public async Task UpdateUser(User user, params string[] fieldMask) {
+            var doc = (await GetFirestore()).Document(GetUserPath(user.UserId));
+            
+            user.LastUpdateOn = DateTime.UtcNow;
 
-        public async Task UpdateUserState(string userId, int state, int? previousState) {
-            var doc = (await GetFirestore()).Document(GetUserPath(userId));
-            await doc.SetAsync(new User {
-                State = state,
-                PreviousState = previousState,
-                LastUpdateOn = DateTime.UtcNow
-            }, SetOptions.MergeFields(User.StateProp, User.PreviousStateProp, User.LastUpdateOnProp));
+            HashSet<string> fields = new(fieldMask);
+            fields.Add(User.LastUpdateOnProp);
+
+            await doc.SetAsync(
+                user,
+                SetOptions.MergeFields(fields.ToArray())
+            );
         }
 
     }

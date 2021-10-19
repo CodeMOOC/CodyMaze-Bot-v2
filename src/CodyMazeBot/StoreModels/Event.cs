@@ -17,6 +17,7 @@ namespace CodyMazeBot.StoreModels {
         public Dictionary<string, GridCell> Grid { get; set; }
     }
 
+    [FirestoreData]
     public class GridCell {
         [FirestoreProperty("category")]
         public string CategoryCode { get; set; }

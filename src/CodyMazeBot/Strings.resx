@@ -117,8 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcceptCoordinateWaitForDirection" xml:space="preserve">
+    <value>👀 What direction are you facing?</value>
+  </data>
+  <data name="AssignQuiz" xml:space="preserve">
+    <value>❓ &lt;b&gt;{0}&lt;/b&gt;
+{1}</value>
+  </data>
   <data name="CannotHandle" xml:space="preserve">
     <value>Sorry, I don't understand.</value>
+  </data>
+  <data name="CorrectAnswer" xml:space="preserve">
+    <value>✔ &lt;b&gt;Correct!&lt;/b&gt;</value>
+  </data>
+  <data name="DirectionEast" xml:space="preserve">
+    <value>East</value>
+  </data>
+  <data name="DirectionNorth" xml:space="preserve">
+    <value>North</value>
+  </data>
+  <data name="DirectionSouth" xml:space="preserve">
+    <value>South</value>
+  </data>
+  <data name="DirectionWest" xml:space="preserve">
+    <value>West</value>
+  </data>
+  <data name="FacingEast" xml:space="preserve">
+    <value>eastwards</value>
+  </data>
+  <data name="FacingNorth" xml:space="preserve">
+    <value>northwards</value>
+  </data>
+  <data name="FacingSouth" xml:space="preserve">
+    <value>southwards</value>
+  </data>
+  <data name="FacingWest" xml:space="preserve">
+    <value>westwards</value>
   </data>
   <data name="Help1" xml:space="preserve">
     <value>🤖 Hi! I am the &lt;b&gt;CodyMaze bot&lt;/b&gt; and I will guide you through the game. The game is composed of &lt;b&gt;13 challenges&lt;/b&gt;: for each one, I will send you new instructions that you must follow exactly in order to reach the final destination on the game’s chessboard.</value>
@@ -139,10 +173,29 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
   <data name="LanguageConfirm" xml:space="preserve">
     <value>Sure!</value>
   </data>
+  <data name="ResetCommandOk" xml:space="preserve">
+    <value>Game state reset. 👍</value>
+  </data>
   <data name="StartCommand" xml:space="preserve">
     <value>🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there.</value>
   </data>
   <data name="StartCommandCoordInvalid" xml:space="preserve">
     <value>Hmmm, the command you sent is not valid. Try scanning the CodyMaze QR Code again.</value>
+  </data>
+  <data name="WaitForLocationFirstCoordinateWrong" xml:space="preserve">
+    <value>Invalid start position: please go to any square of the grid's outer border and scan the QR Code you find there.</value>
+  </data>
+  <data name="WaitForLocationFirstSendDirection" xml:space="preserve">
+    <value>🧭 Please turn {0}.</value>
+  </data>
+  <data name="WelcomeGame" xml:space="preserve">
+    <value>🤖 Hello {0}, welcome to &lt;b&gt;{1}&lt;/b&gt;! Let's start the game.</value>
+  </data>
+  <data name="WrongAnswerTryAgain" xml:space="preserve">
+    <value>❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again.</value>
+  </data>
+  <data name="WrongMove" xml:space="preserve">
+    <value>&lt;b&gt;Wrong move!&lt;/b&gt; 🚩
+Move back to cell &lt;i&gt;{0}&lt;/i&gt; and look &lt;i&gt;{1}&lt;/i&gt;, then try again.</value>
   </data>
 </root>

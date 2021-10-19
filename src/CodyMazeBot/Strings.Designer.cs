@@ -61,11 +61,111 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 👀 What direction are you facing?.
+        /// </summary>
+        public static string AcceptCoordinateWaitForDirection {
+            get {
+                return ResourceManager.GetString("AcceptCoordinateWaitForDirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ❓ &lt;b&gt;{0}&lt;/b&gt;
+        ///{1}.
+        /// </summary>
+        public static string AssignQuiz {
+            get {
+                return ResourceManager.GetString("AssignQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, I don&apos;t understand..
         /// </summary>
         public static string CannotHandle {
             get {
                 return ResourceManager.GetString("CannotHandle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ✔ &lt;b&gt;Correct!&lt;/b&gt;.
+        /// </summary>
+        public static string CorrectAnswer {
+            get {
+                return ResourceManager.GetString("CorrectAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to East.
+        /// </summary>
+        public static string DirectionEast {
+            get {
+                return ResourceManager.GetString("DirectionEast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to North.
+        /// </summary>
+        public static string DirectionNorth {
+            get {
+                return ResourceManager.GetString("DirectionNorth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to South.
+        /// </summary>
+        public static string DirectionSouth {
+            get {
+                return ResourceManager.GetString("DirectionSouth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to West.
+        /// </summary>
+        public static string DirectionWest {
+            get {
+                return ResourceManager.GetString("DirectionWest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to eastwards.
+        /// </summary>
+        public static string FacingEast {
+            get {
+                return ResourceManager.GetString("FacingEast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to northwards.
+        /// </summary>
+        public static string FacingNorth {
+            get {
+                return ResourceManager.GetString("FacingNorth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to southwards.
+        /// </summary>
+        public static string FacingSouth {
+            get {
+                return ResourceManager.GetString("FacingSouth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to westwards.
+        /// </summary>
+        public static string FacingWest {
+            get {
+                return ResourceManager.GetString("FacingWest", resourceCulture);
             }
         }
         
@@ -119,6 +219,15 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game state reset. 👍.
+        /// </summary>
+        public static string ResetCommandOk {
+            get {
+                return ResourceManager.GetString("ResetCommandOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there..
         /// </summary>
         public static string StartCommand {
@@ -133,6 +242,52 @@ namespace CodyMazeBot {
         public static string StartCommandCoordInvalid {
             get {
                 return ResourceManager.GetString("StartCommandCoordInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid start position: please go to any square of the grid&apos;s outer border and scan the QR Code you find there..
+        /// </summary>
+        public static string WaitForLocationFirstCoordinateWrong {
+            get {
+                return ResourceManager.GetString("WaitForLocationFirstCoordinateWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🧭 Please turn {0}..
+        /// </summary>
+        public static string WaitForLocationFirstSendDirection {
+            get {
+                return ResourceManager.GetString("WaitForLocationFirstSendDirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🤖 Hello {0}, welcome to &lt;b&gt;{1}&lt;/b&gt;! Let&apos;s start the game..
+        /// </summary>
+        public static string WelcomeGame {
+            get {
+                return ResourceManager.GetString("WelcomeGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again..
+        /// </summary>
+        public static string WrongAnswerTryAgain {
+            get {
+                return ResourceManager.GetString("WrongAnswerTryAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;b&gt;Wrong move!&lt;/b&gt; 🚩
+        ///Move back to cell &lt;i&gt;{0}&lt;/i&gt; and look &lt;i&gt;{1}&lt;/i&gt;, then try again..
+        /// </summary>
+        public static string WrongMove {
+            get {
+                return ResourceManager.GetString("WrongMove", resourceCulture);
             }
         }
     }

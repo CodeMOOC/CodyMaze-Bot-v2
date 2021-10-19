@@ -89,6 +89,12 @@ namespace CodyMazeBot {
                 $"{Column}{Row}";
         }
 
+        public string CoordinateString {
+            get {
+                return $"{Column}{Row}";
+            }
+        }
+
         private static (int Col, int Row) ParseCoordinatesCouple(char c1, char c2) {
             int col = c1 switch {
                 'a' => 0,

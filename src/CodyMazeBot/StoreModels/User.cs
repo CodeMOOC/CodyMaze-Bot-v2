@@ -15,6 +15,7 @@ namespace CodyMazeBot.StoreModels {
         public const string MemoryProp = "memory";
         public const string CurrentEventProp = "currentEvent";
         public const string NextTargetCoordinateProp = "nextTargetCoordinate";
+        public const string PartialCoordinateProp = "partialCoordinate";
         public const string MovesProp = "moves";
         public const string PreviousStateProp = "previousState";
 
@@ -45,8 +46,32 @@ namespace CodyMazeBot.StoreModels {
         [FirestoreProperty(NextTargetCoordinateProp)]
         public string NextTargetCoordinate { get; set; }
 
+        [FirestoreProperty(PartialCoordinateProp)]
+        public string PartialCoordinate { get; set; }
+
         [FirestoreProperty(MovesProp)]
-        public string[] Moves { get; set; }
+        public string[] Moves { get; set; } = Array.Empty<string>();
+
+        public int MoveCount {
+            get {
+                if(Moves == null) {
+                    return 0;
+                }
+                return Moves.Length;
+            }
+        }
+
+        public GridCoordinate? LastMoveCoordinate {
+            get {
+                if(Moves == null || Moves.Length == 0) {
+                    return null;
+                }
+                if(!GridCoordinate.TryParse(Moves[^1], out var ret)) {
+                    return null;
+                }
+                return ret;
+            }
+        }
 
         [FirestoreProperty(PreviousStateProp)]
         public int? PreviousState { get; set; }

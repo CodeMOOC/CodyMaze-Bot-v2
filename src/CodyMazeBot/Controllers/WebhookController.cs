@@ -42,6 +42,7 @@ namespace CodyMazeBot.Controllers {
             await _conversation.LoadUser(update);
 
             (var commandHandled, var shortCircuit) = await HandleCommand(update);
+            _logger.LogDebug("Command handled {0} short-circuit {1}", commandHandled, shortCircuit);
 
             // Perform state processing, if not short-circuited
             if(!shortCircuit && Enum.IsDefined(typeof(BotState), _conversation.State)) {
@@ -50,9 +51,13 @@ namespace CodyMazeBot.Controllers {
                     var processorType = processorTypes[(BotState)_conversation.State];
                     var processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
                     
+                    _logger.LogDebug("Processing input with processor {0}", processor.GetType());
                     if(await processor.Process(update)) {
                         return Ok();
                     }
+                }
+                else {
+                    _logger.LogDebug("No processor that handles state {0}", _conversation.State);
                 }
             }
 
@@ -73,6 +78,7 @@ namespace CodyMazeBot.Controllers {
                 "/start" => _serviceProvider.GetService<StartCommand>(),
                 "/language" => _serviceProvider.GetService<LanguageCommand>(),
                 "/help" => _serviceProvider.GetService<HelpCommand>(),
+                "/reset" => _serviceProvider.GetService<ResetCommand>(),
                 _ => null
             };
             if (command != null) {

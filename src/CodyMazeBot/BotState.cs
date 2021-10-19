@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 namespace CodyMazeBot {
     public enum BotState : int {
         WaitingForLocation = 0,
-        WaitingForQuizAnswer = 1,
+        WaitingForDirection = 1,
+        WaitingForQuizAnswer = 5,
         SetLanguage = 10
     }
 }

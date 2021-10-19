@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace CodyMazeBot.Game {
     [StateHandler(BotState.WaitingForQuizAnswer)]
@@ -11,13 +13,36 @@ namespace CodyMazeBot.Game {
 
         public WaitingForQuizAnswerProcessor(
             Conversation conversation,
-            ITelegramBotClient bot
-        ) : base(conversation, bot) {
+            ITelegramBotClient bot,
+            ILogger<WaitingForQuizAnswerProcessor> logger
+        ) : base(conversation, bot, logger) {
 
         }
 
         public override async Task<bool> Process(Update update) {
-            await Bot.SendTextMessageAsync(update.Message.Chat.Id, "Waiting for answer");
+            if (update.CallbackQuery == null) {
+                return false;
+            }
+
+            if(update.CallbackQuery.Data == "CORRECT") {
+                Logger.LogInformation("Answer correct");
+
+                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    Strings.CorrectAnswer,
+                    parseMode: ParseMode.Html
+                );
+            }
+            else {
+                Logger.LogInformation("Answer wrong");
+
+                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    Strings.WrongAnswerTryAgain,
+                    parseMode: ParseMode.Html
+                );
+
+                // TODO assign question again
+            }
+
             return true;
         }
 

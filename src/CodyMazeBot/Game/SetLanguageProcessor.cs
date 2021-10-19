@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,8 +13,9 @@ namespace CodyMazeBot.Game {
 
         public SetLanguageProcessor(
             Conversation conversation,
-            ITelegramBotClient bot
-        ) : base(conversation, bot) {
+            ITelegramBotClient bot,
+            ILogger<SetLanguageProcessor> logger
+        ) : base(conversation, bot, logger) {
 
         }
 

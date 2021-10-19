@@ -120,12 +120,53 @@
   <data name="AcceptCoordinateWaitForDirection" xml:space="preserve">
     <value>👀 In che direzione stai guardando?</value>
   </data>
+  <data name="AssignCode" xml:space="preserve">
+    <value>🔢 Esegui le seguenti istruzioni e poi scansiona il codice QR sul quale it fermi:
+
+&lt;code&gt;{0}&lt;/code&gt;</value>
+  </data>
   <data name="AssignQuiz" xml:space="preserve">
     <value>❓ &lt;b&gt;{0}&lt;/b&gt;
 {1}</value>
   </data>
   <data name="CannotHandle" xml:space="preserve">
     <value>Scusa, non ho capito.</value>
+  </data>
+  <data name="CodeElse" xml:space="preserve">
+    <value>altrimenti</value>
+  </data>
+  <data name="CodeForward" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="CodeIf" xml:space="preserve">
+    <value>se</value>
+  </data>
+  <data name="CodeLeft" xml:space="preserve">
+    <value>s</value>
+  </data>
+  <data name="CodeNoStar" xml:space="preserve">
+    <value>no stella</value>
+  </data>
+  <data name="CodePathAhead" xml:space="preserve">
+    <value>strada davanti</value>
+  </data>
+  <data name="CodePathLeft" xml:space="preserve">
+    <value>strada a sx</value>
+  </data>
+  <data name="CodePathRight" xml:space="preserve">
+    <value>strada a dx</value>
+  </data>
+  <data name="CodeRight" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="CodeStar" xml:space="preserve">
+    <value>stella</value>
+  </data>
+  <data name="CodeWhile" xml:space="preserve">
+    <value>finché</value>
+  </data>
+  <data name="CorrectAnswer" xml:space="preserve">
+    <value>✔ &lt;b&gt;Giusto!&lt;/b&gt;</value>
   </data>
   <data name="DirectionEast" xml:space="preserve">
     <value>Est</value>
@@ -171,13 +212,16 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
     <value>Va bene!</value>
   </data>
   <data name="ResetCommandOk" xml:space="preserve">
-    <value>Gioco reimpostato. 👍</value>
+    <value>Ricominciamo! 👍 Scansiona uno dei QR Code lungo il bordo della scacchiera per iniziare a giocare.</value>
   </data>
   <data name="StartCommand" xml:space="preserve">
     <value>🤖 Ciao, sono il &lt;b&gt;bot di CodyMaze&lt;/b&gt;! Vai su una delle caselle lungo il bordo esterno della scacchiera e scansiona il codice QR che trovi lì.</value>
   </data>
   <data name="StartCommandCoordInvalid" xml:space="preserve">
     <value>Hmmm, il codice che hai scansionato non sembra valido. Riprova a scansionare uno dei codici QR della scacchiera.</value>
+  </data>
+  <data name="Victory" xml:space="preserve">
+    <value>👏 Congratulazioni, hai completato CodyMaze!</value>
   </data>
   <data name="WaitForLocationFirstCoordinateWrong" xml:space="preserve">
     <value>Posizione di inizio non valida: ti prego di andare su una delle caselle lungo il bordo esterno della scacchiera e scansione il codice QR che è lì.</value>
@@ -190,5 +234,9 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
   </data>
   <data name="WrongAnswerTryAgain" xml:space="preserve">
     <value>❌ &lt;b&gt;Sbagliato!&lt;/b&gt; Prova di nuovo.</value>
+  </data>
+  <data name="WrongMove" xml:space="preserve">
+    <value>🚩 &lt;b&gt;Mossa sbagliata!&lt;/b&gt;
+Torna in posizione {0} e guarda {1}, dopodiché prova di nuovo.</value>
   </data>
 </root>

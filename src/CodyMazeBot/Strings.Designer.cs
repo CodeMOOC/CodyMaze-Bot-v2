@@ -70,6 +70,16 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 🔢 Execute the following instructions and scan the QR Code you stop on:
+        ///&lt;code&gt;{0}&lt;/code&gt;.
+        /// </summary>
+        public static string AssignCode {
+            get {
+                return ResourceManager.GetString("AssignCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ❓ &lt;b&gt;{0}&lt;/b&gt;
         ///{1}.
         /// </summary>
@@ -85,6 +95,105 @@ namespace CodyMazeBot {
         public static string CannotHandle {
             get {
                 return ResourceManager.GetString("CannotHandle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to else.
+        /// </summary>
+        public static string CodeElse {
+            get {
+                return ResourceManager.GetString("CodeElse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to f.
+        /// </summary>
+        public static string CodeForward {
+            get {
+                return ResourceManager.GetString("CodeForward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to if.
+        /// </summary>
+        public static string CodeIf {
+            get {
+                return ResourceManager.GetString("CodeIf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to l.
+        /// </summary>
+        public static string CodeLeft {
+            get {
+                return ResourceManager.GetString("CodeLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no star.
+        /// </summary>
+        public static string CodeNoStar {
+            get {
+                return ResourceManager.GetString("CodeNoStar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to path ahead.
+        /// </summary>
+        public static string CodePathAhead {
+            get {
+                return ResourceManager.GetString("CodePathAhead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to path left.
+        /// </summary>
+        public static string CodePathLeft {
+            get {
+                return ResourceManager.GetString("CodePathLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to path right.
+        /// </summary>
+        public static string CodePathRight {
+            get {
+                return ResourceManager.GetString("CodePathRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to r.
+        /// </summary>
+        public static string CodeRight {
+            get {
+                return ResourceManager.GetString("CodeRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to star.
+        /// </summary>
+        public static string CodeStar {
+            get {
+                return ResourceManager.GetString("CodeStar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to while.
+        /// </summary>
+        public static string CodeWhile {
+            get {
+                return ResourceManager.GetString("CodeWhile", resourceCulture);
             }
         }
         
@@ -219,7 +328,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Game state reset. 👍.
+        ///   Looks up a localized string similar to Let&apos;s start from the top!. 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin..
         /// </summary>
         public static string ResetCommandOk {
             get {
@@ -242,6 +351,15 @@ namespace CodyMazeBot {
         public static string StartCommandCoordInvalid {
             get {
                 return ResourceManager.GetString("StartCommandCoordInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 👏 Congratulations, you have completed CodyMaze!.
+        /// </summary>
+        public static string Victory {
+            get {
+                return ResourceManager.GetString("Victory", resourceCulture);
             }
         }
         
@@ -282,8 +400,8 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Wrong move!&lt;/b&gt; 🚩
-        ///Move back to cell &lt;i&gt;{0}&lt;/i&gt; and look &lt;i&gt;{1}&lt;/i&gt;, then try again..
+        ///   Looks up a localized string similar to 🚩 &lt;b&gt;Wrong move!&lt;/b&gt;
+        ///Move back to position {0} and look {1}, then try again..
         /// </summary>
         public static string WrongMove {
             get {

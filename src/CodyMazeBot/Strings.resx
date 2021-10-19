@@ -120,12 +120,49 @@
   <data name="AcceptCoordinateWaitForDirection" xml:space="preserve">
     <value>👀 What direction are you facing?</value>
   </data>
+  <data name="AssignCode" xml:space="preserve">
+    <value>🔢 Execute the following instructions and scan the QR Code you stop on:
+&lt;code&gt;{0}&lt;/code&gt;</value>
+  </data>
   <data name="AssignQuiz" xml:space="preserve">
     <value>❓ &lt;b&gt;{0}&lt;/b&gt;
 {1}</value>
   </data>
   <data name="CannotHandle" xml:space="preserve">
     <value>Sorry, I don't understand.</value>
+  </data>
+  <data name="CodeElse" xml:space="preserve">
+    <value>else</value>
+  </data>
+  <data name="CodeForward" xml:space="preserve">
+    <value>f</value>
+  </data>
+  <data name="CodeIf" xml:space="preserve">
+    <value>if</value>
+  </data>
+  <data name="CodeLeft" xml:space="preserve">
+    <value>l</value>
+  </data>
+  <data name="CodeNoStar" xml:space="preserve">
+    <value>no star</value>
+  </data>
+  <data name="CodePathAhead" xml:space="preserve">
+    <value>path ahead</value>
+  </data>
+  <data name="CodePathLeft" xml:space="preserve">
+    <value>path left</value>
+  </data>
+  <data name="CodePathRight" xml:space="preserve">
+    <value>path right</value>
+  </data>
+  <data name="CodeRight" xml:space="preserve">
+    <value>r</value>
+  </data>
+  <data name="CodeStar" xml:space="preserve">
+    <value>star</value>
+  </data>
+  <data name="CodeWhile" xml:space="preserve">
+    <value>while</value>
   </data>
   <data name="CorrectAnswer" xml:space="preserve">
     <value>✔ &lt;b&gt;Correct!&lt;/b&gt;</value>
@@ -174,13 +211,16 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
     <value>Sure!</value>
   </data>
   <data name="ResetCommandOk" xml:space="preserve">
-    <value>Game state reset. 👍</value>
+    <value>Let's start from the top!. 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin.</value>
   </data>
   <data name="StartCommand" xml:space="preserve">
     <value>🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there.</value>
   </data>
   <data name="StartCommandCoordInvalid" xml:space="preserve">
     <value>Hmmm, the command you sent is not valid. Try scanning the CodyMaze QR Code again.</value>
+  </data>
+  <data name="Victory" xml:space="preserve">
+    <value>👏 Congratulations, you have completed CodyMaze!</value>
   </data>
   <data name="WaitForLocationFirstCoordinateWrong" xml:space="preserve">
     <value>Invalid start position: please go to any square of the grid's outer border and scan the QR Code you find there.</value>
@@ -195,7 +235,7 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
     <value>❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again.</value>
   </data>
   <data name="WrongMove" xml:space="preserve">
-    <value>&lt;b&gt;Wrong move!&lt;/b&gt; 🚩
-Move back to cell &lt;i&gt;{0}&lt;/i&gt; and look &lt;i&gt;{1}&lt;/i&gt;, then try again.</value>
+    <value>🚩 &lt;b&gt;Wrong move!&lt;/b&gt;
+Move back to position {0} and look {1}, then try again.</value>
   </data>
 </root>

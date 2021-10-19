@@ -59,6 +59,10 @@ namespace CodyMazeBot {
                                   orderby weight
                                   select q).FirstOrDefault();
 
+            if(randomQuestion == null) {
+                return null;
+            }
+
             var snapshot = await randomQuestion.GetSnapshotAsync();
             return snapshot.ConvertTo<Question>();
         }

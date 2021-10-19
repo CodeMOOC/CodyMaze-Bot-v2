@@ -66,6 +66,8 @@ namespace CodyMazeBot.Game {
                         return;
                     }
 
+                    await Conversation.SetState((int)BotState.WaitingForLocation);
+
                     await Bot.SendTextMessageAsync(Conversation.TelegramId,
                         string.Format(
                             Strings.WrongMove,
@@ -76,10 +78,10 @@ namespace CodyMazeBot.Game {
 
                     return;
                 }
-
-                // Move is valid!
-                Logger.LogInformation("Move expected and valid");
             }
+
+            Logger.LogInformation("Move to {0} valid", coordinate);
+            await Conversation.RegisterMove(coordinate);
 
             if(Conversation.ActiveEvent == null) {
                 // TODO
@@ -96,6 +98,11 @@ namespace CodyMazeBot.Game {
             var gridCell = Conversation.ActiveEvent.Grid[coordinate.CoordinateString.ToLowerInvariant()];
 
             (var category, var question) = await Conversation.AssignNewQuestion(gridCell.CategoryCode);
+            if(category == null || question == null) {
+                // Move ahead without question
+                await AssignNextDestination(update);
+                return;
+            }
 
             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                 string.Format(Strings.AssignQuiz,
@@ -106,8 +113,28 @@ namespace CodyMazeBot.Game {
             );
         }
 
-        protected Task AssignNextDestination(Update update) {
-            return Task.CompletedTask;
+        protected async Task AssignNextDestination(Update update) {
+            if(Conversation.CurrentUser.MoveCount > MazeGenerator.LastMove) {
+                Logger.LogInformation("Maze completed with {0} moves", Conversation.CurrentUser.MoveCount);
+
+                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    Strings.Victory,
+                    parseMode: ParseMode.Html
+                );
+            }
+
+            (var target, var code) = MazeGenerator.GenerateInstructions(
+                Conversation.CurrentUser.LastMoveCoordinate.Value,
+                Conversation.CurrentUser.MoveCount,
+                Conversation.ActiveEvent.Grid
+            );
+
+            await Conversation.AssignNewDestination(target.ToString());
+
+            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                string.Format(Strings.AssignCode, code),
+                parseMode: ParseMode.Html
+            );
         }
 
         protected Task ReplyCannotHandle(Update update, string prompt = null) {

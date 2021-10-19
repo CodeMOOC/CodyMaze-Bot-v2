@@ -31,6 +31,8 @@ namespace CodyMazeBot.Game {
                     Strings.CorrectAnswer,
                     parseMode: ParseMode.Html
                 );
+
+                await AssignNextDestination(update);
             }
             else {
                 Logger.LogInformation("Answer wrong");

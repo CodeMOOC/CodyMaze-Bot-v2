@@ -200,6 +200,11 @@ namespace CodyMazeBot {
                 var taskQuestion = _storage.FetchRandomQuestion(CurrentUser.CurrentEvent, categoryCode);
                 await Task.WhenAll(taskCategory, taskQuestion);
 
+                if(taskCategory == null || taskQuestion == null) {
+                    _logger.LogWarning("Could not load category {0} or random question", categoryCode);
+                    return (null, null);
+                }
+
                 CurrentUser.State = (int)BotState.WaitingForQuizAnswer;
                 CurrentUser.LastUpdateOn = DateTime.UtcNow;
                 await _storage.UpdateUser(CurrentUser,
@@ -212,6 +217,53 @@ namespace CodyMazeBot {
             catch(Exception ex) {
                 _logger.LogError(ex, "Failed to assign question");
                 return (null, null);
+            }
+        }
+
+        public async Task<bool> AssignNewDestination(string coordinate) {
+            if (CurrentUser == null) {
+                return false;
+            }
+
+            try {
+                CurrentUser.State = (int)BotState.WaitingForLocation;
+                CurrentUser.NextTargetCoordinate = coordinate;
+                CurrentUser.LastUpdateOn = DateTime.UtcNow;
+                await _storage.UpdateUser(CurrentUser,
+                    User.StateProp,
+                    User.NextTargetCoordinateProp,
+                    User.LastUpdateOnProp
+                );
+
+                return true;
+            }
+            catch (Exception ex) {
+                _logger.LogError(ex, "Failed to assign new destination");
+                return false;
+            }
+        }
+
+        public async Task<bool> RegisterMove(GridCoordinate coordinate) {
+            if (CurrentUser == null) {
+                return false;
+            }
+
+            try {
+                var newMoves = new List<string>(CurrentUser.Moves ?? Array.Empty<string>());
+                newMoves.Add(coordinate.ToString());
+
+                CurrentUser.Moves = newMoves.ToArray();
+                CurrentUser.LastUpdateOn = DateTime.UtcNow;
+                await _storage.UpdateUser(CurrentUser,
+                    User.MovesProp,
+                    User.LastUpdateOnProp
+                );
+
+                return true;
+            }
+            catch(Exception ex) {
+                _logger.LogError(ex, "Failed to register move");
+                return false;
             }
         }
 

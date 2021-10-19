@@ -43,10 +43,13 @@ namespace CodyMazeBot {
                 return;
             }
 
-            CurrentUser = await _storage.RetrieveUser(TelegramId);
+            var user = update.GetFrom();
+            string username = string.Join(' ', user.FirstName, user.LastName);
+
+            CurrentUser = await _storage.RetrieveUser(TelegramId, username);
             _logger.LogDebug("Loaded user profile for ID {0}", TelegramId);
 
-            var selectedLanguage = CurrentUser.LanguageCodeOverride ?? update.Message.From.LanguageCode ?? "en-US";
+            var selectedLanguage = CurrentUser.LanguageCodeOverride ?? update.GetFrom()?.LanguageCode ?? "en-US";
             CurrentLanguage = CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(selectedLanguage);
             _logger.LogDebug("Selected culture {0} for language code {1}", CurrentLanguage, selectedLanguage);
 

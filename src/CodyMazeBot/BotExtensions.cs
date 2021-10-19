@@ -23,5 +23,11 @@ namespace CodyMazeBot {
             }
         }
 
+        public static User GetFrom(this Update update) {
+            return update.Message?.From ??
+                   update.CallbackQuery?.From
+                   ;
+        }
+
     }
 }

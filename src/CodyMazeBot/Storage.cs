@@ -83,7 +83,8 @@ namespace CodyMazeBot {
         /// Retrives a user or creates one, if needed.
         /// </summary>
         /// <param name="telegramId">Unique Telegram identifier.</param>
-        public async Task<User> RetrieveUser(long telegramId) {
+        /// <param name="username">Username with which new users are stored.</param>
+        public async Task<User> RetrieveUser(long telegramId, string username) {
             var doc = (await GetFirestore()).Document(GetUserPath(telegramId));
             
             var snapshot = await doc.GetSnapshotAsync();
@@ -94,6 +95,7 @@ namespace CodyMazeBot {
             _ = await doc.CreateAsync(new User {
                 UserId = telegramId.ToString(),
                 State = 0,
+                Name = username,
                 FirstSeenOn = DateTime.UtcNow,
                 LastUpdateOn = DateTime.UtcNow
             });

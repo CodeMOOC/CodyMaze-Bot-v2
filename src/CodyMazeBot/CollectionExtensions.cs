@@ -8,6 +8,10 @@ namespace CodyMazeBot {
     public static class CollectionExtensions {
 
         public static string Localize(this IDictionary<string, string> source) {
+            if(source == null) {
+                return "???";
+            }
+
             string cultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             if(source.ContainsKey(cultureCode)) {
                 return source[cultureCode];

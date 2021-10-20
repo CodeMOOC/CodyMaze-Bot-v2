@@ -109,10 +109,10 @@ namespace CodyMazeBot.Game {
             var output = Bitmap.FromStream(backgroundStream);
 
             using (var gfx = Graphics.FromImage(output)) {
-                var fontMedium = new Font(FontFamily.GenericSansSerif, 18f, GraphicsUnit.Point);
-                var fontName = new Font(FontFamily.GenericSansSerif, 30f, FontStyle.Bold, GraphicsUnit.Point);
-                var fontDescription = new Font(FontFamily.GenericSansSerif, 14f, GraphicsUnit.Point);
-                var fontSmall = new Font(FontFamily.GenericSansSerif, 12f, GraphicsUnit.Point);
+                var fontMedium = new Font(FontFamily.GenericSansSerif, 42f, GraphicsUnit.Pixel);
+                var fontName = new Font(FontFamily.GenericSansSerif, 90f, FontStyle.Bold, GraphicsUnit.Pixel);
+                var fontDescription = new Font(FontFamily.GenericSansSerif, 42f, GraphicsUnit.Pixel);
+                var fontSmall = new Font(FontFamily.GenericSansSerif, 36f, GraphicsUnit.Pixel);
 
                 gfx.DrawString(Strings.CertificateGenerationTitle, fontMedium, Brushes.Black,
                     new RectangleF(512, 575, 1024, 120), new StringFormat {

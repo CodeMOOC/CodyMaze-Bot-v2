@@ -49,7 +49,8 @@ namespace CodyMazeBot {
             CurrentUser = await _storage.RetrieveUser(TelegramId, username);
             _logger.LogDebug("Loaded user profile for ID {0}", TelegramId);
 
-            var selectedLanguage = CurrentUser.LanguageCodeOverride ?? update.GetFrom()?.LanguageCode ?? "en-US";
+            // Force language to Italian for now
+            var selectedLanguage = "it"; // CurrentUser.LanguageCodeOverride ?? update.GetFrom()?.LanguageCode ?? "it";
             CurrentLanguage = CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(selectedLanguage);
             _logger.LogDebug("Selected culture {0} for language code {1}", CurrentLanguage, selectedLanguage);
 

@@ -39,7 +39,9 @@ namespace CodyMazeBot.Controllers {
             _logger.LogDebug("Processing update {0} from {1} \"{2}\"",
                 update?.Id, update.Message?.From?.Username, update.Message?.Text);
 
-            await _conversation.LoadUser(update);
+            if(!await _conversation.LoadUser(update)) {
+                return Ok();
+            }
 
             (var commandHandled, var shortCircuit) = await HandleCommand(update);
             _logger.LogDebug("Command handled {0} short-circuit {1}", commandHandled, shortCircuit);

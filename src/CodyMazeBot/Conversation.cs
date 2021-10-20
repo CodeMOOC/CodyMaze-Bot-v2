@@ -37,10 +37,11 @@ namespace CodyMazeBot {
             _logger = logger;
         }
 
-        public async Task LoadUser(Telegram.Bot.Types.Update update) {
+        public async Task<bool> LoadUser(Telegram.Bot.Types.Update update) {
             TelegramId = update.GetChatId().GetValueOrDefault(0);
             if(TelegramId == 0) {
-                return;
+                _logger.LogWarning("Unable to load incoming message Telegram user ({0})", Newtonsoft.Json.JsonConvert.SerializeObject(update));
+                return false;
             }
 
             var user = update.GetFrom();
@@ -57,6 +58,8 @@ namespace CodyMazeBot {
             if(CurrentUser.CurrentEvent != null) {
                 ActiveEvent = await _storage.FetchEvent(CurrentUser.CurrentEvent);
             }
+
+            return true;
         }
 
         public async Task<bool> SetLanguage(string languageCode) {

@@ -51,10 +51,10 @@ namespace CodyMazeBot {
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove4(GridCoordinate start, IDictionary<string, GridCell> grid) {
-            if (start.TurnLeft().CanAdvance()) {
+            if (start.TurnLeft().CanAdvance(2)) {
                 return (start.TurnLeft().Advance().Value, "lf");
             }
-            else if (start.TurnRight().CanAdvance()) {
+            else if (start.TurnRight().CanAdvance(2)) {
                 return (start.TurnRight().Advance().Value, "rf");
             }
             else {

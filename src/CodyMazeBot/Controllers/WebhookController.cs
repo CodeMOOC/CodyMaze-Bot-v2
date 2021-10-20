@@ -36,8 +36,15 @@ namespace CodyMazeBot.Controllers {
         public async Task<IActionResult> Process(
             [FromBody] Update update
         ) {
-            _logger.LogDebug("Processing update {0} from {1} \"{2}\"",
-                update?.Id, update.Message?.From?.Username, update.Message?.Text);
+            if(update.Message == null && update.CallbackQuery == null) {
+                // Ignore update
+                return Ok();
+            }
+
+            _logger.LogDebug("Processing update {0} {1}, payload: \"{2}\"",
+                update?.Id,
+                (update.Message != null) ? "message" : "callback",
+                update.Message?.Text ?? update.CallbackQuery?.Data);
 
             if(!await _conversation.LoadUser(update)) {
                 return Ok();

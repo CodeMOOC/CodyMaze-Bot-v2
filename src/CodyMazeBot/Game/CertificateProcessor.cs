@@ -109,18 +109,18 @@ namespace CodyMazeBot.Game {
             var output = Bitmap.FromStream(backgroundStream);
 
             using (var gfx = Graphics.FromImage(output)) {
-                var fontMedium = new Font(FontFamily.GenericSansSerif, 42f, GraphicsUnit.Pixel);
-                var fontName = new Font(FontFamily.GenericSansSerif, 90f, FontStyle.Bold, GraphicsUnit.Pixel);
-                var fontDescription = new Font(FontFamily.GenericSansSerif, 42f, GraphicsUnit.Pixel);
-                var fontSmall = new Font(FontFamily.GenericSansSerif, 36f, GraphicsUnit.Pixel);
+                var fontMedium = new Font(FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
+                var fontName = new Font(FontFamily.GenericSansSerif, 100f, FontStyle.Bold, GraphicsUnit.Pixel);
+                var fontDescription = new Font(FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
+                var fontSmall = new Font(FontFamily.GenericSansSerif, 40f, GraphicsUnit.Pixel);
 
                 gfx.DrawString(Strings.CertificateGenerationTitle, fontMedium, Brushes.Black,
-                    new RectangleF(512, 575, 1024, 120), new StringFormat {
+                    new RectangleF(512, 580, 1024, 120), new StringFormat {
                         Alignment = StringAlignment.Center,
                         LineAlignment = StringAlignment.Near
                     });
                 gfx.DrawString(name, fontName, Brushes.Black,
-                    new RectangleF(160, 690, 1728, 250), new StringFormat {
+                    new RectangleF(160, 695, 1728, 250), new StringFormat {
                         Alignment = StringAlignment.Center,
                         LineAlignment = StringAlignment.Near
                     });
@@ -129,7 +129,7 @@ namespace CodyMazeBot.Game {
                         Alignment = StringAlignment.Near,
                         LineAlignment = StringAlignment.Near
                     });
-                gfx.DrawString(string.Format("{0} {1}", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
+                gfx.DrawString(string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
                     fontSmall, Brushes.Black,
                     new RectangleF(160, 1000, 1728, 1463 - 1000 - 160), new StringFormat {
                         Alignment = StringAlignment.Near,

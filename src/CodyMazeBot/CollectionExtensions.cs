@@ -16,8 +16,8 @@ namespace CodyMazeBot {
             if(source.ContainsKey(cultureCode)) {
                 return source[cultureCode];
             }
-            if(source.ContainsKey("en")) {
-                return source["en"];
+            if(source.ContainsKey("it")) {
+                return source["it"];
             }
             if(source.Count > 0) {
                 return source.First().Value;

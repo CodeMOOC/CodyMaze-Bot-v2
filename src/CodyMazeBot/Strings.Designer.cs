@@ -216,6 +216,16 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 🚨 &lt;b&gt;Error&lt;/b&gt;
+        ///I&apos;m terribly sorry, something went wrong. Please restart the game using the /reset command..
+        /// </summary>
+        public static string CriticalError {
+            get {
+                return ResourceManager.GetString("CriticalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to East.
         /// </summary>
         public static string DirectionEast {

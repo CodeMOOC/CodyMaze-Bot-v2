@@ -146,18 +146,25 @@ namespace CodyMazeBot.Game {
                 );
             }
 
-            (var target, var code) = MazeGenerator.GenerateInstructions(
-                Conversation.CurrentUser.LastMoveCoordinate.Value,
-                Conversation.CurrentUser.MoveCount,
-                Conversation.ActiveEvent.Grid
-            );
+            try {
+                (var target, var code) = MazeGenerator.GenerateInstructions(
+                    Conversation.CurrentUser.LastMoveCoordinate.Value,
+                    Conversation.CurrentUser.MoveCount,
+                    Conversation.ActiveEvent.Grid
+                );
 
-            await Conversation.AssignNewDestination(target.ToString());
+                await Conversation.AssignNewDestination(target.ToString());
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
-                string.Format(Strings.AssignCode, code),
-                parseMode: ParseMode.Html
-            );
+                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    string.Format(Strings.AssignCode, code),
+                    parseMode: ParseMode.Html
+                );
+            }
+            catch(Exception ex) {
+                Logger.LogError(ex, "Failed to generate and assign instructions");
+                await CriticalError();
+                return;
+            }
         }
 
         protected Task ReplyCannotHandle(Update update, string prompt = null) {
@@ -167,6 +174,10 @@ namespace CodyMazeBot.Game {
             }
 
             return Bot.SendTextMessageAsync(Conversation.TelegramId, output, ParseMode.Html);
+        }
+
+        protected Task CriticalError() {
+            return Bot.SendTextMessageAsync(Conversation.TelegramId, Strings.CriticalError, ParseMode.Html);
         }
 
     }

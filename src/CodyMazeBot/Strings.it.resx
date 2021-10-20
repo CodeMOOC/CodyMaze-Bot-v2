@@ -171,6 +171,10 @@
   <data name="CorrectPosition" xml:space="preserve">
     <value>Molto bene! Sei nel posto giusto.</value>
   </data>
+  <data name="CriticalError" xml:space="preserve">
+    <value>🚨 &lt;b&gt;Errore&lt;/b&gt;
+Sono spiacente, qualcosa è andato storto. Riavvia il gioco usando il comando /reset, per favore.</value>
+  </data>
   <data name="DirectionEast" xml:space="preserve">
     <value>Est</value>
   </data>

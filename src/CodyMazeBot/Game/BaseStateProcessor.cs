@@ -39,6 +39,10 @@ namespace CodyMazeBot.Game {
 
         public abstract Task<bool> Process(Update update);
 
+        public virtual Task HandleStateEntry(Update update) {
+            return Task.CompletedTask;
+        }
+
         private (string AnswerText, bool IsCorrect)[] PrepareAnswers(Question question) {
             var rnd = new Random();
             return question.Answers.Select((answer, index) => (answer, index))
@@ -147,15 +151,15 @@ namespace CodyMazeBot.Game {
                 parseMode: ParseMode.Html,
                 replyMarkup: new InlineKeyboardMarkup(new InlineKeyboardButton[] {
                     new InlineKeyboardButton {
-                        Text = "🟡",
+                        Text = Strings.AnswerCode1,
                         CallbackData = shuffledAnswers[0].IsCorrect ? "CORRECT" : "WRONG"
                     },
                     new InlineKeyboardButton {
-                        Text = "🟢",
+                        Text = Strings.AnswerCode2,
                         CallbackData = shuffledAnswers[1].IsCorrect ? "CORRECT" : "WRONG"
                     },
                     new InlineKeyboardButton {
-                        Text = "🔴",
+                        Text = Strings.AnswerCode3,
                         CallbackData = shuffledAnswers[2].IsCorrect ? "CORRECT" : "WRONG"
                     },
                 })
@@ -166,10 +170,7 @@ namespace CodyMazeBot.Game {
             if(Conversation.CurrentUser.MoveCount > MazeGenerator.LastMove) {
                 Logger.LogInformation("Maze completed with {0} moves", Conversation.CurrentUser.MoveCount);
 
-                await Bot.SendTextMessageAsync(Conversation.TelegramId,
-                    Strings.Victory,
-                    parseMode: ParseMode.Html
-                );
+                await Conversation.SetState((int)BotState.WaitForCertificateName);
 
                 return;
             }

@@ -120,6 +120,15 @@
   <data name="AcceptCoordinateWaitForDirection" xml:space="preserve">
     <value>👀 In che direzione stai guardando?</value>
   </data>
+  <data name="AnswerCode1" xml:space="preserve">
+    <value>🟡</value>
+  </data>
+  <data name="AnswerCode2" xml:space="preserve">
+    <value>🟢</value>
+  </data>
+  <data name="AnswerCode3" xml:space="preserve">
+    <value>🔴</value>
+  </data>
   <data name="AssignCode" xml:space="preserve">
     <value>🔢 Esegui le seguenti istruzioni e poi scansiona il codice QR sul quale ti fermi:
 
@@ -135,6 +144,37 @@
   </data>
   <data name="CannotHandle" xml:space="preserve">
     <value>Scusa, non ho capito.</value>
+  </data>
+  <data name="CertificateAskForName" xml:space="preserve">
+    <value>📃 &lt;b&gt;Certificato&lt;/b&gt;
+Scrivimi il tuo nome completo per la generazione del certificato.</value>
+  </data>
+  <data name="CertificateAskForNameAgain" xml:space="preserve">
+    <value>OK. Scrivimi il tuo nome completo.</value>
+  </data>
+  <data name="CertificateAskForNameConfirmation" xml:space="preserve">
+    <value>Il tuo nome è &lt;i&gt;“{0}”&lt;/i&gt;. È corretto?</value>
+  </data>
+  <data name="CertificateAskForNameInvalid" xml:space="preserve">
+    <value>Il nome non mi sembra valido, mi puoi scrivere il tuo nome completo?</value>
+  </data>
+  <data name="CertificateGenerationCaption" xml:space="preserve">
+    <value>Il tuo certificato di completamento di CodyMaze</value>
+  </data>
+  <data name="CertificateGenerationDescription" xml:space="preserve">
+    <value>ha completato con successo l’attività di “Hour of Code” con CodyMaze, effettuando l’interpretazione di sequenze di codice, tra cui istruzioni elementari, condizionali e ripetizioni.</value>
+  </data>
+  <data name="CertificateGenerationProcessing" xml:space="preserve">
+    <value>✒ Sto generando il tuo certificato...</value>
+  </data>
+  <data name="CertificateGenerationReleaseDateFormat" xml:space="preserve">
+    <value>D</value>
+  </data>
+  <data name="CertificateGenerationReleasedOn" xml:space="preserve">
+    <value>Rilasciato il</value>
+  </data>
+  <data name="CertificateGenerationTitle" xml:space="preserve">
+    <value>Certificato di completamento</value>
   </data>
   <data name="CodeElse" xml:space="preserve">
     <value>altrimenti</value>
@@ -169,6 +209,12 @@
   <data name="CodeWhile" xml:space="preserve">
     <value>finché</value>
   </data>
+  <data name="ConfirmationNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="ConfirmationYes" xml:space="preserve">
+    <value>Sì</value>
+  </data>
   <data name="CorrectAnswer" xml:space="preserve">
     <value>☑ &lt;b&gt;Giusto!&lt;/b&gt;</value>
   </data>
@@ -202,6 +248,12 @@ Sono spiacente, qualcosa è andato storto. Riavvia il gioco usando il comando /r
   </data>
   <data name="FacingWest" xml:space="preserve">
     <value>verso ovest</value>
+  </data>
+  <data name="GameComplete" xml:space="preserve">
+    <value>&lt;b&gt;Hai completato il gioco.&lt;/b&gt; Grazie mille per aver partecipato! 👏 Usa il comando /reset se desideri giocare nuovamente.</value>
+  </data>
+  <data name="GameCompletePrompt" xml:space="preserve">
+    <value>Vuoi giocare di nuovo? Usa il comando /reset.</value>
   </data>
   <data name="Help1" xml:space="preserve">
     <value>🤖 Ciao! Sono il &lt;b&gt;bot di CodyMaze&lt;/b&gt; e ti guiderò durante il gioco. Una partita è composta da &lt;b&gt;13 sfide&lt;/b&gt;: per ogni sfida, ti invierò delle istruzioni che dovrai seguire esattamente in modo da raggiungere la destinazione finale della scacchiera.</value>

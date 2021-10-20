@@ -52,25 +52,14 @@ namespace CodyMazeBot.Controllers {
 
             (var commandHandled, var shortCircuit) = await HandleCommand(update);
             _logger.LogDebug("Command handled {0} short-circuit {1}", commandHandled, shortCircuit);
-
-            // Perform state processing, if not short-circuited
-            if(!shortCircuit && Enum.IsDefined(typeof(BotState), _conversation.State)) {
-                var processorTypes = Startup.StateProcessors;
-                if(processorTypes.ContainsKey((BotState)_conversation.State)) {
-                    var processorType = processorTypes[(BotState)_conversation.State];
-                    var processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
-                    
-                    _logger.LogDebug("Processing input with processor {0}", processor.GetType());
-                    if(await processor.Process(update)) {
-                        return Ok();
-                    }
-                }
-                else {
-                    _logger.LogDebug("No processor that handles state {0}", _conversation.State);
-                }
+            if(shortCircuit) {
+                return Ok();
             }
 
-            if(!commandHandled) {
+            var stateHandled = await HandleState(update);
+            _logger.LogDebug("State handled {0}", stateHandled);
+
+            if(!commandHandled && !stateHandled) {
                 // Huh?
                 await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.CannotHandle, ParseMode.Html);
             }
@@ -103,6 +92,34 @@ namespace CodyMazeBot.Controllers {
             }
 
             return (false, false);
+        }
+
+        private async Task<bool> HandleState(Update update) {
+            var processorTypes = Startup.StateProcessors;
+
+            if (!Enum.IsDefined(typeof(BotState), _conversation.State)) {
+                return false;
+            }
+            BotState currState = (BotState)_conversation.State;
+
+            if (!processorTypes.ContainsKey(currState)) {
+                _logger.LogDebug("No processor that handles state {0}", currState);
+                return false;
+            }
+            var processorType = processorTypes[(BotState)_conversation.State];
+            var processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
+            _logger.LogDebug("Processing state with processor {0}", processorType);
+            bool processed = await processor.Process(update);
+
+            if(processed && (int)currState != _conversation.State) {
+                // State was processed and has changed
+                processorType = processorTypes[(BotState)_conversation.State];
+                processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
+                _logger.LogDebug("Processing state change with processor {0}", processorType);
+                await processor.HandleStateEntry(update);
+            }
+
+            return processed;
         }
 
     }

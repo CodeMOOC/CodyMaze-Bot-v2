@@ -147,6 +147,7 @@ namespace CodyMazeBot {
                 CurrentUser.NextTargetCoordinate = null;
                 CurrentUser.PartialCoordinate = null;
                 CurrentUser.Moves = null;
+                CurrentUser.Memory = null;
                 await _storage.UpdateUser(CurrentUser,
                     User.StateProp,
                     User.PreviousStateProp,
@@ -154,7 +155,8 @@ namespace CodyMazeBot {
                     User.CurrentEventProp,
                     User.NextTargetCoordinateProp,
                     User.PartialCoordinateProp,
-                    User.MovesProp
+                    User.MovesProp,
+                    User.MemoryProp
                 );
                 return true;
             }
@@ -269,6 +271,63 @@ namespace CodyMazeBot {
                 _logger.LogError(ex, "Failed to register move");
                 return false;
             }
+        }
+
+        public async Task<bool> SetMemory(string key, object value) {
+            if (CurrentUser == null) {
+                return false;
+            }
+
+            try {
+                if(CurrentUser.Memory == null) {
+                    CurrentUser.Memory = new Dictionary<string, object>();
+                }
+                CurrentUser.Memory[key] = value;
+                CurrentUser.LastUpdateOn = DateTime.UtcNow;
+                await _storage.UpdateUser(CurrentUser,
+                    User.MemoryProp,
+                    User.LastUpdateOnProp
+                );
+
+                return true;
+            }
+            catch (Exception ex) {
+                _logger.LogError(ex, "Failed to update memory");
+                return false;
+            }
+        }
+
+        public async Task<bool> ClearMemory(string key) {
+            if (CurrentUser == null) {
+                return false;
+            }
+
+            try {
+                if (CurrentUser.Memory != null) {
+                    CurrentUser.Memory.Remove(key);
+                }
+                CurrentUser.LastUpdateOn = DateTime.UtcNow;
+                await _storage.UpdateUser(CurrentUser,
+                    User.MemoryProp,
+                    User.LastUpdateOnProp
+                );
+
+                return true;
+            }
+            catch (Exception ex) {
+                _logger.LogError(ex, "Failed to update memory");
+                return false;
+            }
+        }
+
+        public T GetMemory<T>(string key) where T : class {
+            if(CurrentUser == null || CurrentUser.Memory == null) {
+                return default;
+            }
+            if(!CurrentUser.Memory.ContainsKey(key)) {
+                return default;
+            }
+            return (T)CurrentUser.Memory[key];
         }
 
     }

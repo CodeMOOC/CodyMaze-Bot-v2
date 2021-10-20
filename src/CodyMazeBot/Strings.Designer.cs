@@ -70,6 +70,33 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 🟡.
+        /// </summary>
+        public static string AnswerCode1 {
+            get {
+                return ResourceManager.GetString("AnswerCode1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🟢.
+        /// </summary>
+        public static string AnswerCode2 {
+            get {
+                return ResourceManager.GetString("AnswerCode2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🔴.
+        /// </summary>
+        public static string AnswerCode3 {
+            get {
+                return ResourceManager.GetString("AnswerCode3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 🔢 Esegui le seguenti istruzioni e poi scansiona il codice QR sul quale ti fermi:
         ///
         ///&lt;code&gt;{0}&lt;/code&gt;.
@@ -100,6 +127,97 @@ namespace CodyMazeBot {
         public static string CannotHandle {
             get {
                 return ResourceManager.GetString("CannotHandle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 📃 &lt;b&gt;Certificato&lt;/b&gt;
+        ///Scrivimi il tuo nome completo per la generazione del certificato..
+        /// </summary>
+        public static string CertificateAskForName {
+            get {
+                return ResourceManager.GetString("CertificateAskForName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK. Scrivimi il tuo nome completo..
+        /// </summary>
+        public static string CertificateAskForNameAgain {
+            get {
+                return ResourceManager.GetString("CertificateAskForNameAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Il tuo nome è &lt;i&gt;“{0}”&lt;/i&gt;. È corretto?.
+        /// </summary>
+        public static string CertificateAskForNameConfirmation {
+            get {
+                return ResourceManager.GetString("CertificateAskForNameConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Il nome non mi sembra valido, mi puoi scrivere il tuo nome completo?.
+        /// </summary>
+        public static string CertificateAskForNameInvalid {
+            get {
+                return ResourceManager.GetString("CertificateAskForNameInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Il tuo certificato di completamento di CodyMaze.
+        /// </summary>
+        public static string CertificateGenerationCaption {
+            get {
+                return ResourceManager.GetString("CertificateGenerationCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ha completato con successo l’attività di “Hour of Code” con CodyMaze, effettuando l’interpretazione di sequenze di codice, tra cui istruzioni elementari, condizionali e ripetizioni..
+        /// </summary>
+        public static string CertificateGenerationDescription {
+            get {
+                return ResourceManager.GetString("CertificateGenerationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ✒ Sto generando il tuo certificato....
+        /// </summary>
+        public static string CertificateGenerationProcessing {
+            get {
+                return ResourceManager.GetString("CertificateGenerationProcessing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D.
+        /// </summary>
+        public static string CertificateGenerationReleaseDateFormat {
+            get {
+                return ResourceManager.GetString("CertificateGenerationReleaseDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rilasciato il.
+        /// </summary>
+        public static string CertificateGenerationReleasedOn {
+            get {
+                return ResourceManager.GetString("CertificateGenerationReleasedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certificato di completamento.
+        /// </summary>
+        public static string CertificateGenerationTitle {
+            get {
+                return ResourceManager.GetString("CertificateGenerationTitle", resourceCulture);
             }
         }
         
@@ -203,6 +321,24 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string ConfirmationNo {
+            get {
+                return ResourceManager.GetString("ConfirmationNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sì.
+        /// </summary>
+        public static string ConfirmationYes {
+            get {
+                return ResourceManager.GetString("ConfirmationYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ☑ &lt;b&gt;Giusto!&lt;/b&gt;.
         /// </summary>
         public static string CorrectAnswer {
@@ -299,6 +435,24 @@ namespace CodyMazeBot {
         public static string FacingWest {
             get {
                 return ResourceManager.GetString("FacingWest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;b&gt;Hai completato il gioco.&lt;/b&gt; Grazie mille per aver partecipato! 👏 Usa il comando /reset se desideri giocare nuovamente..
+        /// </summary>
+        public static string GameComplete {
+            get {
+                return ResourceManager.GetString("GameComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vuoi giocare di nuovo? Usa il comando /reset..
+        /// </summary>
+        public static string GameCompletePrompt {
+            get {
+                return ResourceManager.GetString("GameCompletePrompt", resourceCulture);
             }
         }
         

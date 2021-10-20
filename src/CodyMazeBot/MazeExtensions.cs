@@ -8,9 +8,9 @@ namespace CodyMazeBot {
 
         public static bool IsOnGridBorder(this GridCoordinate coord) {
             return (coord.ColumnIndex == 0 ||
-                    coord.ColumnIndex == GridCoordinate.GridSideSize ||
+                    coord.ColumnIndex == GridCoordinate.GridSideSize - 1 ||
                     coord.RowIndex == 0 ||
-                    coord.RowIndex == GridCoordinate.GridSideSize);
+                    coord.RowIndex == GridCoordinate.GridSideSize - 1);
         }
 
         public static Direction GetInitialDirection(this GridCoordinate coord) {

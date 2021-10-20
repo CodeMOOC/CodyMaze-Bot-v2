@@ -118,11 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptCoordinateWaitForDirection" xml:space="preserve">
-    <value>👀 In che direzione stai guardando?</value>
+    <value>👀 What direction are you facing?</value>
   </data>
   <data name="AssignCode" xml:space="preserve">
-    <value>🔢 Esegui le seguenti istruzioni e poi scansiona il codice QR sul quale it fermi:
-
+    <value>🔢 Execute the following instructions and scan the QR Code you stop on:
 &lt;code&gt;{0}&lt;/code&gt;</value>
   </data>
   <data name="AssignQuiz" xml:space="preserve">
@@ -130,77 +129,77 @@
 {1}</value>
   </data>
   <data name="CannotHandle" xml:space="preserve">
-    <value>Scusa, non ho capito.</value>
+    <value>Sorry, I don't understand.</value>
   </data>
   <data name="CodeElse" xml:space="preserve">
-    <value>altrimenti</value>
+    <value>else</value>
   </data>
   <data name="CodeForward" xml:space="preserve">
-    <value>a</value>
+    <value>f</value>
   </data>
   <data name="CodeIf" xml:space="preserve">
-    <value>se</value>
+    <value>if</value>
   </data>
   <data name="CodeLeft" xml:space="preserve">
-    <value>s</value>
+    <value>l</value>
   </data>
   <data name="CodeNoStar" xml:space="preserve">
-    <value>no stella</value>
+    <value>no star</value>
   </data>
   <data name="CodePathAhead" xml:space="preserve">
-    <value>strada davanti</value>
+    <value>path ahead</value>
   </data>
   <data name="CodePathLeft" xml:space="preserve">
-    <value>strada a sx</value>
+    <value>path left</value>
   </data>
   <data name="CodePathRight" xml:space="preserve">
-    <value>strada a dx</value>
+    <value>path right</value>
   </data>
   <data name="CodeRight" xml:space="preserve">
-    <value>d</value>
+    <value>r</value>
   </data>
   <data name="CodeStar" xml:space="preserve">
-    <value>stella</value>
+    <value>star</value>
   </data>
   <data name="CodeWhile" xml:space="preserve">
-    <value>finché</value>
+    <value>while</value>
   </data>
   <data name="CorrectAnswer" xml:space="preserve">
-    <value>✔ &lt;b&gt;Giusto!&lt;/b&gt;</value>
+    <value>✔ &lt;b&gt;Correct!&lt;/b&gt;</value>
   </data>
   <data name="CorrectPosition" xml:space="preserve">
-    <value>Molto bene! Sei nel posto giusto.</value>
+    <value>Very well! You're in the right spot.</value>
   </data>
   <data name="CriticalError" xml:space="preserve">
-    <value>🚨 &lt;b&gt;Errore&lt;/b&gt;
-Sono spiacente, qualcosa è andato storto. Riavvia il gioco usando il comando /reset, per favore.</value>
+    <value>🚨 &lt;b&gt;Error&lt;/b&gt;
+I'm terribly sorry, something went wrong. Please restart the game using the /reset command.</value>
   </data>
   <data name="DirectionEast" xml:space="preserve">
-    <value>Est</value>
+    <value>East</value>
   </data>
   <data name="DirectionNorth" xml:space="preserve">
-    <value>Nord</value>
+    <value>North</value>
   </data>
   <data name="DirectionSouth" xml:space="preserve">
-    <value>Sud</value>
+    <value>South</value>
   </data>
   <data name="DirectionWest" xml:space="preserve">
-    <value>Ovest</value>
+    <value>West</value>
   </data>
   <data name="FacingEast" xml:space="preserve">
-    <value>verso est</value>
+    <value>eastwards</value>
   </data>
   <data name="FacingNorth" xml:space="preserve">
-    <value>verso nord</value>
+    <value>northwards</value>
   </data>
   <data name="FacingSouth" xml:space="preserve">
-    <value>verso sud</value>
+    <value>southwards</value>
   </data>
   <data name="FacingWest" xml:space="preserve">
-    <value>verso ovest</value>
+    <value>westwards</value>
   </data>
   <data name="Help1" xml:space="preserve">
-    <value>🤖 Ciao! Sono il &lt;b&gt;bot di CodyMaze&lt;/b&gt; e ti guiderò attraverso il gioco. Una partita è composta da &lt;b&gt;13 sfide&lt;/b&gt;: per ogni sfida, ti invierò delle istruzioni che dovrai seguire precisamente in modo da raggiungere la destinazione finale della scacchiera.</value>
+    <value>🤖 Hi! I am the &lt;b&gt;CodyMaze bot&lt;/b&gt; and I will guide you through the game. The game is composed of &lt;b&gt;13 challenges&lt;/b&gt;: for each one, I will send you new instructions that you must follow exactly in order to reach the final destination on the game’s chessboard.</value>
   </data>
   <data name="Help2" xml:space="preserve">
     <value>In order to start playing, please scan the QR Code on one of the outer squares of the chessboard (that is, any square along the first or last row, or the first or last column). You may use any QR Code scanner application to do so.</value>
@@ -213,40 +212,40 @@ Sono spiacente, qualcosa è andato storto. Riavvia il gioco usando il comando /r
 and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt;, and &lt;code&gt;while&lt;/code&gt;. Code blocks are indicated between braces (&lt;code&gt;{}&lt;/code&gt;) and can be repeated. For instance, &lt;code&gt;2{fr}&lt;/code&gt; tells you to move forward and turn right twice.</value>
   </data>
   <data name="LanguageCommandAsk" xml:space="preserve">
-    <value>Che lingua vuoi parlare?</value>
+    <value>Which language should I speak?</value>
   </data>
   <data name="LanguageConfirm" xml:space="preserve">
-    <value>Va bene!</value>
+    <value>Sure!</value>
   </data>
   <data name="ResetCommandOk" xml:space="preserve">
-    <value>Ricominciamo! 👍 Scansiona uno dei QR Code lungo il bordo della scacchiera per iniziare a giocare.</value>
+    <value>Let's start from the top! 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin.</value>
   </data>
   <data name="StartCommand" xml:space="preserve">
-    <value>🤖 Ciao, sono il &lt;b&gt;bot di CodyMaze&lt;/b&gt;! Vai su una delle caselle lungo il bordo esterno della scacchiera e scansiona il codice QR che trovi lì.</value>
+    <value>🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there.</value>
   </data>
   <data name="StartCommandCoordInvalid" xml:space="preserve">
-    <value>Hmmm, il codice che hai scansionato non sembra valido. Riprova a scansionare uno dei codici QR della scacchiera.</value>
+    <value>Hmmm, the command you sent is not valid. Try scanning the CodyMaze QR Code again.</value>
   </data>
   <data name="Victory" xml:space="preserve">
-    <value>👏 Congratulazioni, hai completato CodyMaze!</value>
+    <value>👏 Congratulations, you have completed CodyMaze!</value>
   </data>
   <data name="WaitForLocationFirstCoordinateWrong" xml:space="preserve">
-    <value>Posizione di inizio non valida: ti prego di andare su una delle caselle lungo il bordo esterno della scacchiera e scansione il codice QR che è lì.</value>
+    <value>Invalid start position: please go to any square of the grid's outer border and scan the QR Code you find there.</value>
   </data>
   <data name="WaitForLocationFirstSendDirection" xml:space="preserve">
-    <value>🧭 Girati {0}.</value>
+    <value>🧭 Please turn {0}.</value>
   </data>
   <data name="WaitForLocationWrongDirection" xml:space="preserve">
-    <value>❌ Dovresti guardare &lt;b&gt;{0}&lt;/b&gt;. Conferma cliccando su un pulsante sopra.</value>
+    <value>❌ You should be facing &lt;b&gt;{0}&lt;/b&gt;. Please confirm clicking on the buttons above.</value>
   </data>
   <data name="WelcomeGame" xml:space="preserve">
-    <value>🤖 Ciao {0}, ti do il benvenuto al gioco &lt;b&gt;{1}&lt;/b&gt;! Iniziamo a giocare.</value>
+    <value>🤖 Hello {0}, welcome to &lt;b&gt;{1}&lt;/b&gt;! Let's start the game.</value>
   </data>
   <data name="WrongAnswerTryAgain" xml:space="preserve">
-    <value>❌ &lt;b&gt;Sbagliato!&lt;/b&gt; Prova di nuovo.</value>
+    <value>❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again.</value>
   </data>
   <data name="WrongMove" xml:space="preserve">
-    <value>🚩 &lt;b&gt;Mossa sbagliata!&lt;/b&gt;
-Torna in posizione {0} e guarda {1}, dopodiché prova di nuovo.</value>
+    <value>🚩 &lt;b&gt;Wrong move!&lt;/b&gt;
+Move back to position {0} and look {1}, then try again.</value>
   </data>
 </root>

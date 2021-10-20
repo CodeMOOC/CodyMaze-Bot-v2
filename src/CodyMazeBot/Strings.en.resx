@@ -122,6 +122,7 @@
   </data>
   <data name="AssignCode" xml:space="preserve">
     <value>🔢 Execute the following instructions and scan the QR Code you stop on:
+
 &lt;code&gt;{0}&lt;/code&gt;</value>
   </data>
   <data name="AssignQuiz" xml:space="preserve">
@@ -168,7 +169,7 @@
     <value>✔ &lt;b&gt;Correct!&lt;/b&gt;</value>
   </data>
   <data name="CorrectPosition" xml:space="preserve">
-    <value>Very well! You're in the right spot.</value>
+    <value>Very well! You're in the right spot and you're looking {0}.</value>
   </data>
   <data name="CriticalError" xml:space="preserve">
     <value>🚨 &lt;b&gt;Error&lt;/b&gt;
@@ -246,6 +247,8 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
   </data>
   <data name="WrongMove" xml:space="preserve">
     <value>🚩 &lt;b&gt;Wrong move!&lt;/b&gt;
-Move back to position {0} and look {1}, then try again.</value>
+Move back to position {0} and look {1}, then try executing the following instructions again:
+
+&lt;code&gt;{2}&lt;/code&gt;</value>
   </data>
 </root>

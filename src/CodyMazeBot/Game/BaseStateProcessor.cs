@@ -78,21 +78,32 @@ namespace CodyMazeBot.Game {
                     Logger.LogInformation("Move invalid, expected {0} but reached {1}",
                         Conversation.CurrentUser.NextTargetCoordinate, coordinate);
 
+                    await Conversation.SetState((int)BotState.WaitingForLocation);
+
                     var lastCoordinate = Conversation.CurrentUser.LastMoveCoordinate;
                     if(!lastCoordinate.HasValue) {
                         Logger.LogError("Wrong move, must backtrack, but no coordinate found");
                         return;
                     }
+                    try {
+                        (_, var code) = MazeGenerator.GenerateInstructions(
+                            lastCoordinate.Value,
+                            Conversation.CurrentUser.MoveCount,
+                            Conversation.ActiveEvent.Grid
+                        );
 
-                    await Conversation.SetState((int)BotState.WaitingForLocation);
-
-                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
-                        string.Format(
-                            Strings.WrongMove,
-                            lastCoordinate.Value.CoordinateString,
-                            GetFacingString(lastCoordinate.Value.Direction)
-                        ),
-                        parseMode: ParseMode.Html);
+                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            string.Format(
+                                Strings.WrongMove,
+                                lastCoordinate.Value.CoordinateString,
+                                GetFacingString(lastCoordinate.Value.Direction),
+                                code
+                            ),
+                            parseMode: ParseMode.Html);
+                    }
+                    catch(Exception ex) {
+                        Logger.LogError(ex, "Failed to generate instructions for back-tracking");
+                    }
 
                     return;
                 }
@@ -102,7 +113,7 @@ namespace CodyMazeBot.Game {
             await Conversation.RegisterMove(coordinate);
 
             await Bot.SendTextMessageAsync(Conversation.TelegramId,
-                Strings.CorrectPosition,
+                string.Format(Strings.CorrectPosition, GetFacingString(coordinate.Direction)),
                 parseMode: ParseMode.Html
             );
 

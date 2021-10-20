@@ -168,7 +168,7 @@
     <value>✔ &lt;b&gt;Correct!&lt;/b&gt;</value>
   </data>
   <data name="CorrectPosition" xml:space="preserve">
-    <value>Very well! You have found the right spot.</value>
+    <value>Very well! You're in the right spot.</value>
   </data>
   <data name="DirectionEast" xml:space="preserve">
     <value>East</value>
@@ -230,6 +230,9 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
   </data>
   <data name="WaitForLocationFirstSendDirection" xml:space="preserve">
     <value>🧭 Please turn {0}.</value>
+  </data>
+  <data name="WaitForLocationWrongDirection" xml:space="preserve">
+    <value>❌ You should be facing &lt;b&gt;{0}&lt;/b&gt;. Please confirm clicking on the buttons above.</value>
   </data>
   <data name="WelcomeGame" xml:space="preserve">
     <value>🤖 Hello {0}, welcome to &lt;b&gt;{1}&lt;/b&gt;! Let's start the game.</value>

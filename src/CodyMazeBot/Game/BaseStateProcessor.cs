@@ -54,7 +54,25 @@ namespace CodyMazeBot.Game {
         protected async Task HandleArrivalOn(Update update, GridCoordinate coordinate) {
             Logger.LogInformation("Handling arrival on {0}", coordinate);
 
-            if(Conversation.CurrentUser.MoveCount > 0) {
+            if (Conversation.CurrentUser.MoveCount == 0) {
+                // This is a start move, validate
+                if (!coordinate.IsOnGridBorder()) {
+                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        Strings.WaitForLocationFirstCoordinateWrong,
+                        ParseMode.Html);
+                    return;
+                }
+
+                var requiredDirection = coordinate.GetInitialDirection();
+                if (coordinate.Direction != requiredDirection) {
+                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        string.Format(Strings.WaitForLocationWrongDirection, GetFacingString(requiredDirection)),
+                        parseMode: ParseMode.Html
+                    );
+                    return;
+                }
+            }
+            else {
                 // This is an in-game move, validate
                 if(!coordinate.Equals(Conversation.CurrentUser.NextTargetCoordinate)) {
                     Logger.LogInformation("Move invalid, expected {0} but reached {1}",

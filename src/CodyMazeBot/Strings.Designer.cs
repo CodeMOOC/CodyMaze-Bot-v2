@@ -207,7 +207,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Very well! You have found the right spot..
+        ///   Looks up a localized string similar to Very well! You&apos;re in the right spot..
         /// </summary>
         public static string CorrectPosition {
             get {
@@ -387,6 +387,15 @@ namespace CodyMazeBot {
         public static string WaitForLocationFirstSendDirection {
             get {
                 return ResourceManager.GetString("WaitForLocationFirstSendDirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ❌ You should be facing &lt;b&gt;{0}&lt;/b&gt;. Please confirm clicking on the buttons above..
+        /// </summary>
+        public static string WaitForLocationWrongDirection {
+            get {
+                return ResourceManager.GetString("WaitForLocationWrongDirection", resourceCulture);
             }
         }
         

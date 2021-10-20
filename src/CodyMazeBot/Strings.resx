@@ -250,7 +250,7 @@ Sono spiacente, qualcosa è andato storto. Riavvia il gioco usando il comando /r
     <value>verso ovest</value>
   </data>
   <data name="GameComplete" xml:space="preserve">
-    <value>&lt;b&gt;Hai completato il gioco.&lt;/b&gt; Grazie mille per aver partecipato! 👏 Usa il comando /reset se desideri giocare nuovamente.</value>
+    <value>&lt;b&gt;Hai completato il gioco.&lt;/b&gt; Grazie mille per aver partecipato! 🎖 Usa il comando /reset se desideri giocare nuovamente.</value>
   </data>
   <data name="GameCompletePrompt" xml:space="preserve">
     <value>Vuoi giocare di nuovo? Usa il comando /reset.</value>

@@ -439,7 +439,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Hai completato il gioco.&lt;/b&gt; Grazie mille per aver partecipato! 👏 Usa il comando /reset se desideri giocare nuovamente..
+        ///   Looks up a localized string similar to &lt;b&gt;Hai completato il gioco.&lt;/b&gt; Grazie mille per aver partecipato! 🎖 Usa il comando /reset se desideri giocare nuovamente..
         /// </summary>
         public static string GameComplete {
             get {

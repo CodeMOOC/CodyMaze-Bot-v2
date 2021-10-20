@@ -127,7 +127,11 @@
   </data>
   <data name="AssignQuiz" xml:space="preserve">
     <value>❓ &lt;b&gt;{0}&lt;/b&gt;
-{1}</value>
+{1}
+
+🟡 {2}
+🟢 {3}
+🔴 {4}</value>
   </data>
   <data name="CannotHandle" xml:space="preserve">
     <value>Scusa, non ho capito.</value>

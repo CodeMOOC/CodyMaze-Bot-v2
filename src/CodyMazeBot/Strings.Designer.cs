@@ -82,7 +82,11 @@ namespace CodyMazeBot {
         
         /// <summary>
         ///   Looks up a localized string similar to ❓ &lt;b&gt;{0}&lt;/b&gt;
-        ///{1}.
+        ///{1}
+        ///
+        ///🟡 {2}
+        ///🟢 {3}
+        ///🔴 {4}.
         /// </summary>
         public static string AssignQuiz {
             get {

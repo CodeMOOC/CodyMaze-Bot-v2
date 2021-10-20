@@ -39,16 +39,12 @@ namespace CodyMazeBot.Game {
 
         public abstract Task<bool> Process(Update update);
 
-        private IEnumerable<IEnumerable<InlineKeyboardButton>> GetAnswerKeyboard(Question question) {
+        private (string AnswerText, bool IsCorrect)[] PrepareAnswers(Question question) {
             var rnd = new Random();
             return question.Answers.Select((answer, index) => (answer, index))
                 .OrderBy(_ => rnd.NextDouble())
-                .Select(elem => new InlineKeyboardButton[] {
-                    new InlineKeyboardButton {
-                        Text = elem.answer.Localize(),
-                        CallbackData = elem.index == 0 ? "CORRECT" : "WRONG"
-                    }
-                });
+                .Select(elem => (elem.answer.Localize(), elem.index == 0))
+                .ToArray();
         }
 
         protected async Task HandleArrivalOn(Update update, GridCoordinate coordinate) {
@@ -138,12 +134,31 @@ namespace CodyMazeBot.Game {
                 return;
             }
 
+            var shuffledAnswers = PrepareAnswers(question);
+
             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                 string.Format(Strings.AssignQuiz,
                     category.Title.Localize(),
-                    question.QuestionText.Localize()),
+                    question.QuestionText.Localize(),
+                    shuffledAnswers[0].AnswerText,
+                    shuffledAnswers[1].AnswerText,
+                    shuffledAnswers[2].AnswerText
+                ),
                 parseMode: ParseMode.Html,
-                replyMarkup: new InlineKeyboardMarkup(GetAnswerKeyboard(question))
+                replyMarkup: new InlineKeyboardMarkup(new InlineKeyboardButton[] {
+                    new InlineKeyboardButton {
+                        Text = "🟡",
+                        CallbackData = shuffledAnswers[0].IsCorrect ? "CORRECT" : "WRONG"
+                    },
+                    new InlineKeyboardButton {
+                        Text = "🟢",
+                        CallbackData = shuffledAnswers[1].IsCorrect ? "CORRECT" : "WRONG"
+                    },
+                    new InlineKeyboardButton {
+                        Text = "🔴",
+                        CallbackData = shuffledAnswers[2].IsCorrect ? "CORRECT" : "WRONG"
+                    },
+                })
             );
         }
 

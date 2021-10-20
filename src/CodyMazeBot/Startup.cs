@@ -3,6 +3,7 @@ using CodyMazeBot.Game;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -25,6 +26,11 @@ namespace CodyMazeBot {
 
         public void ConfigureServices(IServiceCollection services) {
             services
+                .Configure<RequestLocalizationOptions>(config => {
+                    config.DefaultRequestCulture = new RequestCulture("it");
+                    config.AddSupportedCultures("en", "it");
+                    config.AddSupportedUICultures("en", "it");
+                })
                 .AddControllers()
                 .AddNewtonsoftJson()
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
@@ -59,6 +65,7 @@ namespace CodyMazeBot {
             });
 
             app.UseStaticFiles();
+            app.UseRequestLocalization();
         }
 
     }

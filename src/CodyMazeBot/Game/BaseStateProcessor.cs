@@ -144,6 +144,8 @@ namespace CodyMazeBot.Game {
                     Strings.Victory,
                     parseMode: ParseMode.Html
                 );
+
+                return;
             }
 
             try {

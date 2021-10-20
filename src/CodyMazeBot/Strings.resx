@@ -167,6 +167,9 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>✔ &lt;b&gt;Correct!&lt;/b&gt;</value>
   </data>
+  <data name="CorrectPosition" xml:space="preserve">
+    <value>Very well! You have found the right spot.</value>
+  </data>
   <data name="DirectionEast" xml:space="preserve">
     <value>East</value>
   </data>
@@ -211,7 +214,7 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
     <value>Sure!</value>
   </data>
   <data name="ResetCommandOk" xml:space="preserve">
-    <value>Let's start from the top!. 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin.</value>
+    <value>Let's start from the top! 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin.</value>
   </data>
   <data name="StartCommand" xml:space="preserve">
     <value>🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there.</value>

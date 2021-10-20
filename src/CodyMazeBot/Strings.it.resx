@@ -168,6 +168,9 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>✔ &lt;b&gt;Giusto!&lt;/b&gt;</value>
   </data>
+  <data name="CorrectPosition" xml:space="preserve">
+    <value>Molto bene! Hai trovato la casella giusta.</value>
+  </data>
   <data name="DirectionEast" xml:space="preserve">
     <value>Est</value>
   </data>

@@ -83,6 +83,11 @@ namespace CodyMazeBot.Game {
             Logger.LogInformation("Move to {0} valid", coordinate);
             await Conversation.RegisterMove(coordinate);
 
+            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                Strings.CorrectPosition,
+                parseMode: ParseMode.Html
+            );
+
             if(Conversation.ActiveEvent == null) {
                 // TODO
                 return;

@@ -207,6 +207,15 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Very well! You have found the right spot..
+        /// </summary>
+        public static string CorrectPosition {
+            get {
+                return ResourceManager.GetString("CorrectPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to East.
         /// </summary>
         public static string DirectionEast {
@@ -328,7 +337,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Let&apos;s start from the top!. 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin..
+        ///   Looks up a localized string similar to Let&apos;s start from the top! 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin..
         /// </summary>
         public static string ResetCommandOk {
             get {

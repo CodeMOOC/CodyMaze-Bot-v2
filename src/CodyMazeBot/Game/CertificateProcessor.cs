@@ -122,6 +122,24 @@ namespace CodyMazeBot.Game {
             return collection;
         }
 
+        private FontFamily GetFontFamily(PrivateFontCollection collection, string preferredName, int preferredIndex) {
+            var families = collection.Families;
+            if(families.Length == 0) {
+                return FontFamily.GenericSansSerif;
+            }
+
+            var family = Array.Find(families, f => f.Name.Equals(preferredName, StringComparison.InvariantCultureIgnoreCase));
+            if(family != null) {
+                return family;
+            }
+
+            if(preferredIndex < families.Length) {
+                return families[preferredIndex];
+            }
+
+            return families[0];
+        }
+
         private Stream GenerateCertificate(string name, DateTime today, Event evt) {
             using var backgroundStream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("CodyMazeBot.Resources.certificate-background.jpg");
@@ -130,11 +148,11 @@ namespace CodyMazeBot.Game {
             using (var gfx = Graphics.FromImage(output)) {
                 using var fontCollection = AddFonts("Montserrat-ExtraBold.ttf", "Montserrat-Light.ttf", "Montserrat-Medium.ttf");
 
-                Logger.LogInformation("Loaded custom font families: {0}", string.Join(',', from f in fontCollection.Families select f.Name));
+                Logger.LogInformation("Loaded {0} custom font families: {1}", fontCollection.Families.Length, string.Join(',', from f in fontCollection.Families select f.Name));
 
-                var fontFamilyLight = Array.Find(fontCollection.Families, f => f.Name == "Montserrat Light");
-                var fontFamilyMedium = Array.Find(fontCollection.Families, f => f.Name == "Montserrat Medium");
-                var fontFamilyBold = Array.Find(fontCollection.Families, f => f.Name == "Montserrat ExtraBold");
+                var fontFamilyLight = GetFontFamily(fontCollection, "Montserrat Light", 1);
+                var fontFamilyMedium = GetFontFamily(fontCollection, "Montserrat Medium", 2);
+                var fontFamilyBold = GetFontFamily(fontCollection, "Montserrat ExtraBold", 0);
 
                 var fontHeader = new Font(fontFamilyLight ?? FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
                 var fontName = new Font(fontFamilyBold ?? FontFamily.GenericSansSerif, 90f, FontStyle.Bold, GraphicsUnit.Pixel);

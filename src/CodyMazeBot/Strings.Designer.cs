@@ -195,6 +195,15 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 🚨 Ops, si è verificato un errore nella generazione del certificato..
+        /// </summary>
+        public static string CertificateGenerationError {
+            get {
+                return ResourceManager.GetString("CertificateGenerationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ✒ Sto generando il tuo certificato....
         /// </summary>
         public static string CertificateGenerationProcessing {

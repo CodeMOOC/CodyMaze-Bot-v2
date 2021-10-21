@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -68,13 +69,22 @@ namespace CodyMazeBot.Game {
                             parseMode: ParseMode.Html
                         );
 
-                        using var certStream = GenerateCertificate(name, DateTime.UtcNow, Conversation.ActiveEvent);
-
-                        await Bot.SendPhotoAsync(Conversation.TelegramId,
-                            certStream,
-                            caption: Strings.CertificateGenerationCaption,
-                            parseMode: ParseMode.Html
-                        );
+                        try {
+                            using (var certStream = GenerateCertificate(name, DateTime.UtcNow, Conversation.ActiveEvent)) {
+                                await Bot.SendPhotoAsync(Conversation.TelegramId,
+                                    certStream,
+                                    caption: Strings.CertificateGenerationCaption,
+                                    parseMode: ParseMode.Html
+                                );
+                            }
+                        }
+                        catch(Exception ex) {
+                            Logger.LogError(ex, "Failed to generate certificate");
+                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                                Strings.CertificateGenerationError,
+                                parseMode: ParseMode.Html
+                            );
+                        }
 
                         await Conversation.ClearMemory(MemoryNameKey);
                         await Conversation.SetState((int)BotState.GameComplete);
@@ -103,19 +113,34 @@ namespace CodyMazeBot.Game {
             );
         }
 
+        private PrivateFontCollection AddFonts(params string[] fonts) {
+            var collection = new PrivateFontCollection();
+            var root = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            foreach (var font in fonts) {
+                collection.AddFontFile(Path.Combine(root, "Resources", font));
+            }
+            return collection;
+        }
+
         private Stream GenerateCertificate(string name, DateTime today, Event evt) {
             using var backgroundStream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("CodyMazeBot.Resources.certificate-background.jpg");
-            var output = Bitmap.FromStream(backgroundStream);
+            var output = Image.FromStream(backgroundStream);
 
             using (var gfx = Graphics.FromImage(output)) {
-                var fontMedium = new Font(FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
-                var fontName = new Font(FontFamily.GenericSansSerif, 100f, FontStyle.Bold, GraphicsUnit.Pixel);
-                var fontDescription = new Font(FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
-                var fontSmall = new Font(FontFamily.GenericSansSerif, 40f, GraphicsUnit.Pixel);
+                using var fontCollection = AddFonts("Montserrat-ExtraBold.ttf", "Montserrat-Light.ttf", "Montserrat-Medium.ttf");
+
+                var fontFamilyLight = Array.Find(fontCollection.Families, f => f.Name == "Montserrat Light");
+                var fontFamilyMedium = Array.Find(fontCollection.Families, f => f.Name == "Montserrat Medium");
+                var fontFamilyBold = Array.Find(fontCollection.Families, f => f.Name == "Montserrat ExtraBold");
+
+                var fontHeader = new Font(fontFamilyLight, 56f, GraphicsUnit.Pixel);
+                var fontName = new Font(fontFamilyBold, 90f, FontStyle.Bold, GraphicsUnit.Pixel);
+                var fontDescription = new Font(fontFamilyMedium, 56f, GraphicsUnit.Pixel);
+                var fontSmall = new Font(fontFamilyLight, 40f, GraphicsUnit.Pixel);
 
                 gfx.DrawString(Strings.CertificateGenerationTitle,
-                    fontMedium, Brushes.DarkGray,
+                    fontHeader, Brushes.DarkGray,
                     new RectangleF(512, 580, 1024, 120), new StringFormat {
                         Alignment = StringAlignment.Center,
                         LineAlignment = StringAlignment.Near

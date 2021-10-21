@@ -167,6 +167,9 @@ Scrivimi il tuo nome completo per la generazione del certificato.</value>
   <data name="CertificateGenerationDescriptionPlain" xml:space="preserve">
     <value>ha completato con successo l’attività di “Hour of Code” con CodyMaze, interpretando sequenze di istruzioni con costrutti di ripetizione e di selezione.</value>
   </data>
+  <data name="CertificateGenerationError" xml:space="preserve">
+    <value>🚨 Ops, si è verificato un errore nella generazione del certificato.</value>
+  </data>
   <data name="CertificateGenerationProcessing" xml:space="preserve">
     <value>✒ Sto generando il tuo certificato...</value>
   </data>

@@ -34,16 +34,16 @@ namespace CodyMazeBot {
                 throw new ArgumentException($"Cannot generate move 1 from position {start}");
             }
 
-            return (target.Value, "f");
+            return (target.Value, Strings.CodeForward);
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove2(GridCoordinate start, IDictionary<string, GridCell> grid) {
             // TODO pick randomly
             if(start.TurnLeft().CanAdvance()) {
-                return (start.TurnLeft(), "l");
+                return (start.TurnLeft(), Strings.CodeLeft);
             }
             else if(start.TurnRight().CanAdvance()) {
-                return (start.TurnRight(), "r");
+                return (start.TurnRight(), Strings.CodeRight);
             }
             else {
                 throw new ArgumentException($"Cannot turn right nor left from position {start}");
@@ -52,10 +52,10 @@ namespace CodyMazeBot {
 
         private static (GridCoordinate Target, string Code) GenerateMove4(GridCoordinate start, IDictionary<string, GridCell> grid) {
             if (start.TurnLeft().CanAdvance(2)) {
-                return (start.TurnLeft().Advance().Value, "lf");
+                return (start.TurnLeft().Advance().Value, $"{Strings.CodeLeft}{Strings.CodeForward}");
             }
             else if (start.TurnRight().CanAdvance(2)) {
-                return (start.TurnRight().Advance().Value, "rf");
+                return (start.TurnRight().Advance().Value, $"{Strings.CodeRight}{Strings.CodeForward}");
             }
             else {
                 throw new ArgumentException($"Cannot turn right nor left from position {start}");
@@ -66,17 +66,17 @@ namespace CodyMazeBot {
             if(!start.CanAdvance(2)) {
                 throw new ArgumentException($"Cannot advance two positions from position {start}");
             }
-            return (start.Advance().Value.Advance().Value, "2{f}");
+            return (start.Advance().Value.Advance().Value, $"2{{{Strings.CodeForward}}}");
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove6(GridCoordinate start, IDictionary<string, GridCell> grid) {
             int leftAdvancements = start.TurnLeft().MaxAdvancements();
             int rightAdvancements = start.TurnRight().MaxAdvancements();
             if(leftAdvancements > rightAdvancements) {
-                return (start.TurnLeft().Advance(leftAdvancements).Value, $"l{leftAdvancements}{{f}}");
+                return (start.TurnLeft().Advance(leftAdvancements).Value, $"{Strings.CodeLeft}{leftAdvancements}{{{Strings.CodeForward}}}");
             }
             else {
-                return (start.TurnRight().Advance(rightAdvancements).Value, $"r{rightAdvancements}{{f}}");
+                return (start.TurnRight().Advance(rightAdvancements).Value, $"{Strings.CodeRight}{rightAdvancements}{{{Strings.CodeForward}}}");
             }
         }
 
@@ -87,33 +87,33 @@ namespace CodyMazeBot {
                 for(int c = 0; c < 3; ++c) {
                     next = current.TurnLeft().Advance();
                     if(!next.HasValue) {
-                        return (current, $"{c}{{lf}}");
+                        return (current, $"{c}{{{Strings.CodeLeft}{Strings.CodeForward}}}");
                     }
                     current = next.Value;
                 }
-                return (current, "3{lf}");
+                return (current, $"3{{{Strings.CodeLeft}{Strings.CodeForward}}}");
             }
             else {
                 for (int c = 0; c < 3; ++c) {
                     next = current.TurnRight().Advance();
                     if (!next.HasValue) {
-                        return (current, $"{c}{{rf}}");
+                        return (current, $"{c}{{{Strings.CodeRight}{Strings.CodeForward}}}");
                     }
                     current = next.Value;
                 }
-                return (current, "3{rf}");
+                return (current, $"3{{{Strings.CodeRight}{Strings.CodeForward}}}");
             }
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove8(GridCoordinate start, IDictionary<string, GridCell> grid) {
             bool hasStar = grid[start.CoordinateString.ToLowerInvariant()].HasStar;
-            string starCondition = hasStar ? "star" : "no star";
+            string starCondition = hasStar ? Strings.CodeStar : Strings.CodeNoStar;
 
             if (start.TurnLeft().CanAdvance()) {
-                return (start.TurnLeft().Advance().Value, $"if({starCondition}){{lf}}");
+                return (start.TurnLeft().Advance().Value, $"{Strings.CodeIf}({starCondition}){{{Strings.CodeLeft}{Strings.CodeForward}}}");
             }
             else if (start.TurnRight().CanAdvance()) {
-                return (start.TurnRight().Advance().Value, $"if({starCondition}){{rf}}");
+                return (start.TurnRight().Advance().Value, $"{Strings.CodeIf}({starCondition}){{{Strings.CodeRight}{Strings.CodeForward}}}");
             }
             else {
                 throw new ArgumentException($"Cannot turn right nor left from position {start}");
@@ -122,13 +122,13 @@ namespace CodyMazeBot {
 
         private static (GridCoordinate Target, string Code) GenerateMove9(GridCoordinate start, IDictionary<string, GridCell> grid) {
             bool hasStar = grid[start.CoordinateString.ToLowerInvariant()].HasStar;
-            string starCondition = hasStar ? "no star" : "star"; // inverse, do on else condition
+            string starCondition = hasStar ? Strings.CodeNoStar : Strings.CodeStar; // inverse, do on else condition
 
             if (start.TurnLeft().CanAdvance()) {
-                return (start.TurnLeft().Advance().Value, $"if({starCondition}){{rf}}else{{lf}}");
+                return (start.TurnLeft().Advance().Value, $"{Strings.CodeIf}({starCondition}){{{Strings.CodeRight}{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeLeft}{Strings.CodeForward}}}");
             }
             else if (start.TurnRight().CanAdvance()) {
-                return (start.TurnRight().Advance().Value, $"if({starCondition}){{lf}}else{{rf}}");
+                return (start.TurnRight().Advance().Value, $"{Strings.CodeIf}({starCondition}){{{Strings.CodeLeft}{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeRight}{Strings.CodeForward}}}");
             }
             else {
                 throw new ArgumentException($"Cannot turn right nor left from position {start}");
@@ -144,7 +144,7 @@ namespace CodyMazeBot {
                 target = target.CrawlPreferRight();
             }
 
-            return (target, $"{count}{{if(path ahead){{f}}else{{if(path right){{r}}else{{l}}}}");
+            return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathRight}){{{Strings.CodeRight}}}{Strings.CodeElse}{{{Strings.CodeLeft}}}}}");
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove11(GridCoordinate start, IDictionary<string, GridCell> grid) {
@@ -156,12 +156,12 @@ namespace CodyMazeBot {
                 target = target.CrawlPreferLeft();
             }
 
-            return (target, $"{count}{{if(path ahead){{f}}else{{if(path left){{l}}else{{r}}}}");
+            return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathLeft}){{{Strings.CodeLeft}}}{Strings.CodeElse}{{{Strings.CodeRight}}}}}");
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove12(GridCoordinate start, IDictionary<string, GridCell> grid) {
             int maxAdvances = start.MaxAdvancements();
-            return (start.Advance(maxAdvances).Value, "while(path ahead){f}");
+            return (start.Advance(maxAdvances).Value, $"{Strings.CodeWhile}({Strings.CodePathAhead}){{{Strings.CodeForward}}}");
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove13(GridCoordinate start, IDictionary<string, GridCell> grid) {
@@ -169,7 +169,7 @@ namespace CodyMazeBot {
                 start = start.CrawlPreferRight();
             }
 
-            return (start, "while(no star){if(path ahead){f}else{if(path right){r}else{l}}");
+            return (start, $"{Strings.CodeWhile}({Strings.CodeNoStar}){{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathRight}){{{Strings.CodeRight}}}{Strings.CodeElse}{{{Strings.CodeLeft}}}}}");
         }
 
     }

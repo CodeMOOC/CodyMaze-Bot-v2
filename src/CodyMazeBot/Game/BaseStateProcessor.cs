@@ -113,7 +113,7 @@ namespace CodyMazeBot.Game {
             await Conversation.RegisterMove(coordinate);
 
             await Bot.SendTextMessageAsync(Conversation.TelegramId,
-                string.Format(Strings.CorrectPosition, GetFacingString(coordinate.Direction)),
+                string.Format(Strings.CorrectPosition, coordinate.CoordinateString, GetFacingString(coordinate.Direction)),
                 parseMode: ParseMode.Html
             );
 

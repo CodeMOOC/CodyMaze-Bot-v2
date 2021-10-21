@@ -366,7 +366,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Very well! You&apos;re in the right spot and you&apos;re looking {0}..
+        ///   Looks up a localized string similar to Very well! You&apos;re in the right spot ({0}) and you&apos;re looking {1}..
         /// </summary>
         public static string CorrectPosition {
             get {

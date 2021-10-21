@@ -225,7 +225,7 @@ Send me a message with your full name, that will be put on the certificate of co
     <value>✔ &lt;b&gt;Correct!&lt;/b&gt;</value>
   </data>
   <data name="CorrectPosition" xml:space="preserve">
-    <value>Very well! You're in the right spot and you're looking {0}.</value>
+    <value>Very well! You're in the right spot ({0}) and you're looking {1}.</value>
   </data>
   <data name="CriticalError" xml:space="preserve">
     <value>🚨 &lt;b&gt;Error&lt;/b&gt;

@@ -216,7 +216,7 @@ Scrivimi il tuo nome completo per la generazione del certificato.</value>
     <value>☑ &lt;b&gt;Giusto!&lt;/b&gt;</value>
   </data>
   <data name="CorrectPosition" xml:space="preserve">
-    <value>Molto bene! Sei nel posto giusto e stai guardando {0}.</value>
+    <value>Molto bene! Sei nel posto giusto ({0}) e stai guardando {1}.</value>
   </data>
   <data name="CriticalError" xml:space="preserve">
     <value>🚨 &lt;b&gt;Errore&lt;/b&gt;

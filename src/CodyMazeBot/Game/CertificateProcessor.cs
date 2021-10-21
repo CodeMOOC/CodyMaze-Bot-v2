@@ -136,10 +136,10 @@ namespace CodyMazeBot.Game {
                 var fontFamilyMedium = Array.Find(fontCollection.Families, f => f.Name == "Montserrat Medium");
                 var fontFamilyBold = Array.Find(fontCollection.Families, f => f.Name == "Montserrat ExtraBold");
 
-                var fontHeader = new Font(fontFamilyLight, 56f, GraphicsUnit.Pixel);
-                var fontName = new Font(fontFamilyBold, 90f, FontStyle.Bold, GraphicsUnit.Pixel);
-                var fontDescription = new Font(fontFamilyMedium, 56f, GraphicsUnit.Pixel);
-                var fontSmall = new Font(fontFamilyLight, 40f, GraphicsUnit.Pixel);
+                var fontHeader = new Font(fontFamilyLight ?? FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
+                var fontName = new Font(fontFamilyBold ?? FontFamily.GenericSansSerif, 90f, FontStyle.Bold, GraphicsUnit.Pixel);
+                var fontDescription = new Font(fontFamilyMedium ?? FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
+                var fontSmall = new Font(fontFamilyLight ?? FontFamily.GenericSansSerif, 40f, GraphicsUnit.Pixel);
 
                 gfx.DrawString(Strings.CertificateGenerationTitle,
                     fontHeader, Brushes.DarkGray,

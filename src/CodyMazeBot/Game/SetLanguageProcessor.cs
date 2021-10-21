@@ -27,6 +27,8 @@ namespace CodyMazeBot.Game {
                 await Conversation.SetLanguage(update.CallbackQuery.Data);
                 Conversation.PerformLanguageSet();
 
+                await Conversation.RestoreState((int)BotState.WaitingForLocation);
+
                 await Bot.SendTextMessageAsync(update.CallbackQuery.From.Id, Strings.LanguageConfirm, ParseMode.Html);
 
                 return true;

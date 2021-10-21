@@ -177,11 +177,20 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ha completato con successo l’attività di “Hour of Code” con CodyMaze, effettuando l’interpretazione di sequenze di codice, tra cui istruzioni elementari, condizionali e ripetizioni..
+        ///   Looks up a localized string similar to ha completato con successo l’attività “{0}”, interpretando sequenze di istruzioni con costrutti di ripetizione e di selezione..
         /// </summary>
-        public static string CertificateGenerationDescription {
+        public static string CertificateGenerationDescriptionEvent {
             get {
-                return ResourceManager.GetString("CertificateGenerationDescription", resourceCulture);
+                return ResourceManager.GetString("CertificateGenerationDescriptionEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ha completato con successo l’attività di “Hour of Code” con CodyMaze, interpretando sequenze di istruzioni con costrutti di ripetizione e di selezione..
+        /// </summary>
+        public static string CertificateGenerationDescriptionPlain {
+            get {
+                return ResourceManager.GetString("CertificateGenerationDescriptionPlain", resourceCulture);
             }
         }
         
@@ -204,7 +213,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rilasciato il.
+        ///   Looks up a localized string similar to Rilasciato.
         /// </summary>
         public static string CertificateGenerationReleasedOn {
             get {

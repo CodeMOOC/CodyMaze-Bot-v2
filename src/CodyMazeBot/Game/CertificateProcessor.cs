@@ -114,7 +114,8 @@ namespace CodyMazeBot.Game {
                 var fontDescription = new Font(FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
                 var fontSmall = new Font(FontFamily.GenericSansSerif, 40f, GraphicsUnit.Pixel);
 
-                gfx.DrawString(Strings.CertificateGenerationTitle, fontMedium, Brushes.Black,
+                gfx.DrawString(Strings.CertificateGenerationTitle,
+                    fontMedium, Brushes.DarkGray,
                     new RectangleF(512, 580, 1024, 120), new StringFormat {
                         Alignment = StringAlignment.Center,
                         LineAlignment = StringAlignment.Near
@@ -124,13 +125,16 @@ namespace CodyMazeBot.Game {
                         Alignment = StringAlignment.Center,
                         LineAlignment = StringAlignment.Near
                     });
-                gfx.DrawString(Strings.CertificateGenerationDescription, fontDescription, Brushes.Black,
+                gfx.DrawString((evt?.Title).CanLocalize() ?
+                        string.Format(Strings.CertificateGenerationDescriptionEvent, evt.Title.Localize()) :
+                        Strings.CertificateGenerationDescriptionPlain,
+                    fontDescription, Brushes.Black,
                     new RectangleF(160, 870, 1728, 320), new StringFormat {
                         Alignment = StringAlignment.Near,
                         LineAlignment = StringAlignment.Near
                     });
                 gfx.DrawString(string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
-                    fontSmall, Brushes.Black,
+                    fontSmall, Brushes.DarkGray,
                     new RectangleF(160, 1000, 1728, 1463 - 1000 - 160), new StringFormat {
                         Alignment = StringAlignment.Near,
                         LineAlignment = StringAlignment.Far

@@ -161,8 +161,11 @@ Scrivimi il tuo nome completo per la generazione del certificato.</value>
   <data name="CertificateGenerationCaption" xml:space="preserve">
     <value>Il tuo certificato di completamento di CodyMaze</value>
   </data>
-  <data name="CertificateGenerationDescription" xml:space="preserve">
-    <value>ha completato con successo l’attività di “Hour of Code” con CodyMaze, effettuando l’interpretazione di sequenze di codice, tra cui istruzioni elementari, condizionali e ripetizioni.</value>
+  <data name="CertificateGenerationDescriptionEvent" xml:space="preserve">
+    <value>ha completato con successo l’attività “{0}”, interpretando sequenze di istruzioni con costrutti di ripetizione e di selezione.</value>
+  </data>
+  <data name="CertificateGenerationDescriptionPlain" xml:space="preserve">
+    <value>ha completato con successo l’attività di “Hour of Code” con CodyMaze, interpretando sequenze di istruzioni con costrutti di ripetizione e di selezione.</value>
   </data>
   <data name="CertificateGenerationProcessing" xml:space="preserve">
     <value>✒ Sto generando il tuo certificato...</value>
@@ -171,7 +174,7 @@ Scrivimi il tuo nome completo per la generazione del certificato.</value>
     <value>D</value>
   </data>
   <data name="CertificateGenerationReleasedOn" xml:space="preserve">
-    <value>Rilasciato il</value>
+    <value>Rilasciato</value>
   </data>
   <data name="CertificateGenerationTitle" xml:space="preserve">
     <value>Certificato di completamento</value>

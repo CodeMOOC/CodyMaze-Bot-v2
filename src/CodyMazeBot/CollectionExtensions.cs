@@ -25,5 +25,18 @@ namespace CodyMazeBot {
             return "???";
         }
 
+        /// <summary>
+        /// Gets whether this localization map can return a meaningful translation.
+        /// </summary>
+        public static bool CanLocalize(this IDictionary<string, string> source) {
+            if(source == null) {
+                return false;
+            }
+            if(source.Count == 0) {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

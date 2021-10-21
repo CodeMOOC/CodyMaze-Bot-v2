@@ -1,13 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <NeutralLanguage>it</NeutralLanguage>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\certificate-background.jpg" />
-  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\certificate-background.jpg" />
@@ -30,11 +26,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Strings.en.resx">
-    </EmbeddedResource>
     <EmbeddedResource Update="Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Strings.it.resx">
     </EmbeddedResource>
   </ItemGroup>
 

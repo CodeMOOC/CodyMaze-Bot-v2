@@ -21,7 +21,12 @@ namespace CodyMazeBot.Game {
 
         public override async Task<bool> Process(Update update) {
             if(update.CallbackQuery != null) {
+                // Note: the call to PerformLanguageSet is needed to set the culture on this
+                //       synchronization context, it will be reloaded by the WebhookController on
+                //       the next invocation anyway.
                 await Conversation.SetLanguage(update.CallbackQuery.Data);
+                Conversation.PerformLanguageSet();
+
                 await Bot.SendTextMessageAsync(update.CallbackQuery.From.Id, Strings.LanguageConfirm, ParseMode.Html);
 
                 return true;

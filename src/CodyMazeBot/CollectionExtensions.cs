@@ -12,7 +12,7 @@ namespace CodyMazeBot {
                 return "???";
             }
 
-            string cultureCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+            string cultureCode = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
             if(source.ContainsKey(cultureCode)) {
                 return source[cultureCode];
             }

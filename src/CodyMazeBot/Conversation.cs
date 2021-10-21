@@ -37,6 +37,16 @@ namespace CodyMazeBot {
             _logger = logger;
         }
 
+        /// <summary>
+        /// Aux method that performs language set from main task.
+        /// Call from main thread.
+        /// </summary>
+        public void PerformLanguageSet() {
+            CultureInfo.CurrentCulture = CurrentLanguage;
+            CultureInfo.CurrentUICulture = CurrentLanguage;
+            _logger.LogDebug("Switched to language {0} ({1})", CurrentLanguage.DisplayName, CurrentLanguage.Name);
+        }
+
         public async Task<bool> LoadUser(Telegram.Bot.Types.Update update) {
             TelegramId = update.GetChatId().GetValueOrDefault(0);
             if(TelegramId == 0) {
@@ -50,10 +60,13 @@ namespace CodyMazeBot {
             CurrentUser = await _storage.RetrieveUser(TelegramId, username);
             _logger.LogDebug("Loaded user profile for ID {0}", TelegramId);
 
-            // Force language to Italian for now
-            var selectedLanguage = "it"; // CurrentUser.LanguageCodeOverride ?? update.GetFrom()?.LanguageCode ?? "it";
-            CurrentLanguage = CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(selectedLanguage);
-            _logger.LogDebug("Selected culture {0} for language code {1}", CurrentLanguage, selectedLanguage);
+            CurrentLanguage = new CultureInfo(CurrentUser.LanguageCodeOverride ?? update.GetFrom()?.LanguageCode ?? "it-IT");
+            _logger.LogDebug("Selected culture {0} {1} (user override {2}, Telegram language {3})",
+                CurrentLanguage.DisplayName,
+                CurrentLanguage.Name,
+                CurrentUser.LanguageCodeOverride,
+                update.GetFrom()?.LanguageCode
+            );
 
             if(CurrentUser.CurrentEvent != null) {
                 ActiveEvent = await _storage.FetchEvent(CurrentUser.CurrentEvent);
@@ -68,8 +81,8 @@ namespace CodyMazeBot {
             }
 
             try {
-                CurrentLanguage = CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new CultureInfo(languageCode);
-                
+                CurrentLanguage = new CultureInfo(languageCode);
+
                 CurrentUser.LanguageCodeOverride = CurrentLanguage.TwoLetterISOLanguageName;
                 await _storage.UpdateUser(CurrentUser, User.LanguageCodeOverrideProp);
                 

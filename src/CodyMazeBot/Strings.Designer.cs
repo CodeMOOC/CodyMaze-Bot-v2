@@ -61,7 +61,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 👀 In che direzione stai guardando?.
+        ///   Looks up a localized string similar to 👀 What direction are you facing?.
         /// </summary>
         public static string AcceptCoordinateWaitForDirection {
             get {
@@ -97,7 +97,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🔢 Esegui le seguenti istruzioni e poi scansiona il codice QR sul quale ti fermi:
+        ///   Looks up a localized string similar to 🔢 Execute the following instructions and scan the QR Code you stop on:
         ///
         ///&lt;code&gt;{0}&lt;/code&gt;.
         /// </summary>
@@ -122,7 +122,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scusa, non ho capito..
+        ///   Looks up a localized string similar to Sorry, I don&apos;t understand..
         /// </summary>
         public static string CannotHandle {
             get {
@@ -131,8 +131,8 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 📃 &lt;b&gt;Certificato&lt;/b&gt;
-        ///Scrivimi il tuo nome completo per la generazione del certificato..
+        ///   Looks up a localized string similar to 📃 &lt;b&gt;Certificate&lt;/b&gt;
+        ///Send me a message with your full name, that will be put on the certificate of completion..
         /// </summary>
         public static string CertificateAskForName {
             get {
@@ -141,7 +141,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OK. Scrivimi il tuo nome completo..
+        ///   Looks up a localized string similar to OK. Tell me your full name please..
         /// </summary>
         public static string CertificateAskForNameAgain {
             get {
@@ -150,7 +150,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Il tuo nome è &lt;i&gt;“{0}”&lt;/i&gt;. È corretto?.
+        ///   Looks up a localized string similar to Your name is &lt;i&gt;“{0}”&lt;/i&gt;. Correct?.
         /// </summary>
         public static string CertificateAskForNameConfirmation {
             get {
@@ -159,7 +159,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Il nome non mi sembra valido, mi puoi scrivere il tuo nome completo?.
+        ///   Looks up a localized string similar to That nome doesn’t look right to me. Could you please write your full name?.
         /// </summary>
         public static string CertificateAskForNameInvalid {
             get {
@@ -168,7 +168,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Il tuo certificato di completamento di CodyMaze.
+        ///   Looks up a localized string similar to Your CodyMaze completion certificate.
         /// </summary>
         public static string CertificateGenerationCaption {
             get {
@@ -177,7 +177,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ha completato con successo l’attività “{0}”, interpretando sequenze di istruzioni con costrutti di ripetizione e di selezione..
+        ///   Looks up a localized string similar to has successfully completed the “{0}” activity , interpreting sequences of instructions with repetition and selection constructs..
         /// </summary>
         public static string CertificateGenerationDescriptionEvent {
             get {
@@ -186,7 +186,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ha completato con successo l’attività di “Hour of Code” con CodyMaze, interpretando sequenze di istruzioni con costrutti di ripetizione e di selezione..
+        ///   Looks up a localized string similar to has successfully completed the “Hour of Code” activity with CodyMaze, interpreting sequences of instructions with repetition and selection constructs..
         /// </summary>
         public static string CertificateGenerationDescriptionPlain {
             get {
@@ -195,7 +195,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🚨 Ops, si è verificato un errore nella generazione del certificato..
+        ///   Looks up a localized string similar to 🚨 Whoops, there was an error generating your certificate..
         /// </summary>
         public static string CertificateGenerationError {
             get {
@@ -204,7 +204,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ✒ Sto generando il tuo certificato....
+        ///   Looks up a localized string similar to ✒ Generating your certificate….
         /// </summary>
         public static string CertificateGenerationProcessing {
             get {
@@ -222,7 +222,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rilasciato.
+        ///   Looks up a localized string similar to Released on.
         /// </summary>
         public static string CertificateGenerationReleasedOn {
             get {
@@ -231,7 +231,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Certificato di completamento.
+        ///   Looks up a localized string similar to Certificate of completion.
         /// </summary>
         public static string CertificateGenerationTitle {
             get {
@@ -240,7 +240,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to altrimenti.
+        ///   Looks up a localized string similar to else.
         /// </summary>
         public static string CodeElse {
             get {
@@ -249,7 +249,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to a.
+        ///   Looks up a localized string similar to f.
         /// </summary>
         public static string CodeForward {
             get {
@@ -258,7 +258,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to se.
+        ///   Looks up a localized string similar to if.
         /// </summary>
         public static string CodeIf {
             get {
@@ -267,7 +267,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to s.
+        ///   Looks up a localized string similar to l.
         /// </summary>
         public static string CodeLeft {
             get {
@@ -276,7 +276,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to no stella.
+        ///   Looks up a localized string similar to no star.
         /// </summary>
         public static string CodeNoStar {
             get {
@@ -285,7 +285,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strada davanti.
+        ///   Looks up a localized string similar to path ahead.
         /// </summary>
         public static string CodePathAhead {
             get {
@@ -294,7 +294,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strada a sx.
+        ///   Looks up a localized string similar to path left.
         /// </summary>
         public static string CodePathLeft {
             get {
@@ -303,7 +303,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strada a dx.
+        ///   Looks up a localized string similar to path right.
         /// </summary>
         public static string CodePathRight {
             get {
@@ -312,7 +312,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to d.
+        ///   Looks up a localized string similar to r.
         /// </summary>
         public static string CodeRight {
             get {
@@ -321,7 +321,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to stella.
+        ///   Looks up a localized string similar to star.
         /// </summary>
         public static string CodeStar {
             get {
@@ -330,7 +330,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to finché.
+        ///   Looks up a localized string similar to while.
         /// </summary>
         public static string CodeWhile {
             get {
@@ -348,7 +348,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sì.
+        ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string ConfirmationYes {
             get {
@@ -357,7 +357,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ☑ &lt;b&gt;Giusto!&lt;/b&gt;.
+        ///   Looks up a localized string similar to ✔ &lt;b&gt;Correct!&lt;/b&gt;.
         /// </summary>
         public static string CorrectAnswer {
             get {
@@ -366,7 +366,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Molto bene! Sei nel posto giusto e stai guardando {0}..
+        ///   Looks up a localized string similar to Very well! You&apos;re in the right spot and you&apos;re looking {0}..
         /// </summary>
         public static string CorrectPosition {
             get {
@@ -375,8 +375,8 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🚨 &lt;b&gt;Errore&lt;/b&gt;
-        ///Sono spiacente, qualcosa è andato storto. Riavvia il gioco usando il comando /reset, per favore..
+        ///   Looks up a localized string similar to 🚨 &lt;b&gt;Error&lt;/b&gt;
+        ///I&apos;m terribly sorry, something went wrong. Please restart the game using the /reset command..
         /// </summary>
         public static string CriticalError {
             get {
@@ -385,7 +385,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Est.
+        ///   Looks up a localized string similar to East.
         /// </summary>
         public static string DirectionEast {
             get {
@@ -394,7 +394,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nord.
+        ///   Looks up a localized string similar to North.
         /// </summary>
         public static string DirectionNorth {
             get {
@@ -403,7 +403,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sud.
+        ///   Looks up a localized string similar to South.
         /// </summary>
         public static string DirectionSouth {
             get {
@@ -412,7 +412,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ovest.
+        ///   Looks up a localized string similar to West.
         /// </summary>
         public static string DirectionWest {
             get {
@@ -421,7 +421,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to verso est.
+        ///   Looks up a localized string similar to eastwards.
         /// </summary>
         public static string FacingEast {
             get {
@@ -430,7 +430,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to verso nord.
+        ///   Looks up a localized string similar to northwards.
         /// </summary>
         public static string FacingNorth {
             get {
@@ -439,7 +439,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to verso sud.
+        ///   Looks up a localized string similar to southwards.
         /// </summary>
         public static string FacingSouth {
             get {
@@ -448,7 +448,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to verso ovest.
+        ///   Looks up a localized string similar to westwards.
         /// </summary>
         public static string FacingWest {
             get {
@@ -457,7 +457,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;b&gt;Hai completato il gioco.&lt;/b&gt; Grazie mille per aver partecipato! 🎖 Usa il comando /reset se desideri giocare nuovamente..
+        ///   Looks up a localized string similar to &lt;b&gt;You have completed the game.&lt;/b&gt; Thank you for playing! 🎖 Use the /reset command if you want to play again..
         /// </summary>
         public static string GameComplete {
             get {
@@ -466,7 +466,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vuoi giocare di nuovo? Usa il comando /reset..
+        ///   Looks up a localized string similar to Do you want to play again? Use the /reset command..
         /// </summary>
         public static string GameCompletePrompt {
             get {
@@ -475,7 +475,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🤖 Ciao! Sono il &lt;b&gt;bot di CodyMaze&lt;/b&gt; e ti guiderò durante il gioco. Una partita è composta da &lt;b&gt;13 sfide&lt;/b&gt;: per ogni sfida, ti invierò delle istruzioni che dovrai seguire esattamente in modo da raggiungere la destinazione finale della scacchiera..
+        ///   Looks up a localized string similar to 🤖 Hi! I am the &lt;b&gt;CodyMaze bot&lt;/b&gt; and I will guide you through the game. The game is composed of &lt;b&gt;13 challenges&lt;/b&gt;: for each one, I will send you new instructions that you must follow exactly in order to reach the final destination on the game’s chessboard..
         /// </summary>
         public static string Help1 {
             get {
@@ -484,7 +484,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Per iniziare a giocare, ti prego di scansionare uno dei QR Code che si trovano lunga il bordo della scacchiera (sarebbe a dire, un codice qualsiasi sulla prima o ultima riga, o sulla prima o ultima colonna). Potrai usare qualsiasi applicazione di scansione dei QR Code per farlo..
+        ///   Looks up a localized string similar to In order to start playing, please scan the QR Code on one of the outer squares of the chessboard (that is, any square along the first or last row, or the first or last column). You may use any QR Code scanner application to do so..
         /// </summary>
         public static string Help2 {
             get {
@@ -493,11 +493,11 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Le istruzioni che ti invierò per spostarti nella scacchiera potranno contenere i seguenti comandi:
-        ///&lt;code&gt;f&lt;/code&gt;: muoviti avanti,
-        ///&lt;code&gt;l&lt;/code&gt;: ruota a sinistra di 90 gradi,
-        ///&lt;code&gt;r&lt;/code&gt;: ruota a destra di 90 gradi,
-        ///e altre istruzioni come &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt;, e &lt;code&gt;while&lt;/code&gt;. I blocchi di codice tra parentesi graffe (&lt;code&gt;{}&lt;/code&gt;) potranno essere ripetute. Ad esempio, &lt;code&gt;2{fr}&lt;/code&gt; vuol dire che dovrai andare avanti e ruotare a destra due volte, in sequenza..
+        ///   Looks up a localized string similar to The instructions I will send you may contain the following commands:
+        ///&lt;code&gt;f&lt;/code&gt;: move forward,
+        ///&lt;code&gt;l&lt;/code&gt;: turn left,
+        ///&lt;code&gt;r&lt;/code&gt;: turn right,
+        ///and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/code&gt;, and &lt;code&gt;while&lt;/code&gt;. Code blocks are indicated between braces (&lt;code&gt;{}&lt;/code&gt;) and can be repeated. For instance, &lt;code&gt;2{fr}&lt;/code&gt; tells you to move forward and turn right twice..
         /// </summary>
         public static string Help3 {
             get {
@@ -506,7 +506,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Che lingua vuoi parlare?.
+        ///   Looks up a localized string similar to Which language should I speak?.
         /// </summary>
         public static string LanguageCommandAsk {
             get {
@@ -515,7 +515,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Va bene!.
+        ///   Looks up a localized string similar to Sure!.
         /// </summary>
         public static string LanguageConfirm {
             get {
@@ -524,7 +524,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ricominciamo! 👍 Scansiona uno dei QR Code lungo il bordo della scacchiera per iniziare a giocare..
+        ///   Looks up a localized string similar to Let&apos;s start from the top! 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin..
         /// </summary>
         public static string ResetCommandOk {
             get {
@@ -533,7 +533,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🤖 Ciao, sono il &lt;b&gt;bot di CodyMaze&lt;/b&gt;! Vai su una delle caselle lungo il bordo esterno della scacchiera e scansiona il codice QR che trovi lì..
+        ///   Looks up a localized string similar to 🤖 Hello, I am the &lt;b&gt;CodyMaze bot&lt;/b&gt;! Please go to any of the grid’s outer squares and scan the QR Code you find there..
         /// </summary>
         public static string StartCommand {
             get {
@@ -542,7 +542,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hmmm, il codice che hai scansionato non sembra valido. Riprova a scansionare uno dei codici QR della scacchiera..
+        ///   Looks up a localized string similar to Hmmm, the command you sent is not valid. Try scanning the CodyMaze QR Code again..
         /// </summary>
         public static string StartCommandCoordInvalid {
             get {
@@ -551,7 +551,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 👏 Congratulazioni, hai completato CodyMaze!.
+        ///   Looks up a localized string similar to 👏 Congratulations, you have completed CodyMaze!.
         /// </summary>
         public static string Victory {
             get {
@@ -560,7 +560,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posizione di inizio non valida: ti prego di andare su una delle caselle lungo il bordo esterno della scacchiera e scansione il codice QR che è lì..
+        ///   Looks up a localized string similar to Invalid start position: please go to any square of the grid&apos;s outer border and scan the QR Code you find there..
         /// </summary>
         public static string WaitForLocationFirstCoordinateWrong {
             get {
@@ -569,7 +569,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🧭 Girati {0}..
+        ///   Looks up a localized string similar to 🧭 Please turn {0}..
         /// </summary>
         public static string WaitForLocationFirstSendDirection {
             get {
@@ -578,7 +578,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ❌ Dovresti guardare &lt;b&gt;{0}&lt;/b&gt;. Conferma cliccando su un pulsante sopra..
+        ///   Looks up a localized string similar to ❌ You should be facing &lt;b&gt;{0}&lt;/b&gt;. Please confirm clicking on the buttons above..
         /// </summary>
         public static string WaitForLocationWrongDirection {
             get {
@@ -587,7 +587,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🤖 Ciao {0}, ti do il benvenuto al gioco &lt;b&gt;{1}&lt;/b&gt;! Iniziamo a giocare..
+        ///   Looks up a localized string similar to 🤖 Hello {0}, welcome to &lt;b&gt;{1}&lt;/b&gt;! Let&apos;s start the game..
         /// </summary>
         public static string WelcomeGame {
             get {
@@ -596,7 +596,7 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ❌ &lt;b&gt;Sbagliato!&lt;/b&gt; Prova di nuovo..
+        ///   Looks up a localized string similar to ❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again..
         /// </summary>
         public static string WrongAnswerTryAgain {
             get {
@@ -605,8 +605,8 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 🚩 &lt;b&gt;Mossa sbagliata!&lt;/b&gt;
-        ///Torna in posizione {0} e guarda {1}, dopodiché esegui nuovamente le istruzioni:
+        ///   Looks up a localized string similar to 🚩 &lt;b&gt;Wrong move!&lt;/b&gt;
+        ///Move back to position {0} and look {1}, then try executing the following instructions again:
         ///
         ///&lt;code&gt;{2}&lt;/code&gt;.
         /// </summary>

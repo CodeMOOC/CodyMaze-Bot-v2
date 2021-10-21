@@ -49,6 +49,7 @@ namespace CodyMazeBot.Controllers {
             if(!await _conversation.LoadUser(update)) {
                 return Ok();
             }
+            _conversation.PerformLanguageSet();
 
             (var commandHandled, var shortCircuit) = await HandleCommand(update);
             _logger.LogDebug("Command handled {0} short-circuit {1}", commandHandled, shortCircuit);

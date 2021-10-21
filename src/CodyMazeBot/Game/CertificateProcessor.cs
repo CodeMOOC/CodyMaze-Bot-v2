@@ -130,6 +130,8 @@ namespace CodyMazeBot.Game {
             using (var gfx = Graphics.FromImage(output)) {
                 using var fontCollection = AddFonts("Montserrat-ExtraBold.ttf", "Montserrat-Light.ttf", "Montserrat-Medium.ttf");
 
+                Logger.LogInformation("Loaded custom font families: {0}", string.Join(',', from f in fontCollection.Families select f.Name));
+
                 var fontFamilyLight = Array.Find(fontCollection.Families, f => f.Name == "Montserrat Light");
                 var fontFamilyMedium = Array.Find(fontCollection.Families, f => f.Name == "Montserrat Medium");
                 var fontFamilyBold = Array.Find(fontCollection.Families, f => f.Name == "Montserrat ExtraBold");

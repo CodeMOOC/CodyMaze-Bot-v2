@@ -14,9 +14,6 @@ RUN dotnet publish -c Release -o out
 # Second stage (execution)
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 
-# Add libgdiplus for System.Drawing.Common support
-RUN apt-get update && apt-get install -y libgdiplus
-
 WORKDIR /app
 COPY --from=build /app/out ./
 

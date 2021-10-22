@@ -1,18 +1,16 @@
 ﻿using CodyMazeBot.StoreModels;
 using Microsoft.Extensions.Logging;
+using SixLabors.Fonts;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Processing;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace CodyMazeBot.Game {
@@ -70,7 +68,7 @@ namespace CodyMazeBot.Game {
                         );
 
                         try {
-                            using (var certStream = GenerateCertificate(name, DateTime.UtcNow, Conversation.ActiveEvent)) {
+                            using (var certStream = await GenerateCertificate(name, DateTime.UtcNow, Conversation.ActiveEvent)) {
                                 await Bot.SendPhotoAsync(Conversation.TelegramId,
                                     certStream,
                                     caption: Strings.CertificateGenerationCaption,
@@ -113,83 +111,85 @@ namespace CodyMazeBot.Game {
             );
         }
 
-        private PrivateFontCollection AddFonts(params string[] fonts) {
-            var collection = new PrivateFontCollection();
+        private FontCollection GetFonts() {
+            var fonts = new string[] { "Montserrat-ExtraBold.ttf", "Montserrat-Light.ttf", "Montserrat-Medium.ttf" };
+            var collection = new FontCollection();
             var root = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             foreach (var font in fonts) {
-                collection.AddFontFile(Path.Combine(root, "Resources", font));
+                collection.Install(Path.Combine(root, "Resources", font));
             }
             return collection;
         }
 
-        private FontFamily GetFontFamily(PrivateFontCollection collection, string preferredName, int preferredIndex) {
-            var families = collection.Families;
-            if(families.Length == 0) {
-                return FontFamily.GenericSansSerif;
-            }
+        private const int CertificateMargin = 160;
 
-            var family = Array.Find(families, f => f.Name.Equals(preferredName, StringComparison.InvariantCultureIgnoreCase));
-            if(family != null) {
-                return family;
-            }
-
-            if(preferredIndex < families.Length) {
-                return families[preferredIndex];
-            }
-
-            return families[0];
-        }
-
-        private Stream GenerateCertificate(string name, DateTime today, Event evt) {
+        private async Task<Stream> GenerateCertificate(string name, DateTime today, Event evt) {
             using var backgroundStream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("CodyMazeBot.Resources.certificate-background.jpg");
-            var output = Image.FromStream(backgroundStream);
+            using(var image = Image.Load(backgroundStream)) {
+                var fonts = GetFonts();
+                var fontFamilyLight = fonts.Find("Montserrat Light");
+                var fontFamilyMedium = fonts.Find("Montserrat Medium");
+                var fontFamilyBold = fonts.Find("Montserrat ExtraBold");
 
-            using (var gfx = Graphics.FromImage(output)) {
-                using var fontCollection = AddFonts("Montserrat-ExtraBold.ttf", "Montserrat-Light.ttf", "Montserrat-Medium.ttf");
+                var brushBlack = Brushes.Solid(Color.Black);
+                var brushDarkGray = Brushes.Solid(Color.DarkGray);
 
-                Logger.LogInformation("Loaded {0} custom font families: {1}", fontCollection.Families.Length, string.Join(',', from f in fontCollection.Families select f.Name));
+                var width = image.Width;
+                var height = image.Height;
+                var centeredOptions = new DrawingOptions {
+                    TextOptions = new TextOptions {
+                        ApplyKerning = true,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        DpiX = (float)image.Metadata.HorizontalResolution,
+                        DpiY = (float)image.Metadata.VerticalResolution
+                    }
+                };
+                var wrappedOptions = new DrawingOptions {
+                    TextOptions = new TextOptions {
+                        ApplyKerning = true,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        WrapTextWidth = width - (CertificateMargin * 2),
+                        DpiX = (float)image.Metadata.HorizontalResolution,
+                        DpiY = (float)image.Metadata.VerticalResolution
+                    }
+                };
+                var bottomOptions = new DrawingOptions {
+                    TextOptions = new TextOptions {
+                        ApplyKerning = true,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        DpiX = (float)image.Metadata.HorizontalResolution,
+                        DpiY = (float)image.Metadata.VerticalResolution
+                    }
+                };
 
-                var fontFamilyLight = GetFontFamily(fontCollection, "Montserrat Light", 1);
-                var fontFamilyMedium = GetFontFamily(fontCollection, "Montserrat Medium", 2);
-                var fontFamilyBold = GetFontFamily(fontCollection, "Montserrat ExtraBold", 0);
+                image.Mutate(context => {
+                    context.DrawText(centeredOptions, Strings.CertificateGenerationTitle,
+                        new Font(fontFamilyMedium, 14f), brushDarkGray, new PointF(width / 2f, 580f));
 
-                var fontHeader = new Font(fontFamilyLight ?? FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
-                var fontName = new Font(fontFamilyBold ?? FontFamily.GenericSansSerif, 90f, FontStyle.Bold, GraphicsUnit.Pixel);
-                var fontDescription = new Font(fontFamilyMedium ?? FontFamily.GenericSansSerif, 56f, GraphicsUnit.Pixel);
-                var fontSmall = new Font(fontFamilyLight ?? FontFamily.GenericSansSerif, 40f, GraphicsUnit.Pixel);
+                    context.DrawText(centeredOptions, name.Trim(),
+                        new Font(fontFamilyBold, 28f), brushBlack, new PointF(width / 2f, 690f));
 
-                gfx.DrawString(Strings.CertificateGenerationTitle,
-                    fontHeader, Brushes.DarkGray,
-                    new RectangleF(512, 580, 1024, 120), new StringFormat {
-                        Alignment = StringAlignment.Center,
-                        LineAlignment = StringAlignment.Near
-                    });
-                gfx.DrawString(name, fontName, Brushes.Black,
-                    new RectangleF(160, 695, 1728, 250), new StringFormat {
-                        Alignment = StringAlignment.Center,
-                        LineAlignment = StringAlignment.Near
-                    });
-                gfx.DrawString((evt?.Title).CanLocalize() ?
-                        string.Format(Strings.CertificateGenerationDescriptionEvent, evt.Title.Localize()) :
-                        Strings.CertificateGenerationDescriptionPlain,
-                    fontDescription, Brushes.Black,
-                    new RectangleF(160, 870, 1728, 320), new StringFormat {
-                        Alignment = StringAlignment.Near,
-                        LineAlignment = StringAlignment.Near
-                    });
-                gfx.DrawString(string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
-                    fontSmall, Brushes.DarkGray,
-                    new RectangleF(160, 1000, 1728, 1463 - 1000 - 160), new StringFormat {
-                        Alignment = StringAlignment.Near,
-                        LineAlignment = StringAlignment.Far
-                    });
+                    context.DrawText(
+                        wrappedOptions,
+                        (evt?.Title).CanLocalize() ?
+                            string.Format(Strings.CertificateGenerationDescriptionEvent, evt.Title.Localize()) :
+                            Strings.CertificateGenerationDescriptionPlain,
+                        new Font(fontFamilyMedium, 14f), brushBlack, new PointF(CertificateMargin, 880f));
+
+                    context.DrawText(
+                        bottomOptions,
+                        string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
+                        new Font(fontFamilyLight, 10f), brushDarkGray, new PointF(CertificateMargin, height - CertificateMargin));
+                });
+
+                var outputStream = new MemoryStream();
+                await image.SaveAsJpegAsync(outputStream);
+                outputStream.Seek(0, SeekOrigin.Begin);
+                return outputStream;
             }
-
-            var outputStream = new MemoryStream();
-            output.Save(outputStream, ImageFormat.Jpeg);
-            outputStream.Seek(0, SeekOrigin.Begin);
-            return outputStream;
         }
 
     }

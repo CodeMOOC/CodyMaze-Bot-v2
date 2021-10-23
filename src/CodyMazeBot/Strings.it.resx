@@ -304,4 +304,8 @@ Torna in posizione {0} e guarda {1}, dopodiché esegui nuovamente le istruzioni:
 
 &lt;code&gt;{2}&lt;/code&gt;</value>
   </data>
+  <data name="WrongMoveWithoutCode" xml:space="preserve">
+    <value>🚩 &lt;b&gt;Mossa sbagliata!&lt;/b&gt;
+Torna in posizione {0} e guarda {1}, dopodiché esegui nuovamente le istruzioni che ti ho inviato precedentemente.</value>
+  </data>
 </root>

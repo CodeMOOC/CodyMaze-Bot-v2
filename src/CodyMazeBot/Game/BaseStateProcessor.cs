@@ -85,24 +85,25 @@ namespace CodyMazeBot.Game {
                         Logger.LogError("Wrong move, must backtrack, but no coordinate found");
                         return;
                     }
-                    try {
-                        (_, var code) = MazeGenerator.GenerateInstructions(
-                            lastCoordinate.Value,
-                            Conversation.CurrentUser.MoveCount,
-                            Conversation.ActiveEvent.Grid
-                        );
 
+                    if(Conversation.CurrentUser.NextTargetCode == null) {
+                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            string.Format(
+                                Strings.WrongMoveWithoutCode,
+                                lastCoordinate.Value.CoordinateString,
+                                GetFacingString(lastCoordinate.Value.Direction)
+                            ),
+                            parseMode: ParseMode.Html);
+                    }
+                    else {
                         await Bot.SendTextMessageAsync(Conversation.TelegramId,
                             string.Format(
                                 Strings.WrongMove,
                                 lastCoordinate.Value.CoordinateString,
                                 GetFacingString(lastCoordinate.Value.Direction),
-                                code
+                                Conversation.CurrentUser.NextTargetCode
                             ),
                             parseMode: ParseMode.Html);
-                    }
-                    catch(Exception ex) {
-                        Logger.LogError(ex, "Failed to generate instructions for back-tracking");
                     }
 
                     return;
@@ -182,7 +183,7 @@ namespace CodyMazeBot.Game {
                     Conversation.ActiveEvent.Grid
                 );
 
-                await Conversation.AssignNewDestination(target.ToString());
+                await Conversation.AssignNewDestination(target.ToString(), code);
 
                 await Bot.SendTextMessageAsync(Conversation.TelegramId,
                     string.Format(Strings.AssignCode, code),

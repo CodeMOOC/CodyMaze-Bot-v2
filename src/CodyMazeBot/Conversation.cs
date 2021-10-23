@@ -239,7 +239,7 @@ namespace CodyMazeBot {
             }
         }
 
-        public async Task<bool> AssignNewDestination(string coordinate) {
+        public async Task<bool> AssignNewDestination(string coordinate, string code) {
             if (CurrentUser == null) {
                 return false;
             }
@@ -247,10 +247,12 @@ namespace CodyMazeBot {
             try {
                 CurrentUser.State = (int)BotState.WaitingForLocation;
                 CurrentUser.NextTargetCoordinate = coordinate;
+                CurrentUser.NextTargetCode = code;
                 CurrentUser.LastUpdateOn = DateTime.UtcNow;
                 await _storage.UpdateUser(CurrentUser,
                     User.StateProp,
                     User.NextTargetCoordinateProp,
+                    User.NextTargetCodeProp,
                     User.LastUpdateOnProp
                 );
 

@@ -313,4 +313,8 @@ Move back to position {0} and look {1}, then try executing the following instruc
 
 &lt;code&gt;{2}&lt;/code&gt;</value>
   </data>
+  <data name="WrongMoveWithoutCode" xml:space="preserve">
+    <value>🚩 &lt;b&gt;Wrong move!&lt;/b&gt;
+Move back to position {0} and look {1}, then try executing the instructions again.</value>
+  </data>
 </root>

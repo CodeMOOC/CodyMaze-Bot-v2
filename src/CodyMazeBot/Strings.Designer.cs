@@ -615,5 +615,15 @@ namespace CodyMazeBot {
                 return ResourceManager.GetString("WrongMove", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 🚩 &lt;b&gt;Wrong move!&lt;/b&gt;
+        ///Move back to position {0} and look {1}, then try executing the instructions again..
+        /// </summary>
+        public static string WrongMoveWithoutCode {
+            get {
+                return ResourceManager.GetString("WrongMoveWithoutCode", resourceCulture);
+            }
+        }
     }
 }

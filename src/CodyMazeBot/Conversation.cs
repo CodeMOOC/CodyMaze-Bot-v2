@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace CodyMazeBot {
-    
+
     public class Conversation {
 
         private readonly Storage _storage;
@@ -28,6 +28,55 @@ namespace CodyMazeBot {
         }
 
         public GridCoordinate? IncomingCoordinate { get; set; }
+
+        private static readonly Dictionary<string, GridCell> DefaultGrid = new Dictionary<string, GridCell> {
+            { "a1", new GridCell { HasStar = true  } },
+            { "a2", new GridCell { HasStar = false } },
+            { "a3", new GridCell { HasStar = false } },
+            { "a4", new GridCell { HasStar = true  } },
+            { "a5", new GridCell { HasStar = false } },
+            { "b1", new GridCell { HasStar = true  } },
+            { "b2", new GridCell { HasStar = false } },
+            { "b3", new GridCell { HasStar = false } },
+            { "b4", new GridCell { HasStar = false } },
+            { "b5", new GridCell { HasStar = false } },
+            { "c1", new GridCell { HasStar = false } },
+            { "c2", new GridCell { HasStar = false } },
+            { "c3", new GridCell { HasStar = false } },
+            { "c4", new GridCell { HasStar = false } },
+            { "c5", new GridCell { HasStar = true  } },
+            { "d1", new GridCell { HasStar = false } },
+            { "d2", new GridCell { HasStar = false } },
+            { "d3", new GridCell { HasStar = false } },
+            { "d4", new GridCell { HasStar = false } },
+            { "d5", new GridCell { HasStar = false } },
+            { "e1", new GridCell { HasStar = false } },
+            { "e2", new GridCell { HasStar = true  } },
+            { "e3", new GridCell { HasStar = false } },
+            { "e4", new GridCell { HasStar = false } },
+            { "e5", new GridCell { HasStar = false } },
+        };
+
+        public IDictionary<string, GridCell> ActiveGrid {
+            get {
+                if(ActiveEvent?.Grid != null) {
+                    return ActiveEvent.Grid;
+                }
+                else {
+                    return DefaultGrid;
+                }
+            }
+        }
+
+        public GridCell GetGridCell(GridCoordinate coordinate) {
+            string coordinateKey = coordinate.CoordinateString.ToLowerInvariant();
+            if (!ActiveGrid.ContainsKey(coordinateKey)) {
+                return new GridCell { };
+            }
+            else {
+                return ActiveGrid[coordinateKey];
+            }
+        }
 
         public Conversation(
             Storage storage,
@@ -206,12 +255,14 @@ namespace CodyMazeBot {
         }
 
         public async Task<(Category, Question)> AssignNewQuestion(string categoryCode) {
-            if(CurrentUser == null) {
+            if(categoryCode == null) {
                 return (null, null);
             }
+            if(CurrentUser == null) {
+                throw new InvalidOperationException("No current user is set");
+            }
             if(CurrentUser.CurrentEvent == null) {
-                _logger.LogError("Cannot assign question without active event");
-                return (null, null);
+                throw new InvalidOperationException("Cannot assign question if current event is not set");
             }
 
             try {

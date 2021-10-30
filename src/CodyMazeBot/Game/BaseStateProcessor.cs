@@ -118,23 +118,10 @@ namespace CodyMazeBot.Game {
                 parseMode: ParseMode.Html
             );
 
-            if(Conversation.ActiveEvent == null) {
-                // TODO
-                return;
-            }
-
-            if(!Conversation.ActiveEvent.Grid.ContainsKey(coordinate.CoordinateString.ToLowerInvariant())) {
-                Logger.LogError("Event grid does not contain info for coordinate {0}", coordinate.CoordinateString);
-
-                // TODO
-                return;
-            }
-
-            var gridCell = Conversation.ActiveEvent.Grid[coordinate.CoordinateString.ToLowerInvariant()];
-
+            var gridCell = Conversation.GetGridCell(coordinate);
             (var category, var question) = await Conversation.AssignNewQuestion(gridCell.CategoryCode);
             if(category == null || question == null) {
-                // Move ahead without question
+                Logger.LogInformation("Current grid has no category for coordinate {0}, skipping to next destination", coordinate);
                 await AssignNextDestination(update);
                 return;
             }
@@ -180,7 +167,7 @@ namespace CodyMazeBot.Game {
                 (var target, var code) = MazeGenerator.GenerateInstructions(
                     Conversation.CurrentUser.LastMoveCoordinate.Value,
                     Conversation.CurrentUser.MoveCount,
-                    Conversation.ActiveEvent.Grid
+                    Conversation.ActiveGrid
                 );
 
                 await Conversation.AssignNewDestination(target.ToString(), code);

@@ -43,6 +43,21 @@ namespace CodyMazeBot.Game {
             return Task.CompletedTask;
         }
 
+        public virtual Task HandleStateExit(Update update) {
+            return Task.CompletedTask;
+        }
+
+        protected async Task HandleGameCompletion(Update update) {
+            Logger.LogInformation("Maze completed with {0} moves", Conversation.CurrentUser.MoveCount);
+
+            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                Strings.Victory,
+                parseMode: ParseMode.Html
+            );
+
+            await Conversation.SetState((int)BotState.Questionnaire);
+        }
+
         private (string AnswerText, bool IsCorrect)[] PrepareAnswers(Question question) {
             var rnd = new Random();
             return question.Answers.Select((answer, index) => (answer, index))
@@ -156,10 +171,7 @@ namespace CodyMazeBot.Game {
 
         protected async Task AssignNextDestination(Update update) {
             if(Conversation.CurrentUser.MoveCount > MazeGenerator.LastMove) {
-                Logger.LogInformation("Maze completed with {0} moves", Conversation.CurrentUser.MoveCount);
-
-                await Conversation.SetState((int)BotState.WaitForCertificateName);
-
+                await HandleGameCompletion(update);
                 return;
             }
 

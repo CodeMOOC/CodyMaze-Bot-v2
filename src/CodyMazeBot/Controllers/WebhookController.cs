@@ -58,7 +58,7 @@ namespace CodyMazeBot.Controllers {
             }
 
             var stateHandled = await HandleState(update);
-            _logger.LogDebug("State handled {0}", stateHandled);
+            _logger.LogDebug("State handled: {0}", stateHandled);
 
             if(!commandHandled && !stateHandled) {
                 // Huh?
@@ -98,29 +98,44 @@ namespace CodyMazeBot.Controllers {
         private async Task<bool> HandleState(Update update) {
             var processorTypes = Startup.StateProcessors;
 
-            if (!Enum.IsDefined(typeof(BotState), _conversation.State)) {
-                return false;
-            }
-            BotState currState = (BotState)_conversation.State;
+            BotState inState;
+            bool stateProcessed;
+            BaseStateProcessor previousProcessor = null;
+            do {
+                if (!Enum.IsDefined(typeof(BotState), _conversation.State)) {
+                    return false;
+                }
+                inState = (BotState)_conversation.State;
+                _logger.LogDebug("Incoming state to handle: {0}", inState);
 
-            if (!processorTypes.ContainsKey(currState)) {
-                _logger.LogDebug("No processor that handles state {0}", currState);
-                return false;
-            }
-            var processorType = processorTypes[(BotState)_conversation.State];
-            var processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
-            _logger.LogDebug("Processing state with processor {0}", processorType);
-            bool processed = await processor.Process(update);
+                if (!processorTypes.ContainsKey(inState)) {
+                    _logger.LogDebug("No processor that handles state {0}", inState);
+                    return false;
+                }
 
-            if(processed && (int)currState != _conversation.State) {
-                // State was processed and has changed
-                processorType = processorTypes[(BotState)_conversation.State];
-                processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
-                _logger.LogDebug("Processing state change with processor {0}", processorType);
-                await processor.HandleStateEntry(update);
-            }
+                if (previousProcessor != null) {
+                    _logger.LogDebug("Handling exit from previous processor {0}", previousProcessor.GetType());
+                    await previousProcessor.HandleStateExit(update);
+                }
 
-            return processed;
+                var processorType = processorTypes[inState];
+                var processor = (BaseStateProcessor)_serviceProvider.GetService(processorType);
+
+                if (previousProcessor != null) {
+                    _logger.LogDebug("Handling entry in next processor {0}", processorType);
+                    await processor.HandleStateEntry(update);
+                    stateProcessed = true; // if entering a new processor, we consider the state as handled
+                }
+                else {
+                    _logger.LogDebug("Processing state with processor {0}", processorType);
+                    stateProcessed = await processor.Process(update);
+                }
+
+                previousProcessor = processor;
+            }
+            while (stateProcessed && (int)inState != _conversation.State);
+
+            return stateProcessed;
         }
 
     }

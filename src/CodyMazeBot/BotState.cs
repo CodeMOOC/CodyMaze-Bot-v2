@@ -9,7 +9,8 @@ namespace CodyMazeBot {
         WaitingForDirection = 1,
         WaitingForQuizAnswer = 5,
         SetLanguage = 10,
-        WaitForCertificateName = 50,
+        Questionnaire = 30,
+        CertificateGeneration = 50,
         GameComplete = 999
     }
 }

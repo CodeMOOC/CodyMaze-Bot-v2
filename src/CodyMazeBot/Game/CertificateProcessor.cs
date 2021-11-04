@@ -14,7 +14,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace CodyMazeBot.Game {
-    [StateHandler(BotState.WaitForCertificateName)]
+    [StateHandler(BotState.CertificateGeneration)]
     public class CertificateProcessor : BaseStateProcessor {
 
         public CertificateProcessor(
@@ -100,11 +100,6 @@ namespace CodyMazeBot.Game {
         }
 
         public override async Task HandleStateEntry(Update update) {
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
-                Strings.Victory,
-                parseMode: ParseMode.Html
-            );
-
             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                 Strings.CertificateAskForName,
                 parseMode: ParseMode.Html

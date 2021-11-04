@@ -42,7 +42,7 @@ namespace CodyMazeBot.Game {
                     parseMode: ParseMode.Html
                 );
 
-                // TODO assign question again
+                // TODO: assign question again
             }
 
             return true;

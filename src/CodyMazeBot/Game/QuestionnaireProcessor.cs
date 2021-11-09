@@ -44,6 +44,14 @@ namespace CodyMazeBot.Game {
         }
 
         public override async Task HandleStateExit(Update update) {
+            if (Conversation.ActiveEvent == null ||
+               Conversation.ActiveEvent.Questionnaire == null ||
+               Conversation.ActiveEvent.Questionnaire.Questions == null ||
+               Conversation.ActiveEvent.Questionnaire.Questions.Length == 0)
+            {
+                return;
+            }
+
             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                 Strings.QuestionnaireDone,
                 parseMode: ParseMode.Html

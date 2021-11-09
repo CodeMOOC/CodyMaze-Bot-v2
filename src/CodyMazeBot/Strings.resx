@@ -280,6 +280,28 @@ and other commands such as &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/cod
   <data name="LanguageConfirm" xml:space="preserve">
     <value>Sure!</value>
   </data>
+  <data name="QuestionnaireDone" xml:space="preserve">
+    <value>Thank you! Your responses have been recorded.</value>
+  </data>
+  <data name="QuestionnaireEntry" xml:space="preserve">
+    <value>📝 &lt;b&gt;Questionnaire&lt;/b&gt;
+Before you leave, I have a couple of questions for you!</value>
+  </data>
+  <data name="QuestionnaireErrorAgeInvalid" xml:space="preserve">
+    <value>Please, send me a message with the age as a number.</value>
+  </data>
+  <data name="QuestionnaireErrorAgeTooHigh" xml:space="preserve">
+    <value>That number is a bit too high to be a valid age, I think.</value>
+  </data>
+  <data name="QuestionnaireErrorAgeTooLow" xml:space="preserve">
+    <value>This doesn’t look like a valid age.</value>
+  </data>
+  <data name="QuestionnaireErrorAlternative" xml:space="preserve">
+    <value>Please, answer to the question by clicking on one of the buttons.</value>
+  </data>
+  <data name="QuestionnaireErrorString" xml:space="preserve">
+    <value>Please, send me a message with your answer to the question.</value>
+  </data>
   <data name="ResetCommandOk" xml:space="preserve">
     <value>Let's start from the top! 👍 Scan one of the QR Codes on the outer squares of the chessboard to begin.</value>
   </data>

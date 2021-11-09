@@ -13,6 +13,13 @@ namespace CodyMazeBot {
         private readonly Storage _storage;
         private readonly ILogger<Conversation> _logger;
 
+        public Storage Storage
+        {
+            get {
+                return _storage;
+            }
+        }
+
         public User CurrentUser { get; private set; }
         public CultureInfo CurrentLanguage { get; private set; }
         public long TelegramId { get; private set; }
@@ -392,6 +399,19 @@ namespace CodyMazeBot {
             }
             if(!CurrentUser.Memory.ContainsKey(key)) {
                 return default;
+            }
+            return (T)CurrentUser.Memory[key];
+        }
+
+        public T GetMemory<T>(string key, T defValue)
+        {
+            if (CurrentUser == null || CurrentUser.Memory == null)
+            {
+                return defValue;
+            }
+            if (!CurrentUser.Memory.ContainsKey(key))
+            {
+                return defValue;
             }
             return (T)CurrentUser.Memory[key];
         }

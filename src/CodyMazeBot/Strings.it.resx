@@ -271,6 +271,28 @@ e altre istruzioni come &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;else&lt;/code&g
   <data name="LanguageConfirm" xml:space="preserve">
     <value>Va bene!</value>
   </data>
+  <data name="QuestionnaireDone" xml:space="preserve">
+    <value>Grazie! Le tue risposte sono state registrate.</value>
+  </data>
+  <data name="QuestionnaireEntry" xml:space="preserve">
+    <value>📝 &lt;b&gt;Sondaggio&lt;/b&gt;
+Prima che tu te ne vada, ho un paio di domande da farti!</value>
+  </data>
+  <data name="QuestionnaireErrorAgeInvalid" xml:space="preserve">
+    <value>Per piacere, inviami un messaggio con l’età scritta come numero.</value>
+  </data>
+  <data name="QuestionnaireErrorAgeTooHigh" xml:space="preserve">
+    <value>Questo numero mi sembra un po’ troppo alto per essere un’età valida.</value>
+  </data>
+  <data name="QuestionnaireErrorAgeTooLow" xml:space="preserve">
+    <value>Non mi sembrà un’età valida.</value>
+  </data>
+  <data name="QuestionnaireErrorAlternative" xml:space="preserve">
+    <value>Per piacere, rispondi alla domanda cliccando su uno dei pulsanti.</value>
+  </data>
+  <data name="QuestionnaireErrorString" xml:space="preserve">
+    <value>Per piacere, inviami un messaggio con la risposta alla domanda.</value>
+  </data>
   <data name="ResetCommandOk" xml:space="preserve">
     <value>Ricominciamo! 👍 Scansiona uno dei QR Code lungo il bordo della scacchiera per iniziare a giocare.</value>
   </data>

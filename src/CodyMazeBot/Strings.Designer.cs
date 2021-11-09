@@ -19,7 +19,7 @@ namespace CodyMazeBot {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -520,6 +520,70 @@ namespace CodyMazeBot {
         public static string LanguageConfirm {
             get {
                 return ResourceManager.GetString("LanguageConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you! Your responses have been recorded..
+        /// </summary>
+        public static string QuestionnaireDone {
+            get {
+                return ResourceManager.GetString("QuestionnaireDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 📝 &lt;b&gt;Questionnaire&lt;/b&gt;
+        ///Before you leave, I have a couple of questions for you!.
+        /// </summary>
+        public static string QuestionnaireEntry {
+            get {
+                return ResourceManager.GetString("QuestionnaireEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, send me a message with the age as a number..
+        /// </summary>
+        public static string QuestionnaireErrorAgeInvalid {
+            get {
+                return ResourceManager.GetString("QuestionnaireErrorAgeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That number is a bit too high to be a valid age, I think..
+        /// </summary>
+        public static string QuestionnaireErrorAgeTooHigh {
+            get {
+                return ResourceManager.GetString("QuestionnaireErrorAgeTooHigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This doesn’t look like a valid age..
+        /// </summary>
+        public static string QuestionnaireErrorAgeTooLow {
+            get {
+                return ResourceManager.GetString("QuestionnaireErrorAgeTooLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, answer to the question by clicking on one of the buttons..
+        /// </summary>
+        public static string QuestionnaireErrorAlternative {
+            get {
+                return ResourceManager.GetString("QuestionnaireErrorAlternative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please, send me a message with your answer to the question..
+        /// </summary>
+        public static string QuestionnaireErrorString {
+            get {
+                return ResourceManager.GetString("QuestionnaireErrorString", resourceCulture);
             }
         }
         

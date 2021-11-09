@@ -124,6 +124,12 @@ namespace CodyMazeBot {
             );
         }
 
+        public async Task StoreResponse(string eventCode, QuestionnaireResponse response)
+        {
+            var responseCollection = (await GetFirestore()).Collection(GetEventPath(eventCode) + "/responses");
+            await responseCollection.AddAsync(response);
+        }
+
     }
 
 }

@@ -183,7 +183,7 @@ namespace CodyMazeBot.Game {
                             );
                             return false;
                         }
-                        if(selectionIndex < 0 || selectionIndex >= question.Answers.Length)
+                        if(selectionIndex <= 0 || selectionIndex > question.Answers.Length)
                         {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAlternative,

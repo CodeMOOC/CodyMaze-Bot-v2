@@ -63,14 +63,14 @@ namespace CodyMazeBot.Game {
                     replyMarkup: new InlineKeyboardMarkup(
                         new InlineKeyboardButton[][] {
                                 new InlineKeyboardButton[] {
-                                    new InlineKeyboardButton { Text = Strings.DirectionNorth, CallbackData = "N" },
+                                    new InlineKeyboardButton(Strings.DirectionNorth) { CallbackData = "N" },
                                 },
                                 new InlineKeyboardButton[] {
-                                    new InlineKeyboardButton { Text = Strings.DirectionWest, CallbackData = "W" },
-                                    new InlineKeyboardButton { Text = Strings.DirectionEast, CallbackData = "E" },
+                                    new InlineKeyboardButton(Strings.DirectionWest) { CallbackData = "W" },
+                                    new InlineKeyboardButton(Strings.DirectionEast) { CallbackData = "E" },
                                 },
                                 new InlineKeyboardButton[] {
-                                    new InlineKeyboardButton { Text = Strings.DirectionSouth, CallbackData = "S" },
+                                    new InlineKeyboardButton(Strings.DirectionSouth) { CallbackData = "S" },
                                 }
                         }
                     )

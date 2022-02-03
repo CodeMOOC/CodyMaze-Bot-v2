@@ -153,16 +153,13 @@ namespace CodyMazeBot.Game {
                 ),
                 parseMode: ParseMode.Html,
                 replyMarkup: new InlineKeyboardMarkup(new InlineKeyboardButton[] {
-                    new InlineKeyboardButton {
-                        Text = Strings.AnswerCode1,
+                    new InlineKeyboardButton(Strings.AnswerCode1) {
                         CallbackData = shuffledAnswers[0].IsCorrect ? "CORRECT" : "WRONG"
                     },
-                    new InlineKeyboardButton {
-                        Text = Strings.AnswerCode2,
+                    new InlineKeyboardButton(Strings.AnswerCode2) {
                         CallbackData = shuffledAnswers[1].IsCorrect ? "CORRECT" : "WRONG"
                     },
-                    new InlineKeyboardButton {
-                        Text = Strings.AnswerCode3,
+                    new InlineKeyboardButton(Strings.AnswerCode3) {
                         CallbackData = shuffledAnswers[2].IsCorrect ? "CORRECT" : "WRONG"
                     },
                 })

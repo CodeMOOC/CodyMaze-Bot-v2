@@ -214,9 +214,7 @@ namespace CodyMazeBot.Game {
                                 question.Answers.Select((a, index) => {
                                     return new InlineKeyboardButton[]
                                     {
-                                        new InlineKeyboardButton
-                                        {
-                                            Text = a.Localize(),
+                                        new InlineKeyboardButton(a.Localize()) {
                                             CallbackData = (index + 1).ToString()
                                         }
                                     };

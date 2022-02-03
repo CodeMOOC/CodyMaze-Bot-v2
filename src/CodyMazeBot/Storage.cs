@@ -28,7 +28,7 @@ namespace CodyMazeBot {
         }
 
         private async Task<T> FetchDocument<T>(string path) {
-            var doc = _firestore.Document(path);
+            var doc = (await GetFirestore()).Document(path);
             var snapshot = await doc.GetSnapshotAsync();
             if (snapshot == null || !snapshot.Exists) {
                 return default;
@@ -37,22 +37,34 @@ namespace CodyMazeBot {
             return snapshot.ConvertTo<T>();
         }
 
-        private string GetEventPath(string eventCode) {
-            return string.Format("events/{0}", eventCode);
-        }
+        private string GetEventPath(string eventCode) =>
+            string.Format("events/{0}", eventCode);
 
         public Task<Event> FetchEvent(string eventCode) {
             return FetchDocument<Event>(GetEventPath(eventCode));
         }
 
+        public async Task StoreEvent(string eventCode, Event evt) {
+            var doc = (await GetFirestore()).Document(GetEventPath(eventCode));
+            await doc.SetAsync(evt);
+        }
+
+        private string GetCategoryPath(string eventCode, string categoryCode) =>
+            string.Format("events/{0}/categories/{1}", eventCode, categoryCode);
+
         public Task<Category> FetchCategory(string eventCode, string categoryCode) {
-            return FetchDocument<Category>(string.Format("events/{0}/categories/{1}", eventCode, categoryCode));
+            return FetchDocument<Category>(GetCategoryPath(eventCode, categoryCode));
+        }
+
+        public async Task StoreCategory(string eventCode, string categoryCode, Category cat) {
+            var doc = (await GetFirestore()).Document(GetCategoryPath(eventCode, categoryCode));
+            await doc.SetAsync(cat);
         }
 
         public async Task<Question> FetchRandomQuestion(string eventCode, string categoryCode) {
             var rnd = new Random();
 
-            var collection = _firestore.Collection(string.Format("events/{0}/categories/{1}/questions", eventCode, categoryCode));
+            var collection = (await GetFirestore()).Collection(string.Format("events/{0}/categories/{1}/questions", eventCode, categoryCode));
             var documents = await collection.ListDocumentsAsync().ToListAsync();
             var randomQuestion = (from q in documents
                                   let weight = rnd.NextDouble()
@@ -69,6 +81,11 @@ namespace CodyMazeBot {
 
         public Task<Question> FetchQuestion(string eventCode, string categoryCode, string questionId) {
             return FetchDocument<Question>(string.Format("events/{0}/categories/{1}/questions/{2}", eventCode, categoryCode, questionId));
+        }
+
+        public async Task AddQuestion(string eventCode, string categoryCode, Question question) {
+            var collection = (await GetFirestore()).Collection(string.Format("events/{0}/categories/{1}/questions", eventCode, categoryCode));
+            await collection.AddAsync(question);
         }
 
         private string GetUserPath(long telegramId) {

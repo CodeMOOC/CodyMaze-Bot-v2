@@ -1,6 +1,7 @@
 ﻿using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,7 +27,8 @@ namespace CodyMazeBot.StoreModels {
         public string CategoryCode { get; set; }
 
         [FirestoreProperty("star")]
-        public bool HasStar { get; set; }
+        [DefaultValue(false)]
+        public bool HasStar { get; set; } = false;
     }
 
     [FirestoreData]

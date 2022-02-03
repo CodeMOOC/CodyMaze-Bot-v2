@@ -124,7 +124,7 @@ namespace CodyMazeBot {
                 update.GetFrom()?.LanguageCode
             );
 
-            if(CurrentUser.CurrentEvent != null) {
+            if(!string.IsNullOrEmpty(CurrentUser.CurrentEvent)) {
                 ActiveEvent = await _storage.FetchEvent(CurrentUser.CurrentEvent);
             }
 

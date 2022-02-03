@@ -47,12 +47,10 @@ namespace CodyMazeBot.Game {
                         ),
                         parseMode: ParseMode.Html,
                         replyMarkup: new InlineKeyboardMarkup(new InlineKeyboardButton[] {
-                            new InlineKeyboardButton {
-                                Text = Strings.ConfirmationYes,
+                            new InlineKeyboardButton(Strings.ConfirmationYes) {
                                 CallbackData = "YES"
                             },
-                            new InlineKeyboardButton {
-                                Text = Strings.ConfirmationNo,
+                            new InlineKeyboardButton(Strings.ConfirmationNo) {
                                 CallbackData = "NO"
                             }
                         })
@@ -116,12 +114,20 @@ namespace CodyMazeBot.Game {
             return collection;
         }
 
-        private const int CertificateMargin = 160;
+        private Task<Stream> GenerateCertificate(string name, DateTime today, Event evt) {
+            return evt?.Code switch {
+                "neoconnessi" => GenerateNeoconnessiCertificate(name, today, evt),
+                _ => GenerateDefaultCertificate(name, today, evt),
+            };
+        }
 
-        private async Task<Stream> GenerateCertificate(string name, DateTime today, Event evt) {
+        private async Task<Stream> GenerateDefaultCertificate(string name, DateTime today, Event evt) {
+            int CertificateMargin = 160;
+
             using var backgroundStream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("CodyMazeBot.Resources.certificate-background.jpg");
-            using(var image = Image.Load(backgroundStream)) {
+            using (var image = Image.Load(backgroundStream))
+            {
                 var fonts = GetFonts();
                 var fontFamilyLight = fonts.Find("Montserrat Light");
                 var fontFamilyMedium = fonts.Find("Montserrat Medium");
@@ -132,16 +138,20 @@ namespace CodyMazeBot.Game {
 
                 var width = image.Width;
                 var height = image.Height;
-                var centeredOptions = new DrawingOptions {
-                    TextOptions = new TextOptions {
+                var centeredOptions = new DrawingOptions
+                {
+                    TextOptions = new TextOptions
+                    {
                         ApplyKerning = true,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         DpiX = (float)image.Metadata.HorizontalResolution,
                         DpiY = (float)image.Metadata.VerticalResolution
                     }
                 };
-                var wrappedOptions = new DrawingOptions {
-                    TextOptions = new TextOptions {
+                var wrappedOptions = new DrawingOptions
+                {
+                    TextOptions = new TextOptions
+                    {
                         ApplyKerning = true,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Top,
@@ -150,8 +160,10 @@ namespace CodyMazeBot.Game {
                         DpiY = (float)image.Metadata.VerticalResolution
                     }
                 };
-                var bottomOptions = new DrawingOptions {
-                    TextOptions = new TextOptions {
+                var bottomOptions = new DrawingOptions
+                {
+                    TextOptions = new TextOptions
+                    {
                         ApplyKerning = true,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Bottom,
@@ -178,6 +190,65 @@ namespace CodyMazeBot.Game {
                         bottomOptions,
                         string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
                         new Font(fontFamilyLight, 10f), brushDarkGray, new PointF(CertificateMargin, height - CertificateMargin));
+                });
+
+                var outputStream = new MemoryStream();
+                await image.SaveAsJpegAsync(outputStream);
+                outputStream.Seek(0, SeekOrigin.Begin);
+                return outputStream;
+            }
+        }
+
+        private async Task<Stream> GenerateNeoconnessiCertificate(string name, DateTime today, Event evt) {
+            int CertificateMargin = 94;
+            int InnerMargin = 270;
+
+            using var backgroundStream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("CodyMazeBot.Resources.certificate-neoconnessi.jpg");
+            using (var image = Image.Load(backgroundStream))
+            {
+                var fonts = GetFonts();
+                var fontFamilyLight = fonts.Find("Montserrat Light");
+                var fontFamilyMedium = fonts.Find("Montserrat Medium");
+                var fontFamilyBold = fonts.Find("Montserrat ExtraBold");
+
+                var brushBlack = Brushes.Solid(Color.Black);
+                var brushDarkGray = Brushes.Solid(Color.DarkGray);
+
+                var width = image.Width;
+                var height = image.Height;
+                var centeredOptions = new DrawingOptions
+                {
+                    TextOptions = new TextOptions
+                    {
+                        ApplyKerning = true,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        WrapTextWidth = width - (InnerMargin * 2),
+                        DpiX = (float)image.Metadata.HorizontalResolution,
+                        DpiY = (float)image.Metadata.VerticalResolution
+                    }
+                };
+                var bottomOptions = new DrawingOptions
+                {
+                    TextOptions = new TextOptions
+                    {
+                        ApplyKerning = true,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        DpiX = (float)image.Metadata.HorizontalResolution,
+                        DpiY = (float)image.Metadata.VerticalResolution
+                    }
+                };
+
+                image.Mutate(context => {
+                    context.DrawText(centeredOptions, name.Trim(),
+                        new Font(fontFamilyBold, 64f), brushBlack, new PointF(InnerMargin, 840f));
+
+                    context.DrawText(
+                        bottomOptions,
+                        string.Format("{0}.", today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
+                        new Font(fontFamilyMedium, 25f), brushBlack, new PointF(CertificateMargin + 266f, height - CertificateMargin));
                 });
 
                 var outputStream = new MemoryStream();

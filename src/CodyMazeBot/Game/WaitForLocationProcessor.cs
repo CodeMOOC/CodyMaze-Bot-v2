@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -20,6 +21,38 @@ namespace CodyMazeBot.Game {
 
         }
 
+        private async Task SendWelcomeMessage(Update update) {
+            string code = Conversation.ActiveEvent?.Code;
+            
+            switch (code)
+            {
+                case "neoconnessi":
+                    {
+                        using var welcomeImageStream = Assembly.GetExecutingAssembly()
+                            .GetManifestResourceStream("CodyMazeBot.Resources.welcome-neoconnessi.jpg");
+
+                        await Bot.SendPhotoAsync(Conversation.TelegramId, welcomeImageStream);
+                    }
+                    break;
+
+                case null:
+                default:
+                    if(string.IsNullOrEmpty(code))
+                    {
+                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            Strings.WelcomeMessage,
+                            ParseMode.Html);
+                    }
+                    else
+                    {
+                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            string.Format(Strings.WelcomeEventMessage, Conversation.ActiveEvent.Title.Localize()),
+                            ParseMode.Html);
+                    }
+                    break;
+            }
+        }
+
         public override async Task<bool> Process(Update update) {
             if(!Conversation.IncomingCoordinate.HasValue) {
                 // This happens if the user does not scan a QR Code
@@ -27,7 +60,7 @@ namespace CodyMazeBot.Game {
             }
 
             if (Conversation.CurrentUser.MoveCount == 0) {
-                // Welcome message (TODO)
+                await SendWelcomeMessage(update);
 
                 // Block if not on border
                 if (!Conversation.IncomingCoordinate.Value.IsOnGridBorder()) {

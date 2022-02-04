@@ -7,11 +7,13 @@
 
   <ItemGroup>
     <None Remove="Resources\certificate-neoconnessi.jpg" />
+    <None Remove="Resources\welcome-neoconnessi.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\certificate-background.jpg" />
     <EmbeddedResource Include="Resources\certificate-neoconnessi.jpg" />
+    <EmbeddedResource Include="Resources\welcome-neoconnessi.jpg" />
   </ItemGroup>
 
   <ItemGroup>

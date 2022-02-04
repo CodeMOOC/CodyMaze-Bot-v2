@@ -323,8 +323,14 @@ Before you leave, I have a couple of questions for you!</value>
   <data name="WaitForLocationWrongDirection" xml:space="preserve">
     <value>❌ You should be facing &lt;b&gt;{0}&lt;/b&gt;. Please confirm clicking on the buttons above.</value>
   </data>
+  <data name="WelcomeEventMessage" xml:space="preserve">
+    <value>👋 Welcome to &lt;b&gt;{0}&lt;/b&gt;!</value>
+  </data>
   <data name="WelcomeGame" xml:space="preserve">
     <value>🤖 Hello {0}, welcome to &lt;b&gt;{1}&lt;/b&gt;! Let's start the game.</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>👋 Welcome to &lt;b&gt;CodyMaze&lt;/b&gt;!</value>
   </data>
   <data name="WrongAnswerTryAgain" xml:space="preserve">
     <value>❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again.</value>

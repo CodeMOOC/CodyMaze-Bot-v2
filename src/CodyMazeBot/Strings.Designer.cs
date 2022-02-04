@@ -651,11 +651,29 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 👋 Welcome to &lt;b&gt;{0}&lt;/b&gt;!.
+        /// </summary>
+        public static string WelcomeEventMessage {
+            get {
+                return ResourceManager.GetString("WelcomeEventMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 🤖 Hello {0}, welcome to &lt;b&gt;{1}&lt;/b&gt;! Let&apos;s start the game..
         /// </summary>
         public static string WelcomeGame {
             get {
                 return ResourceManager.GetString("WelcomeGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 👋 Welcome to &lt;b&gt;CodyMaze&lt;/b&gt;!.
+        /// </summary>
+        public static string WelcomeMessage {
+            get {
+                return ResourceManager.GetString("WelcomeMessage", resourceCulture);
             }
         }
         

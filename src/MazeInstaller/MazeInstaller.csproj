@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CodyMazeBot\Direction.cs" Link="Direction.cs" />
+    <Compile Include="..\CodyMazeBot\GridCoordinate.cs" Link="GridCoordinate.cs" />
+    <Compile Include="..\CodyMazeBot\Storage.cs" Link="Storage.cs" />
+    <Compile Include="..\CodyMazeBot\StoreModels\Category.cs" Link="StoreModels\Category.cs" />
+    <Compile Include="..\CodyMazeBot\StoreModels\Event.cs" Link="StoreModels\Event.cs" />
+    <Compile Include="..\CodyMazeBot\StoreModels\Question.cs" Link="StoreModels\Question.cs" />
+    <Compile Include="..\CodyMazeBot\StoreModels\QuestionnaireResponse.cs" Link="StoreModels\QuestionnaireResponse.cs" />
+    <Compile Include="..\CodyMazeBot\StoreModels\User.cs" Link="StoreModels\User.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StoreModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Cloud.Firestore" Version="2.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>

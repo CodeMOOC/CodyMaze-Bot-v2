@@ -2,16 +2,12 @@ using CodyMazeBot.Commands;
 using CodyMazeBot.Game;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Telegram.Bot;
 
 namespace CodyMazeBot {
@@ -33,7 +29,7 @@ namespace CodyMazeBot {
                 })
                 .AddControllers()
                 .AddNewtonsoftJson()
-                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
+            ;
 
             services.AddSingleton<Storage>();
             services.AddScoped<Conversation>();
@@ -41,8 +37,9 @@ namespace CodyMazeBot {
             services
                 .AddHttpClient("tgwebhook")
                 .AddTypedClient<ITelegramBotClient>(
-                httpClient => new TelegramBotClient(Environment.GetEnvironmentVariable("BOT_TOKEN"), httpClient)
-            );
+                    httpClient => new TelegramBotClient(Environment.GetEnvironmentVariable("BOT_TOKEN"), httpClient)
+                )
+            ;
 
             services.AddAllScoped<ICommand>();
             services.AddAllScoped<BaseStateProcessor>(type => {

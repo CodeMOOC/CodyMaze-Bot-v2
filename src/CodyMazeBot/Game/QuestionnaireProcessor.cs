@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,11 +23,10 @@ namespace CodyMazeBot.Game {
         private const string MemoryAnswerKey = "QuestionnaireAnswer";
 
         public override async Task HandleStateEntry(Update update) {
-            if(Conversation.ActiveEvent == null ||
+            if (Conversation.ActiveEvent == null ||
                Conversation.ActiveEvent.Questionnaire == null ||
                Conversation.ActiveEvent.Questionnaire.Questions == null ||
-               Conversation.ActiveEvent.Questionnaire.Questions.Length == 0)
-            {
+               Conversation.ActiveEvent.Questionnaire.Questions.Length == 0) {
                 // No questionnaire to deliver, skip
                 Logger.LogInformation("No questionnaire to present to user, skipping to certificate");
                 await Conversation.SetState((int)BotState.CertificateGeneration);
@@ -47,8 +46,7 @@ namespace CodyMazeBot.Game {
             if (Conversation.ActiveEvent == null ||
                Conversation.ActiveEvent.Questionnaire == null ||
                Conversation.ActiveEvent.Questionnaire.Questions == null ||
-               Conversation.ActiveEvent.Questionnaire.Questions.Length == 0)
-            {
+               Conversation.ActiveEvent.Questionnaire.Questions.Length == 0) {
                 return;
             }
 
@@ -59,13 +57,11 @@ namespace CodyMazeBot.Game {
 
             var questionCount = Conversation.ActiveEvent.Questionnaire.Questions.Length;
             var answers = new string[questionCount];
-            for (int i = 0; i < questionCount; ++i)
-            {
+            for (int i = 0; i < questionCount; ++i) {
                 answers[i] = Conversation.GetMemory<string>($"{MemoryAnswerKey}{i}");
             }
 
-            await Conversation.Storage.StoreResponse(Conversation.ActiveEvent.Code, new StoreModels.QuestionnaireResponse
-            {
+            await Conversation.Storage.StoreResponse(Conversation.ActiveEvent.Code, new StoreModels.QuestionnaireResponse {
                 Responses = answers,
                 UserId = Conversation.CurrentUser.UserId,
                 UserFirstSeen = Conversation.CurrentUser.FirstSeenOn,
@@ -78,27 +74,22 @@ namespace CodyMazeBot.Game {
 
         public override async Task<bool> Process(Update update) {
             var index = (int)Conversation.GetMemory(MemoryStateKey, 0l);
-            try
-            {
-                if (await ProcessAnswer(update, index))
-                {
+            try {
+                if (await ProcessAnswer(update, index)) {
                     Logger.LogDebug("Answer processed, advancing");
                     index++;
                 }
             }
-            catch(Exception ex)
-            {
+            catch (Exception ex) {
                 Logger.LogError(ex, "Failed to process questionnaire answer, skipping");
                 await Conversation.SetState((int)BotState.CertificateGeneration);
             }
 
-            if(index <= -1 || index >= Conversation.ActiveEvent.Questionnaire.Questions.Length)
-            {
+            if (index <= -1 || index >= Conversation.ActiveEvent.Questionnaire.Questions.Length) {
                 Logger.LogInformation("Moved to question index {0}, exiting questionnaire", index);
                 await Conversation.SetState((int)BotState.CertificateGeneration);
             }
-            else
-            {
+            else {
                 await Conversation.SetMemory(MemoryStateKey, index);
                 await DeliverQuestion(index);
             }
@@ -106,15 +97,11 @@ namespace CodyMazeBot.Game {
             return true;
         }
 
-        private async Task<bool> ProcessAnswer(Update update, int index)
-        {
+        private async Task<bool> ProcessAnswer(Update update, int index) {
             var question = Conversation.ActiveEvent.Questionnaire.Questions[index];
-            switch(question.Kind)
-            {
-                case "string":
-                    {
-                        if(update.Message == null || string.IsNullOrWhiteSpace(update.Message.Text))
-                        {
+            switch (question.Kind) {
+                case "string": {
+                        if (update.Message == null || string.IsNullOrWhiteSpace(update.Message.Text)) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorString,
                                 parseMode: ParseMode.Html
@@ -126,34 +113,29 @@ namespace CodyMazeBot.Game {
                         return true;
                     }
 
-                case "age":
-                    {
-                        if (update.Message == null || string.IsNullOrWhiteSpace(update.Message.Text))
-                        {
+                case "age": {
+                        if (update.Message == null || string.IsNullOrWhiteSpace(update.Message.Text)) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeInvalid,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
-                        if(!int.TryParse(update.Message.Text, out var age))
-                        {
+                        if (!int.TryParse(update.Message.Text, out var age)) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeInvalid,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
-                        if(age < 5)
-                        {
+                        if (age < 5) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeTooLow,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
-                        if(age > 99)
-                        {
+                        if (age > 99) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeTooHigh,
                                 parseMode: ParseMode.Html
@@ -165,26 +147,22 @@ namespace CodyMazeBot.Game {
                         return true;
                     }
 
-                case "alternative":
-                    {
-                        if(update.CallbackQuery == null || update.CallbackQuery.Data == null)
-                        {
+                case "alternative": {
+                        if (update.CallbackQuery == null || update.CallbackQuery.Data == null) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAlternative,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
-                        if (!int.TryParse(update.CallbackQuery.Data, out var selectionIndex))
-                        {
+                        if (!int.TryParse(update.CallbackQuery.Data, out var selectionIndex)) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAlternative,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
-                        if(selectionIndex <= 0 || selectionIndex > question.Answers.Length)
-                        {
+                        if (selectionIndex <= 0 || selectionIndex > question.Answers.Length) {
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAlternative,
                                 parseMode: ParseMode.Html
@@ -200,13 +178,10 @@ namespace CodyMazeBot.Game {
             return false;
         }
 
-        private async Task DeliverQuestion(int index)
-        {
+        private async Task DeliverQuestion(int index) {
             var question = Conversation.ActiveEvent.Questionnaire.Questions[index];
-            switch (question.Kind)
-            {
-                case "alternative":
-                    {
+            switch (question.Kind) {
+                case "alternative": {
                         await Bot.SendTextMessageAsync(Conversation.TelegramId,
                             question.Text.Localize(),
                             parseMode: ParseMode.Html,

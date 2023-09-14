@@ -1,13 +1,11 @@
-﻿using Google.Cloud.Firestore;
+using Google.Cloud.Firestore;
 using System;
 
-namespace CodyMazeBot.StoreModels
-{
+namespace CodyMazeBot.StoreModels {
     [FirestoreData]
-    public class QuestionnaireResponse
-    {
+    public class QuestionnaireResponse {
         [FirestoreDocumentId]
-        public string Id { get; set; }
+        public DocumentReference Id { get; set; }
 
         [FirestoreProperty("responses")]
         public string[] Responses { get; set; }

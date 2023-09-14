@@ -1,4 +1,4 @@
-﻿using CodyMazeBot.StoreModels;
+using CodyMazeBot.StoreModels;
 using Google.Cloud.Firestore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace CodyMazeBot {
-    
+
     public class Storage {
 
         private readonly ILogger<Storage> _logger;
@@ -20,7 +20,7 @@ namespace CodyMazeBot {
 
         private FirestoreDb _firestore;
 
-        private async Task<FirestoreDb> GetFirestore() {
+        public async Task<FirestoreDb> GetFirestore() {
             if (_firestore == null) {
                 _firestore = await FirestoreDb.CreateAsync(Environment.GetEnvironmentVariable("GOOGLE_PROJECT_ID"));
             }
@@ -71,7 +71,7 @@ namespace CodyMazeBot {
                                   orderby weight
                                   select q).FirstOrDefault();
 
-            if(randomQuestion == null) {
+            if (randomQuestion == null) {
                 return null;
             }
 
@@ -107,9 +107,9 @@ namespace CodyMazeBot {
         /// <param name="username">Username with which new users are stored.</param>
         public async Task<User> RetrieveUser(long telegramId, string username) {
             var doc = (await GetFirestore()).Document(GetUserPath(telegramId));
-            
+
             var snapshot = await doc.GetSnapshotAsync();
-            if(snapshot != null && snapshot.Exists) {
+            if (snapshot != null && snapshot.Exists) {
                 return snapshot.ConvertTo<User>();
             }
 
@@ -121,7 +121,7 @@ namespace CodyMazeBot {
                 LastUpdateOn = DateTime.UtcNow
             });
             snapshot = await doc.GetSnapshotAsync();
-            if(snapshot == null || !snapshot.Exists) {
+            if (snapshot == null || !snapshot.Exists) {
                 throw new Exception("Snapshot of newly created user cannot be retrieved");
             }
             return snapshot.ConvertTo<User>();
@@ -129,7 +129,7 @@ namespace CodyMazeBot {
 
         public async Task UpdateUser(User user, params string[] fieldMask) {
             var doc = (await GetFirestore()).Document(GetUserPath(user.UserId));
-            
+
             user.LastUpdateOn = DateTime.UtcNow;
 
             HashSet<string> fields = new(fieldMask);
@@ -141,8 +141,7 @@ namespace CodyMazeBot {
             );
         }
 
-        public async Task StoreResponse(string eventCode, QuestionnaireResponse response)
-        {
+        public async Task StoreResponse(string eventCode, QuestionnaireResponse response) {
             var responseCollection = (await GetFirestore()).Collection(GetEventPath(eventCode) + "/responses");
             await responseCollection.AddAsync(response);
         }

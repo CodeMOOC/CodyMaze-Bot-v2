@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
 namespace CodyMazeBot {
     public static class MazeExtensions {
@@ -14,16 +11,16 @@ namespace CodyMazeBot {
         }
 
         public static Direction GetInitialDirection(this GridCoordinate coord) {
-            if(coord.ColumnIndex == 0) {
+            if (coord.ColumnIndex == 0) {
                 return Direction.East;
             }
-            if(coord.ColumnIndex == GridCoordinate.GridSideSize - 1) {
+            if (coord.ColumnIndex == GridCoordinate.GridSideSize - 1) {
                 return Direction.West;
             }
-            if(coord.RowIndex == 0) {
+            if (coord.RowIndex == 0) {
                 return Direction.South;
             }
-            if(coord.RowIndex == GridCoordinate.GridSideSize - 1) {
+            if (coord.RowIndex == GridCoordinate.GridSideSize - 1) {
                 return Direction.North;
             }
             throw new ArgumentException("Coordinate is not valid initial position", nameof(coord));
@@ -46,9 +43,9 @@ namespace CodyMazeBot {
 
         public static GridCoordinate? Advance(this GridCoordinate coord, int moves) {
             GridCoordinate? current = coord;
-            for(int i = 0; i < moves; ++i) {
+            for (int i = 0; i < moves; ++i) {
                 current = current.Value.Advance();
-                if(!current.HasValue) {
+                if (!current.HasValue) {
                     return null;
                 }
             }
@@ -79,9 +76,9 @@ namespace CodyMazeBot {
 
         public static bool CanAdvance(this GridCoordinate coord, int moves = 1) {
             GridCoordinate? current = coord;
-            for(int i = 0; i < moves; ++i) {
+            for (int i = 0; i < moves; ++i) {
                 current = current.Value.Advance();
-                if(!current.HasValue) {
+                if (!current.HasValue) {
                     return false;
                 }
             }
@@ -91,7 +88,7 @@ namespace CodyMazeBot {
         public static int MaxAdvancements(this GridCoordinate coord) {
             GridCoordinate? current = coord;
             int moves = 0;
-            while(current.HasValue) {
+            while (current.HasValue) {
                 current = current.Value.Advance();
                 moves++;
             }
@@ -107,10 +104,10 @@ namespace CodyMazeBot {
         }
 
         public static GridCoordinate CrawlPreferRight(this GridCoordinate coord) {
-            if(coord.CanAdvance()) {
+            if (coord.CanAdvance()) {
                 return coord.Advance().Value;
             }
-            else if(coord.TurnRight().CanAdvance()) {
+            else if (coord.TurnRight().CanAdvance()) {
                 return coord.TurnRight();
             }
             else {

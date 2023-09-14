@@ -13,7 +13,7 @@ using Telegram.Bot;
 namespace CodyMazeBot {
     public class Startup {
 
-        private static Dictionary<BotState, Type> _stateProcessors = new Dictionary<BotState, Type>();
+        private static Dictionary<BotState, Type> _stateProcessors = new();
         public static IReadOnlyDictionary<BotState, Type> StateProcessors {
             get {
                 return new ReadOnlyDictionary<BotState, Type>(_stateProcessors);
@@ -44,7 +44,7 @@ namespace CodyMazeBot {
             services.AddAllScoped<ICommand>();
             services.AddAllScoped<BaseStateProcessor>(type => {
                 var attrs = type.GetCustomAttributes(typeof(StateHandlerAttribute), false);
-                foreach(StateHandlerAttribute attr in attrs) {
+                foreach (StateHandlerAttribute attr in attrs) {
                     _stateProcessors.Add(attr.State, type);
                 }
             });

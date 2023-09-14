@@ -1,4 +1,4 @@
-﻿using CodyMazeBot.StoreModels;
+using CodyMazeBot.StoreModels;
 using Microsoft.Extensions.Logging;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
@@ -12,6 +12,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using Color = SixLabors.ImageSharp.Color;
 
 namespace CodyMazeBot.Game {
     [StateHandler(BotState.CertificateGeneration)]
@@ -56,7 +57,7 @@ namespace CodyMazeBot.Game {
                         })
                     );
             }
-            else if(update.CallbackQuery != null) {
+            else if (update.CallbackQuery != null) {
                 string name = Conversation.GetMemory<string>(MemoryNameKey);
                 if (name != null) {
                     if (update.CallbackQuery.Data == "YES") {
@@ -66,15 +67,15 @@ namespace CodyMazeBot.Game {
                         );
 
                         try {
-                            using (var certStream = await GenerateCertificate(name, DateTime.UtcNow, Conversation.ActiveEvent)) {
-                                await Bot.SendPhotoAsync(Conversation.TelegramId,
-                                    certStream,
-                                    caption: Strings.CertificateGenerationCaption,
-                                    parseMode: ParseMode.Html
-                                );
-                            }
+                            using var certStream = await GenerateCertificate(name, DateTime.UtcNow, Conversation.ActiveEvent);
+
+                            await Bot.SendPhotoAsync(Conversation.TelegramId,
+                                new InputFileStream(certStream),
+                                caption: Strings.CertificateGenerationCaption,
+                                parseMode: ParseMode.Html
+                            );
                         }
-                        catch(Exception ex) {
+                        catch (Exception ex) {
                             Logger.LogError(ex, "Failed to generate certificate");
                             await Bot.SendTextMessageAsync(Conversation.TelegramId,
                                 Strings.CertificateGenerationError,
@@ -109,7 +110,7 @@ namespace CodyMazeBot.Game {
             var collection = new FontCollection();
             var root = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             foreach (var font in fonts) {
-                collection.Install(Path.Combine(root, "Resources", font));
+                collection.Add(Path.Combine(root, "Resources", font));
             }
             return collection;
         }
@@ -126,70 +127,53 @@ namespace CodyMazeBot.Game {
 
             using var backgroundStream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("CodyMazeBot.Resources.certificate-background.jpg");
-            using (var image = Image.Load(backgroundStream))
-            {
+
+            using (var image = Image.Load(backgroundStream)) {
                 var fonts = GetFonts();
-                var fontFamilyLight = fonts.Find("Montserrat Light");
-                var fontFamilyMedium = fonts.Find("Montserrat Medium");
-                var fontFamilyBold = fonts.Find("Montserrat ExtraBold");
+                var fontFamilyLight = fonts.Get("Montserrat Light");
+                var fontFamilyMedium = fonts.Get("Montserrat Medium");
+                var fontFamilyBold = fonts.Get("Montserrat ExtraBold");
 
                 var brushBlack = Brushes.Solid(Color.Black);
                 var brushDarkGray = Brushes.Solid(Color.DarkGray);
 
                 var width = image.Width;
                 var height = image.Height;
-                var centeredOptions = new DrawingOptions
-                {
-                    TextOptions = new TextOptions
-                    {
-                        ApplyKerning = true,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        DpiX = (float)image.Metadata.HorizontalResolution,
-                        DpiY = (float)image.Metadata.VerticalResolution
-                    }
-                };
-                var wrappedOptions = new DrawingOptions
-                {
-                    TextOptions = new TextOptions
-                    {
-                        ApplyKerning = true,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Top,
-                        WrapTextWidth = width - (CertificateMargin * 2),
-                        DpiX = (float)image.Metadata.HorizontalResolution,
-                        DpiY = (float)image.Metadata.VerticalResolution
-                    }
-                };
-                var bottomOptions = new DrawingOptions
-                {
-                    TextOptions = new TextOptions
-                    {
-                        ApplyKerning = true,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Bottom,
-                        DpiX = (float)image.Metadata.HorizontalResolution,
-                        DpiY = (float)image.Metadata.VerticalResolution
-                    }
-                };
 
                 image.Mutate(context => {
-                    context.DrawText(centeredOptions, Strings.CertificateGenerationTitle,
-                        new Font(fontFamilyMedium, 14f), brushDarkGray, new PointF(width / 2f, 580f));
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyMedium, 14f)) {
+                        Origin = new PointF(width / 2f, 580f),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, Strings.CertificateGenerationTitle, brushDarkGray);
 
-                    context.DrawText(centeredOptions, name.Trim(),
-                        new Font(fontFamilyBold, 28f), brushBlack, new PointF(width / 2f, 690f));
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyBold, 28f)) {
+                        Origin = new PointF(width / 2f, 690f),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, name.Trim(), brushBlack);
 
-                    context.DrawText(
-                        wrappedOptions,
-                        (evt?.Title).CanLocalize() ?
-                            string.Format(Strings.CertificateGenerationDescriptionEvent, evt.Title.Localize()) :
-                            Strings.CertificateGenerationDescriptionPlain,
-                        new Font(fontFamilyMedium, 14f), brushBlack, new PointF(CertificateMargin, 880f));
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyMedium, 14f)) {
+                        Origin = new PointF(CertificateMargin, 880f),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        WrappingLength = width - (CertificateMargin * 2),
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, (evt?.Title).CanLocalize() ?
+                        string.Format(Strings.CertificateGenerationDescriptionEvent, evt.Title.Localize()) :
+                        Strings.CertificateGenerationDescriptionPlain,
+                    brushBlack);
 
-                    context.DrawText(
-                        bottomOptions,
-                        string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
-                        new Font(fontFamilyLight, 10f), brushDarkGray, new PointF(CertificateMargin, height - CertificateMargin));
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyLight, 10f)) {
+                        Origin = new PointF(CertificateMargin, height - CertificateMargin),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)), brushDarkGray);
                 });
 
                 var outputStream = new MemoryStream();
@@ -205,50 +189,34 @@ namespace CodyMazeBot.Game {
 
             using var backgroundStream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("CodyMazeBot.Resources.certificate-neoconnessi.jpg");
-            using (var image = Image.Load(backgroundStream))
-            {
+
+            using (var image = Image.Load(backgroundStream)) {
                 var fonts = GetFonts();
-                var fontFamilyLight = fonts.Find("Montserrat Light");
-                var fontFamilyMedium = fonts.Find("Montserrat Medium");
-                var fontFamilyBold = fonts.Find("Montserrat ExtraBold");
+                var fontFamilyLight = fonts.Get("Montserrat Light");
+                var fontFamilyMedium = fonts.Get("Montserrat Medium");
+                var fontFamilyBold = fonts.Get("Montserrat ExtraBold");
 
                 var brushBlack = Brushes.Solid(Color.Black);
                 var brushDarkGray = Brushes.Solid(Color.DarkGray);
 
                 var width = image.Width;
                 var height = image.Height;
-                var centeredOptions = new DrawingOptions
-                {
-                    TextOptions = new TextOptions
-                    {
-                        ApplyKerning = true,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        WrapTextWidth = width - (InnerMargin * 2),
-                        DpiX = (float)image.Metadata.HorizontalResolution,
-                        DpiY = (float)image.Metadata.VerticalResolution
-                    }
-                };
-                var bottomOptions = new DrawingOptions
-                {
-                    TextOptions = new TextOptions
-                    {
-                        ApplyKerning = true,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Bottom,
-                        DpiX = (float)image.Metadata.HorizontalResolution,
-                        DpiY = (float)image.Metadata.VerticalResolution
-                    }
-                };
 
                 image.Mutate(context => {
-                    context.DrawText(centeredOptions, name.Trim(),
-                        new Font(fontFamilyBold, 64f), brushBlack, new PointF(InnerMargin, 840f));
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyBold, 64f)) {
+                        Origin = new PointF(InnerMargin, 840f),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, name.Trim(), brushBlack);
 
-                    context.DrawText(
-                        bottomOptions,
-                        string.Format("{0}.", today.ToString(Strings.CertificateGenerationReleaseDateFormat)),
-                        new Font(fontFamilyMedium, 25f), brushBlack, new PointF(CertificateMargin + 266f, height - CertificateMargin));
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyMedium, 25f)) {
+                        Origin = new PointF(CertificateMargin + 266f, height - CertificateMargin),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, string.Format("{0}.", today.ToString(Strings.CertificateGenerationReleaseDateFormat)), brushBlack);
                 });
 
                 var outputStream = new MemoryStream();

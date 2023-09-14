@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace CodyMazeBot.Commands {
         public async Task<(BotState? NewState, bool ShortCircuit)> ProcessCommand(Update update) {
             await _conversation.ResetGame();
 
-            await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.ResetCommandOk, ParseMode.Html);
+            await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.ResetCommandOk, parseMode: ParseMode.Html);
 
             return (null, true);
         }

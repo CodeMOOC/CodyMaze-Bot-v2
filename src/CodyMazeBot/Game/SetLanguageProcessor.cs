@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace CodyMazeBot.Game {
 
                 await Conversation.RestoreState((int)BotState.WaitingForLocation);
 
-                await Bot.SendTextMessageAsync(update.CallbackQuery.From.Id, Strings.LanguageConfirm, ParseMode.Html);
+                await Bot.SendTextMessageAsync(update.CallbackQuery.From.Id, Strings.LanguageConfirm, parseMode: ParseMode.Html);
 
                 return true;
             }

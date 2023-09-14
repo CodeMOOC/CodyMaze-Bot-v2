@@ -73,7 +73,7 @@ namespace CodyMazeBot.Game {
         }
 
         public override async Task<bool> Process(Update update) {
-            var index = (int)Conversation.GetMemory(MemoryStateKey, 0l);
+            var index = (int)Conversation.GetMemory(MemoryStateKey, 0L);
             try {
                 if (await ProcessAnswer(update, index)) {
                     Logger.LogDebug("Answer processed, advancing");

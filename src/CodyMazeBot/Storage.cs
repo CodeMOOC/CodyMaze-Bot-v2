@@ -132,8 +132,9 @@ namespace CodyMazeBot {
 
             user.LastUpdateOn = DateTime.UtcNow;
 
-            HashSet<string> fields = new(fieldMask);
-            fields.Add(User.LastUpdateOnProp);
+            HashSet<string> fields = new(fieldMask) {
+                User.LastUpdateOnProp
+            };
 
             await doc.SetAsync(
                 user,

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +22,7 @@ namespace CodyMazeBot.Commands {
         }
 
         public async Task<(BotState? NewState, bool ShortCircuit)> ProcessCommand(Update update) {
-            await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.LanguageCommandAsk, ParseMode.Html,
+            await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.LanguageCommandAsk, parseMode: ParseMode.Html,
                 replyMarkup: new InlineKeyboardMarkup(new InlineKeyboardButton[] {
                     new InlineKeyboardButton("English") { CallbackData = "en" },
                     new InlineKeyboardButton("Italiano") { CallbackData = "it" },

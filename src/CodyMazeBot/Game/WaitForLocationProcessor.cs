@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace CodyMazeBot.Game {
                         using var welcomeImageStream = Assembly.GetExecutingAssembly()
                             .GetManifestResourceStream("CodyMazeBot.Resources.welcome-neoconnessi.jpg");
 
-                        await Bot.SendPhotoAsync(Conversation.TelegramId, welcomeImageStream);
+                        await Bot.SendPhotoAsync(Conversation.TelegramId, new InputFileStream(welcomeImageStream));
                     }
                     break;
 
@@ -41,13 +41,13 @@ namespace CodyMazeBot.Game {
                     {
                         await Bot.SendTextMessageAsync(Conversation.TelegramId,
                             Strings.WelcomeMessage,
-                            ParseMode.Html);
+                            parseMode: ParseMode.Html);
                     }
                     else
                     {
                         await Bot.SendTextMessageAsync(Conversation.TelegramId,
                             string.Format(Strings.WelcomeEventMessage, Conversation.ActiveEvent.Title.Localize()),
-                            ParseMode.Html);
+                            parseMode: ParseMode.Html);
                     }
                     break;
             }
@@ -66,7 +66,7 @@ namespace CodyMazeBot.Game {
                 if (!Conversation.IncomingCoordinate.Value.IsOnGridBorder()) {
                     await Bot.SendTextMessageAsync(Conversation.TelegramId,
                         Strings.WaitForLocationFirstCoordinateWrong,
-                        ParseMode.Html);
+                        parseMode: ParseMode.Html);
                     return true;
                 }
 

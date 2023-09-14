@@ -1,4 +1,4 @@
-﻿using CodyMazeBot.StoreModels;
+using CodyMazeBot.StoreModels;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -74,7 +74,7 @@ namespace CodyMazeBot.Game {
                 if (!coordinate.IsOnGridBorder()) {
                     await Bot.SendTextMessageAsync(Conversation.TelegramId,
                         Strings.WaitForLocationFirstCoordinateWrong,
-                        ParseMode.Html);
+                        parseMode: ParseMode.Html);
                     return;
                 }
 
@@ -199,11 +199,11 @@ namespace CodyMazeBot.Game {
                 output += " " + prompt;
             }
 
-            return Bot.SendTextMessageAsync(Conversation.TelegramId, output, ParseMode.Html);
+            return Bot.SendTextMessageAsync(Conversation.TelegramId, output, parseMode: ParseMode.Html);
         }
 
         protected Task CriticalError() {
-            return Bot.SendTextMessageAsync(Conversation.TelegramId, Strings.CriticalError, ParseMode.Html);
+            return Bot.SendTextMessageAsync(Conversation.TelegramId, Strings.CriticalError, parseMode: ParseMode.Html);
         }
 
     }

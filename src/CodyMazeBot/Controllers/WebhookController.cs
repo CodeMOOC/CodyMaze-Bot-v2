@@ -1,10 +1,9 @@
-﻿using CodyMazeBot.Commands;
+using CodyMazeBot.Commands;
 using CodyMazeBot.Game;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -36,7 +35,7 @@ namespace CodyMazeBot.Controllers {
         public async Task<IActionResult> Process(
             [FromBody] Update update
         ) {
-            if(update.Message == null && update.CallbackQuery == null) {
+            if (update.Message == null && update.CallbackQuery == null) {
                 // Ignore update
                 return Ok();
             }
@@ -46,30 +45,30 @@ namespace CodyMazeBot.Controllers {
                 (update.Message != null) ? "message" : "callback",
                 update.Message?.Text ?? update.CallbackQuery?.Data);
 
-            if(!await _conversation.LoadUser(update)) {
+            if (!await _conversation.LoadUser(update)) {
                 return Ok();
             }
             _conversation.PerformLanguageSet();
 
             (var commandHandled, var shortCircuit) = await HandleCommand(update);
             _logger.LogDebug("Command handled {0} short-circuit {1}", commandHandled, shortCircuit);
-            if(shortCircuit) {
+            if (shortCircuit) {
                 return Ok();
             }
 
             var stateHandled = await HandleState(update);
             _logger.LogDebug("State handled: {0}", stateHandled);
 
-            if(!commandHandled && !stateHandled) {
+            if (!commandHandled && !stateHandled) {
                 // Huh?
-                await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.CannotHandle, ParseMode.Html);
+                await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.CannotHandle, parseMode: ParseMode.Html);
             }
 
             return Ok();
         }
 
         private async Task<(bool Handled, bool ShortCircuit)> HandleCommand(Update update) {
-            if(update.Message == null || string.IsNullOrEmpty(update.Message.Text)) {
+            if (update.Message == null || string.IsNullOrEmpty(update.Message.Text)) {
                 return (false, false);
             }
 

@@ -184,8 +184,8 @@ namespace CodyMazeBot.Game {
         }
 
         private async Task<Stream> GenerateNeoconnessiCertificate(string name, DateTime today, Event evt) {
-            int CertificateMargin = 94;
-            int InnerMargin = 270;
+            int CertificateMargin = 99;
+            int InnerMargin = 290;
 
             using var backgroundStream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("CodyMazeBot.Resources.certificate-neoconnessi.jpg");
@@ -204,14 +204,15 @@ namespace CodyMazeBot.Game {
 
                 image.Mutate(context => {
                     context.DrawText(new RichTextOptions(new Font(fontFamilyBold, 64f)) {
-                        Origin = new PointF(InnerMargin, 840f),
+                        Origin = new PointF(width / 2, 810f),
+                        WrappingLength = width - (InnerMargin * 2),
                         KerningMode = KerningMode.Standard,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         Dpi = (float)image.Metadata.HorizontalResolution,
                     }, name.Trim(), brushBlack);
 
                     context.DrawText(new RichTextOptions(new Font(fontFamilyMedium, 25f)) {
-                        Origin = new PointF(CertificateMargin + 266f, height - CertificateMargin),
+                        Origin = new PointF(CertificateMargin + 258f, height - CertificateMargin),
                         KerningMode = KerningMode.Standard,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Bottom,

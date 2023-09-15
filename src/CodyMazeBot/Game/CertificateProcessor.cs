@@ -84,7 +84,7 @@ namespace CodyMazeBot.Game {
                         }
 
                         await Conversation.ClearMemory(MemoryNameKey);
-                        await Conversation.SetState((int)BotState.GameComplete);
+                        await Conversation.SetState((int)BotState.WomGeneration);
                     }
                     else {
                         await Bot.SendTextMessageAsync(Conversation.TelegramId,

@@ -3,6 +3,7 @@ using CodyMazeBot.Game;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -13,7 +14,13 @@ using Telegram.Bot;
 namespace CodyMazeBot {
     public class Startup {
 
-        private static Dictionary<BotState, Type> _stateProcessors = new();
+        private readonly IConfiguration _config;
+
+        public Startup(IConfiguration configuration) {
+            _config = configuration;
+        }
+
+        private static readonly Dictionary<BotState, Type> _stateProcessors = new();
         public static IReadOnlyDictionary<BotState, Type> StateProcessors {
             get {
                 return new ReadOnlyDictionary<BotState, Type>(_stateProcessors);
@@ -21,6 +28,12 @@ namespace CodyMazeBot {
         }
 
         public void ConfigureServices(IServiceCollection services) {
+            var confBot = _config.GetRequiredSection("Bot");
+            var botApiToken = confBot["ApiToken"];
+            if(string.IsNullOrEmpty(botApiToken)) {
+                throw new ArgumentException("Configuration element Bot:ApiToken not set");
+            }
+
             services
                 .Configure<RequestLocalizationOptions>(config => {
                     config.DefaultRequestCulture = new RequestCulture("it");
@@ -37,7 +50,7 @@ namespace CodyMazeBot {
             services
                 .AddHttpClient("tgwebhook")
                 .AddTypedClient<ITelegramBotClient>(
-                    httpClient => new TelegramBotClient(Environment.GetEnvironmentVariable("BOT_TOKEN"), httpClient)
+                    httpClient => new TelegramBotClient(botApiToken, httpClient)
                 )
             ;
 

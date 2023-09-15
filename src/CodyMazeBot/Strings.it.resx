@@ -323,6 +323,16 @@ Prima che tu te ne vada, ho un paio di domande da farti!</value>
   <data name="WelcomeMessage" xml:space="preserve">
     <value>👋 Ti diamo il benvenuto a &lt;b&gt;CodyMaze&lt;/b&gt;!</value>
   </data>
+  <data name="WomGenerationCaption" xml:space="preserve">
+    <value>Password: &lt;code&gt;{0}&lt;/code&gt;</value>
+  </data>
+  <data name="WomGenerationProcessing" xml:space="preserve">
+    <value>Ma non è tutto qui! Sto generando un &lt;b&gt;premio speciale&lt;/b&gt; per te…</value>
+  </data>
+  <data name="WomGenerationResult" xml:space="preserve">
+    <value>Ecco qua! 🎖 Scansiona il QR Code qui sopra per ottenere i tuoi &lt;a href="https://wom.social"&gt;voucher WOM&lt;/a&gt; come premio per i tuoi sforzi nel gioco!
+Se stai leggendo dal tuo smartphone, &lt;a href="{0}"&gt;clicca qui&lt;/a&gt; invece e usa la seguente password: &lt;code&gt;{1}&lt;/code&gt;.</value>
+  </data>
   <data name="WrongAnswerTryAgain" xml:space="preserve">
     <value>❌ &lt;b&gt;Sbagliato!&lt;/b&gt; Prova di nuovo.</value>
   </data>

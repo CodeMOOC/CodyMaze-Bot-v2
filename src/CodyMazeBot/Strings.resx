@@ -332,6 +332,16 @@ Before you leave, I have a couple of questions for you!</value>
   <data name="WelcomeMessage" xml:space="preserve">
     <value>👋 Welcome to &lt;b&gt;CodyMaze&lt;/b&gt;!</value>
   </data>
+  <data name="WomGenerationCaption" xml:space="preserve">
+    <value>Password: &lt;code&gt;{0}&lt;/code&gt;</value>
+  </data>
+  <data name="WomGenerationProcessing" xml:space="preserve">
+    <value>But this is not all! I’m generating a &lt;b&gt;special prize&lt;/b&gt; for you…</value>
+  </data>
+  <data name="WomGenerationResult" xml:space="preserve">
+    <value>Here you are! 🎖 Scan the QR Code above in order to obtain your &lt;a href="https://wom.social"&gt;WOM vouchers&lt;/a&gt; as a prize for your efforts during the game!
+If you reading this on your smartphone, &lt;a href="{0}"&gt;click here&lt;/a&gt; and use the following password: &lt;code&gt;{1}&lt;/code&gt;.</value>
+  </data>
   <data name="WrongAnswerTryAgain" xml:space="preserve">
     <value>❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again.</value>
   </data>

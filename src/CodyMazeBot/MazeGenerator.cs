@@ -1,8 +1,6 @@
 ﻿using CodyMazeBot.StoreModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CodyMazeBot {
     public static class MazeGenerator {
@@ -30,7 +28,7 @@ namespace CodyMazeBot {
 
         private static (GridCoordinate Target, string Code) GenerateMove1(GridCoordinate start, IDictionary<string, GridCell> grid) {
             var target = start.Advance();
-            if(!target.HasValue) {
+            if (!target.HasValue) {
                 throw new ArgumentException($"Cannot generate move 1 from position {start}");
             }
 
@@ -39,10 +37,10 @@ namespace CodyMazeBot {
 
         private static (GridCoordinate Target, string Code) GenerateMove2(GridCoordinate start, IDictionary<string, GridCell> grid) {
             // TODO pick randomly
-            if(start.TurnLeft().CanAdvance()) {
+            if (start.TurnLeft().CanAdvance()) {
                 return (start.TurnLeft(), Strings.CodeLeft);
             }
-            else if(start.TurnRight().CanAdvance()) {
+            else if (start.TurnRight().CanAdvance()) {
                 return (start.TurnRight(), Strings.CodeRight);
             }
             else {
@@ -63,7 +61,7 @@ namespace CodyMazeBot {
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove5(GridCoordinate start, IDictionary<string, GridCell> grid) {
-            if(!start.CanAdvance(2)) {
+            if (!start.CanAdvance(2)) {
                 throw new ArgumentException($"Cannot advance two positions from position {start}");
             }
             return (start.Advance().Value.Advance().Value, $"2{{{Strings.CodeForward}}}");
@@ -72,7 +70,7 @@ namespace CodyMazeBot {
         private static (GridCoordinate Target, string Code) GenerateMove6(GridCoordinate start, IDictionary<string, GridCell> grid) {
             int leftAdvancements = start.TurnLeft().MaxAdvancements();
             int rightAdvancements = start.TurnRight().MaxAdvancements();
-            if(leftAdvancements > rightAdvancements) {
+            if (leftAdvancements > rightAdvancements) {
                 return (start.TurnLeft().Advance(leftAdvancements).Value, $"{Strings.CodeLeft}{leftAdvancements}{{{Strings.CodeForward}}}");
             }
             else {
@@ -83,10 +81,10 @@ namespace CodyMazeBot {
         private static (GridCoordinate Target, string Code) GenerateMove7(GridCoordinate start, IDictionary<string, GridCell> grid) {
             GridCoordinate current = start;
             GridCoordinate? next;
-            if(start.CanAdvanceLeft()) {
-                for(int c = 0; c < 3; ++c) {
+            if (start.CanAdvanceLeft()) {
+                for (int c = 0; c < 3; ++c) {
                     next = current.TurnLeft().Advance();
-                    if(!next.HasValue) {
+                    if (!next.HasValue) {
                         return (current, $"{c}{{{Strings.CodeLeft}{Strings.CodeForward}}}");
                     }
                     current = next.Value;
@@ -140,7 +138,7 @@ namespace CodyMazeBot {
             GridCoordinate target = start;
             int count = rnd.Next(2, 5);
 
-            for(int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i) {
                 target = target.CrawlPreferRight();
             }
 
@@ -165,7 +163,7 @@ namespace CodyMazeBot {
         }
 
         private static (GridCoordinate Target, string Code) GenerateMove13(GridCoordinate start, IDictionary<string, GridCell> grid) {
-            while(!grid[start.CoordinateString.ToLowerInvariant()].HasStar) {
+            while (!grid[start.CoordinateString.ToLowerInvariant()].HasStar) {
                 start = start.CrawlPreferRight();
             }
 

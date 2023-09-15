@@ -678,6 +678,34 @@ namespace CodyMazeBot {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password: &lt;code&gt;{0}&lt;/code&gt;.
+        /// </summary>
+        public static string WomGenerationCaption {
+            get {
+                return ResourceManager.GetString("WomGenerationCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to But this is not all! I’m generating a &lt;b&gt;special prize&lt;/b&gt; for you….
+        /// </summary>
+        public static string WomGenerationProcessing {
+            get {
+                return ResourceManager.GetString("WomGenerationProcessing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Here you are! 🎖 Scan the QR Code above in order to obtain your &lt;a href=&quot;https://wom.social&quot;&gt;WOM vouchers&lt;/a&gt; as a prize for your efforts during the game!
+        ///If you reading this on your smartphone, &lt;a href=&quot;{0}&quot;&gt;click here&lt;/a&gt; and use the following password: &lt;code&gt;{1}&lt;/code&gt;..
+        /// </summary>
+        public static string WomGenerationResult {
+            get {
+                return ResourceManager.GetString("WomGenerationResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ❌ &lt;b&gt;Wrong!&lt;/b&gt; Try again..
         /// </summary>
         public static string WrongAnswerTryAgain {

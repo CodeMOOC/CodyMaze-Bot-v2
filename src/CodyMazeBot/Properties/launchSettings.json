@@ -1,0 +1,20 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:46348",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "CodyMaze bot": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "GOOGLE_PROJECT_ID": "codymaze-bot",
+        "GOOGLE_APPLICATION_CREDENTIALS": "../../keys/codymaze-bot-b55051795d64.json",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

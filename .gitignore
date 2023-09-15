@@ -3,4 +3,3 @@ keys/*
 **/bin/**
 **/obj/**
 **/.vs
-launchSettings.json

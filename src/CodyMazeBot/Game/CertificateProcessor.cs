@@ -21,8 +21,9 @@ namespace CodyMazeBot.Game {
         public CertificateProcessor(
             Conversation conversation,
             ITelegramBotClient bot,
+            MazeGenerator mazeGenerator,
             ILogger<WaitingForQuizAnswerProcessor> logger
-        ) : base(conversation, bot, logger) {
+        ) : base(conversation, bot, mazeGenerator, logger) {
 
         }
 

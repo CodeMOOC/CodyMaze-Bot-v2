@@ -46,6 +46,7 @@ namespace CodyMazeBot {
 
             services.AddSingleton<Storage>();
             services.AddScoped<Conversation>();
+            services.AddSingleton<MazeGenerator>();
 
             services
                 .AddHttpClient("tgwebhook")

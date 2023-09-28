@@ -1,8 +1,6 @@
 using CodyMazeBot.StoreModels;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -15,15 +13,18 @@ namespace CodyMazeBot.Game {
 
         protected Conversation Conversation { get; init; }
         protected ITelegramBotClient Bot { get; init; }
+        protected MazeGenerator MazeGenerator { get; init; }
         protected ILogger<BaseStateProcessor> Logger { get; init; }
 
         public BaseStateProcessor(
             Conversation conversation,
             ITelegramBotClient bot,
+            MazeGenerator mazeGenerator,
             ILogger<BaseStateProcessor> logger
         ) {
             Conversation = conversation;
             Bot = bot;
+            MazeGenerator = mazeGenerator;
             Logger = logger;
         }
 

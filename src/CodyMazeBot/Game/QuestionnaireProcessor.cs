@@ -14,8 +14,9 @@ namespace CodyMazeBot.Game {
         public QuestionnaireProcessor(
             Conversation conversation,
             ITelegramBotClient bot,
+            MazeGenerator mazeGenerator,
             ILogger<QuestionnaireProcessor> logger
-        ) : base(conversation, bot, logger) {
+        ) : base(conversation, bot, mazeGenerator, logger) {
 
         }
 

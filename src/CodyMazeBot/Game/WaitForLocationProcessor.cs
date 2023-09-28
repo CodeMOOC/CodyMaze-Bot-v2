@@ -1,7 +1,4 @@
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -16,8 +13,9 @@ namespace CodyMazeBot.Game {
         public WaitForLocationProcessor(
             Conversation conversation,
             ITelegramBotClient bot,
+            MazeGenerator mazeGenerator,
             ILogger<WaitForLocationProcessor> logger
-        ) : base(conversation, bot, logger) {
+        ) : base(conversation, bot, mazeGenerator, logger) {
 
         }
 

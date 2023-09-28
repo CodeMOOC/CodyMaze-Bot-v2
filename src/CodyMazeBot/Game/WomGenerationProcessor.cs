@@ -26,10 +26,11 @@ namespace CodyMazeBot.Game {
         public WomGenerationProcessor(
             Conversation conversation,
             ITelegramBotClient bot,
+            MazeGenerator mazeGenerator,
             IConfiguration configuration,
             ILogger<WomGenerationProcessor> logger,
             ILoggerFactory loggerFactory
-        ) : base(conversation, bot, logger) {
+        ) : base(conversation, bot, mazeGenerator, logger) {
             _configuration = configuration;
             _loggerFactory = loggerFactory;
         }

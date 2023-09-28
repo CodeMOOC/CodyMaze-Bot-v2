@@ -1,13 +1,21 @@
-﻿using CodyMazeBot.StoreModels;
+using CodyMazeBot.StoreModels;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 
 namespace CodyMazeBot {
-    public static class MazeGenerator {
+    public class MazeGenerator {
 
-        public const int LastMove = 13;
+        public MazeGenerator(
+            IConfiguration configuration
+        ) {
+            var confMaze = configuration.GetRequiredSection("Maze");
+            LastMove = Convert.ToInt32(confMaze["LastMove"]);
+        }
 
-        public static (GridCoordinate Target, string Code) GenerateInstructions(GridCoordinate start, int move, IDictionary<string, GridCell> grid) {
+        public int LastMove { get; init; }
+
+        public (GridCoordinate Target, string Code) GenerateInstructions(GridCoordinate start, int move, IDictionary<string, GridCell> grid) {
             return move switch {
                 1 => GenerateMove1(start, grid),
                 2 => GenerateMove2(start, grid),
@@ -22,11 +30,11 @@ namespace CodyMazeBot {
                 11 => GenerateMove11(start, grid),
                 12 => GenerateMove12(start, grid),
                 13 => GenerateMove13(start, grid),
-                _ => throw new ArgumentException("Unsupported move")
+                _ => throw new ArgumentException($"Cannot generate move number {move}")
             };
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove1(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove1(GridCoordinate start, IDictionary<string, GridCell> grid) {
             var target = start.Advance();
             if (!target.HasValue) {
                 throw new ArgumentException($"Cannot generate move 1 from position {start}");
@@ -35,7 +43,7 @@ namespace CodyMazeBot {
             return (target.Value, Strings.CodeForward);
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove2(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove2(GridCoordinate start, IDictionary<string, GridCell> grid) {
             // TODO pick randomly
             if (start.TurnLeft().CanAdvance()) {
                 return (start.TurnLeft(), Strings.CodeLeft);
@@ -48,7 +56,7 @@ namespace CodyMazeBot {
             }
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove4(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove4(GridCoordinate start, IDictionary<string, GridCell> grid) {
             if (start.TurnLeft().CanAdvance(2)) {
                 return (start.TurnLeft().Advance().Value, $"{Strings.CodeLeft}{Strings.CodeForward}");
             }
@@ -60,14 +68,14 @@ namespace CodyMazeBot {
             }
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove5(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove5(GridCoordinate start, IDictionary<string, GridCell> grid) {
             if (!start.CanAdvance(2)) {
                 throw new ArgumentException($"Cannot advance two positions from position {start}");
             }
             return (start.Advance().Value.Advance().Value, $"2{{{Strings.CodeForward}}}");
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove6(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove6(GridCoordinate start, IDictionary<string, GridCell> grid) {
             int leftAdvancements = start.TurnLeft().MaxAdvancements();
             int rightAdvancements = start.TurnRight().MaxAdvancements();
             if (leftAdvancements > rightAdvancements) {
@@ -78,7 +86,7 @@ namespace CodyMazeBot {
             }
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove7(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove7(GridCoordinate start, IDictionary<string, GridCell> grid) {
             GridCoordinate current = start;
             GridCoordinate? next;
             if (start.CanAdvanceLeft()) {
@@ -103,7 +111,7 @@ namespace CodyMazeBot {
             }
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove8(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove8(GridCoordinate start, IDictionary<string, GridCell> grid) {
             bool hasStar = grid[start.CoordinateString.ToLowerInvariant()].HasStar;
             string starCondition = hasStar ? Strings.CodeStar : Strings.CodeNoStar;
 
@@ -118,7 +126,7 @@ namespace CodyMazeBot {
             }
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove9(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove9(GridCoordinate start, IDictionary<string, GridCell> grid) {
             bool hasStar = grid[start.CoordinateString.ToLowerInvariant()].HasStar;
             string starCondition = hasStar ? Strings.CodeNoStar : Strings.CodeStar; // inverse, do on else condition
 
@@ -133,7 +141,7 @@ namespace CodyMazeBot {
             }
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove10(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove10(GridCoordinate start, IDictionary<string, GridCell> grid) {
             var rnd = new Random();
             GridCoordinate target = start;
             int count = rnd.Next(2, 5);
@@ -145,7 +153,7 @@ namespace CodyMazeBot {
             return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathRight}){{{Strings.CodeRight}}}{Strings.CodeElse}{{{Strings.CodeLeft}}}}}");
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove11(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove11(GridCoordinate start, IDictionary<string, GridCell> grid) {
             var rnd = new Random();
             GridCoordinate target = start;
             int count = rnd.Next(3, 6);
@@ -157,12 +165,12 @@ namespace CodyMazeBot {
             return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathLeft}){{{Strings.CodeLeft}}}{Strings.CodeElse}{{{Strings.CodeRight}}}}}");
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove12(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove12(GridCoordinate start, IDictionary<string, GridCell> grid) {
             int maxAdvances = start.MaxAdvancements();
             return (start.Advance(maxAdvances).Value, $"{Strings.CodeWhile}({Strings.CodePathAhead}){{{Strings.CodeForward}}}");
         }
 
-        private static (GridCoordinate Target, string Code) GenerateMove13(GridCoordinate start, IDictionary<string, GridCell> grid) {
+        private (GridCoordinate Target, string Code) GenerateMove13(GridCoordinate start, IDictionary<string, GridCell> grid) {
             while (!grid[start.CoordinateString.ToLowerInvariant()].HasStar) {
                 start = start.CrawlPreferRight();
             }

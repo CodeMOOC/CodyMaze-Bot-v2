@@ -150,7 +150,7 @@ namespace CodyMazeBot {
                 target = target.CrawlPreferRight();
             }
 
-            return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathRight}){{{Strings.CodeRight}}}{Strings.CodeElse}{{{Strings.CodeLeft}}}}}");
+            return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathRight}){{{Strings.CodeRight}}}{Strings.CodeElse}{{{Strings.CodeLeft}}}}}}}");
         }
 
         private (GridCoordinate Target, string Code) GenerateMove11(GridCoordinate start, IDictionary<string, GridCell> grid) {
@@ -162,7 +162,7 @@ namespace CodyMazeBot {
                 target = target.CrawlPreferLeft();
             }
 
-            return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathLeft}){{{Strings.CodeLeft}}}{Strings.CodeElse}{{{Strings.CodeRight}}}}}");
+            return (target, $"{count}{{{Strings.CodeIf}({Strings.CodePathAhead}){{{Strings.CodeForward}}}{Strings.CodeElse}{{{Strings.CodeIf}({Strings.CodePathLeft}){{{Strings.CodeLeft}}}{Strings.CodeElse}{{{Strings.CodeRight}}}}}}}");
         }
 
         private (GridCoordinate Target, string Code) GenerateMove12(GridCoordinate start, IDictionary<string, GridCell> grid) {

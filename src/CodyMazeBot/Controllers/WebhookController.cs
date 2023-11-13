@@ -14,10 +14,10 @@ namespace CodyMazeBot.Controllers {
     [Route("")]
     public class WebhookController : ControllerBase {
 
-        Conversation _conversation;
-        ITelegramBotClient _bot;
-        IServiceProvider _serviceProvider;
-        ILogger<WebhookController> _logger;
+        private readonly Conversation _conversation;
+        private readonly ITelegramBotClient _bot;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<WebhookController> _logger;
 
         public WebhookController(
             Conversation conversation,
@@ -64,7 +64,8 @@ namespace CodyMazeBot.Controllers {
             var stateHandled = await HandleState(update);
             _logger.LogDebug("State handled: {0}", stateHandled);
 
-            if (!commandHandled && !stateHandled) {
+            // Message received and not handled neither as command nor in state processor
+            if (update.Message != null && !(commandHandled || stateHandled)) {
                 // Huh?
                 await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.CannotHandle, parseMode: ParseMode.Html);
             }

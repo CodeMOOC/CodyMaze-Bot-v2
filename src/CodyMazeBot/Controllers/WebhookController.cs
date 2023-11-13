@@ -45,6 +45,11 @@ namespace CodyMazeBot.Controllers {
                 (update.Message != null) ? "message" : "callback",
                 update.Message?.Text ?? update.CallbackQuery?.Data);
 
+            if (update.CallbackQuery != null) {
+                // Approve callback right away
+                await _bot.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            }
+
             if (!await _conversation.LoadUser(update)) {
                 return Ok();
             }

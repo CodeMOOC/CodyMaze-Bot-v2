@@ -1,4 +1,4 @@
-using CodyMazeBot.StoreModels;
+﻿using CodyMazeBot.StoreModels;
 using Google.Cloud.Firestore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -89,11 +89,11 @@ namespace CodyMazeBot {
         }
 
         private string GetUserPath(long telegramId) {
-            return string.Format("users/{0}", telegramId);
+            return string.Format("telegramUsers/{0}", telegramId);
         }
 
         private string GetUserPath(string userId) {
-            return string.Format("users/{0}", userId);
+            return string.Format("telegramUsers/{0}", userId);
         }
 
         private Task<User> FetchExistingUser(int telegramId) {

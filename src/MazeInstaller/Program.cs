@@ -1,4 +1,4 @@
-﻿using CodyMazeBot;
+using CodyMazeBot;
 using MazeInstaller;
 using Microsoft.Extensions.Logging;
 
@@ -8,6 +8,7 @@ var loggerFactory = new LoggerFactory();
 
 Storage s = new(loggerFactory.CreateLogger<Storage>());
 
-await NeoConnessiInstaller.Install(s);
+IInstaller installer = new GiornataDelGiocoUrbinoInstaller();
+await installer.Install(s);
 
 Console.WriteLine("All done.");

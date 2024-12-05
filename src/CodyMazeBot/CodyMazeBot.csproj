@@ -1,19 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
     <UserSecretsId>efb02659-23e2-42d7-8c0f-ed948a13016b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\certificate-neoconnessi.jpg" />
+    <None Remove="Resources\certificate-polotd.jpg" />
     <None Remove="Resources\welcome-neoconnessi.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\certificate-background.jpg" />
     <EmbeddedResource Include="Resources\certificate-neoconnessi.jpg" />
+    <EmbeddedResource Include="Resources\certificate-polotd.jpg" />
     <EmbeddedResource Include="Resources\welcome-neoconnessi.jpg" />
   </ItemGroup>
 

@@ -1,12 +1,4 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:46348",
-      "sslPort": 0
-    }
-  },
   "profiles": {
     "CodyMaze bot": {
       "commandName": "Project",

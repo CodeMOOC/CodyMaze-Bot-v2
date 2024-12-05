@@ -119,6 +119,7 @@ namespace CodyMazeBot.Game {
         private Task<Stream> GenerateCertificate(string name, DateTime today, Event evt) {
             return evt?.Code switch {
                 "neoconnessi" => GenerateNeoconnessiCertificate(name, today, evt),
+                "polotd" => GeneratePolotdCertificate(name, today, evt),
                 _ => GenerateDefaultCertificate(name, today, evt),
             };
         }
@@ -170,6 +171,67 @@ namespace CodyMazeBot.Game {
 
                     context.DrawText(new RichTextOptions(new Font(fontFamilyLight, 10f)) {
                         Origin = new PointF(CertificateMargin, height - CertificateMargin),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, string.Format("{0} {1}.", Strings.CertificateGenerationReleasedOn, today.ToString(Strings.CertificateGenerationReleaseDateFormat)), brushDarkGray);
+                });
+
+                var outputStream = new MemoryStream();
+                await image.SaveAsJpegAsync(outputStream);
+                outputStream.Seek(0, SeekOrigin.Begin);
+                return outputStream;
+            }
+        }
+
+        private async Task<Stream> GeneratePolotdCertificate(string name, DateTime today, Event evt) {
+            int CertificateMargin = 160;
+
+            using var backgroundStream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("CodyMazeBot.Resources.certificate-polotd.jpg");
+
+            using (var image = Image.Load(backgroundStream)) {
+                var fonts = GetFonts();
+                var fontFamilyLight = fonts.Get("Montserrat Light");
+                var fontFamilyMedium = fonts.Get("Montserrat Medium");
+                var fontFamilyBold = fonts.Get("Montserrat ExtraBold");
+
+                var brushBlack = Brushes.Solid(Color.Black);
+                var brushDarkGray = Brushes.Solid(Color.DarkGray);
+
+                var width = image.Width;
+                var height = image.Height;
+
+                image.Mutate(context => {
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyMedium, 14f)) {
+                        Origin = new PointF(width / 2f, 580f),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, Strings.CertificateGenerationTitle, brushDarkGray);
+
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyBold, 28f)) {
+                        Origin = new PointF(width / 2f, 680f),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, name.Trim(), brushBlack);
+
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyMedium, 14f)) {
+                        Origin = new PointF(CertificateMargin, 845f),
+                        KerningMode = KerningMode.Standard,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        WrappingLength = width - (CertificateMargin * 2),
+                        Dpi = (float)image.Metadata.HorizontalResolution,
+                    }, (evt?.Title).CanLocalize() ?
+                        string.Format(Strings.CertificateGenerationDescriptionEvent, evt.Title.Localize()) :
+                        Strings.CertificateGenerationDescriptionPlain,
+                    brushBlack);
+
+                    context.DrawText(new RichTextOptions(new Font(fontFamilyLight, 8f)) {
+                        Origin = new PointF(CertificateMargin, height - CertificateMargin - 105),
                         KerningMode = KerningMode.Standard,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Bottom,

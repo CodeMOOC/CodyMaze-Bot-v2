@@ -1,4 +1,4 @@
-﻿using CodyMazeBot.StoreModels;
+using CodyMazeBot.StoreModels;
 using Google.Cloud.Firestore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,7 +22,11 @@ namespace CodyMazeBot {
 
         public async Task<FirestoreDb> GetFirestore() {
             if (_firestore == null) {
-                _firestore = await FirestoreDb.CreateAsync(Environment.GetEnvironmentVariable("GOOGLE_PROJECT_ID"));
+                var builder = new FirestoreDbBuilder {
+                    ProjectId = Environment.GetEnvironmentVariable("GOOGLE_PROJECT_ID"),
+                    DatabaseId = "codymaze"
+                };
+                _firestore = await builder.BuildAsync();
             }
             return _firestore;
         }

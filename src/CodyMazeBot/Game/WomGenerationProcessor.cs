@@ -47,10 +47,11 @@ namespace CodyMazeBot.Game {
 
             using var womPrivateKeyStream = new FileStream(womPrivateKeyPath, FileMode.Open);
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(
+                Conversation.TelegramId,
                 Strings.WomGenerationProcessing,
                 parseMode: ParseMode.Html,
-                disableWebPagePreview: true
+                linkPreviewOptions: new LinkPreviewOptions { IsDisabled = true }
             );
 
             var wom = new Client(womDomain, _loggerFactory);
@@ -70,14 +71,18 @@ namespace CodyMazeBot.Game {
             await outputImage.SaveAsJpegAsync(outputStream);
             outputStream.Position = 0;
 
-            await Bot.SendPhotoAsync(Conversation.TelegramId, new InputFileStream(outputStream),
+            await Bot.SendPhoto(
+                Conversation.TelegramId,
+                new InputFileStream(outputStream),
                 caption: string.Format(Strings.WomGenerationCaption, womVoucherRequest.Password),
-                parseMode: ParseMode.Html);
+                parseMode: ParseMode.Html
+            );
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(
+                Conversation.TelegramId,
                 string.Format(Strings.WomGenerationResult, womVoucherRequest.Link, womVoucherRequest.Password),
                 parseMode: ParseMode.Html,
-                disableWebPagePreview: true
+                linkPreviewOptions: new LinkPreviewOptions { IsDisabled = true }
             );
 
             await Conversation.SetState((int)BotState.GameComplete);

@@ -1,13 +1,8 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Net.Codecrete.QrCodeGenerator;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Google.Cloud.Firestore;
 
 namespace CodyMazeBot.StoreModels {

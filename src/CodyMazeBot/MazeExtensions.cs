@@ -1,5 +1,3 @@
-using System;
-
 namespace CodyMazeBot {
     public static class MazeExtensions {
 

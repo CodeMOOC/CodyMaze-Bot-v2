@@ -1,7 +1,4 @@
 using CodyMazeBot.StoreModels;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 
 namespace CodyMazeBot {
     public class MazeGenerator {

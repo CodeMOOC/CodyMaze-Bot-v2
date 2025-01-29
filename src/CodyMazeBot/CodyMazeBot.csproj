@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
     <UserSecretsId>efb02659-23e2-42d7-8c0f-ed948a13016b</UserSecretsId>
+    <StartupObject>CodyMazeBot.Program</StartupObject>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>

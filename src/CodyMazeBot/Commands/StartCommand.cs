@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace CodyMazeBot.Commands {
 
             if (string.IsNullOrEmpty(payload)) {
                 // Direct /start command
-                await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.StartCommand, parseMode: ParseMode.Html);
+                await _bot.SendMessage(update.Message.Chat.Id, Strings.StartCommand, parseMode: ParseMode.Html);
                 return (null, true);
             }
             else {
@@ -47,7 +47,7 @@ namespace CodyMazeBot.Commands {
                 }
                 else {
                     _logger.LogDebug("Unable to parse coordinate {0}", coordCode);
-                    await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.StartCommandCoordInvalid, parseMode: ParseMode.Html);
+                    await _bot.SendMessage(update.Message.Chat.Id, Strings.StartCommandCoordInvalid, parseMode: ParseMode.Html);
                     return (null, true);
                 }
             }

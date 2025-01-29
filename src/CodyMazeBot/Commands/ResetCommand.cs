@@ -23,7 +23,7 @@ namespace CodyMazeBot.Commands {
         public async Task<(BotState? NewState, bool ShortCircuit)> ProcessCommand(Update update) {
             await _conversation.ResetGame();
 
-            await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.ResetCommandOk, parseMode: ParseMode.Html);
+            await _bot.SendMessage(_conversation.TelegramId, Strings.ResetCommandOk, parseMode: ParseMode.Html);
 
             return (null, true);
         }

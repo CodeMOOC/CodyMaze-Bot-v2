@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "MazeInstaller": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "../../../../../keys/codymaze-bot-b55051795d64.json",
+        "GOOGLE_PROJECT_ID": "codymaze-bot"
+      }
+    }
+  }
+}

@@ -29,7 +29,7 @@ namespace CodyMazeBot.Game {
                         using var welcomeImageStream = Assembly.GetExecutingAssembly()
                             .GetManifestResourceStream("CodyMazeBot.Resources.welcome-neoconnessi.jpg");
 
-                        await Bot.SendPhotoAsync(Conversation.TelegramId, new InputFileStream(welcomeImageStream));
+                        await Bot.SendPhoto(Conversation.TelegramId, new InputFileStream(welcomeImageStream));
                     }
                     break;
 
@@ -37,13 +37,13 @@ namespace CodyMazeBot.Game {
                 default:
                     if(string.IsNullOrEmpty(code))
                     {
-                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        await Bot.SendMessage(Conversation.TelegramId,
                             Strings.WelcomeMessage,
                             parseMode: ParseMode.Html);
                     }
                     else
                     {
-                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        await Bot.SendMessage(Conversation.TelegramId,
                             string.Format(Strings.WelcomeEventMessage, Conversation.ActiveEvent.Title.Localize()),
                             parseMode: ParseMode.Html);
                     }
@@ -62,7 +62,7 @@ namespace CodyMazeBot.Game {
 
                 // Block if not on border
                 if (!Conversation.IncomingCoordinate.Value.IsOnGridBorder()) {
-                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    await Bot.SendMessage(Conversation.TelegramId,
                         Strings.WaitForLocationFirstCoordinateWrong,
                         parseMode: ParseMode.Html);
                     return true;
@@ -71,7 +71,7 @@ namespace CodyMazeBot.Game {
                 // Tell user to look in right direction, if not already
                 var requiredDirection = Conversation.IncomingCoordinate.Value.GetInitialDirection();
                 if (Conversation.IncomingCoordinate.Value.Direction != requiredDirection) {
-                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    await Bot.SendMessage(Conversation.TelegramId,
                         string.Format(Strings.WaitForLocationFirstSendDirection, GetFacingString(requiredDirection)),
                         parseMode: ParseMode.Html
                     );
@@ -88,21 +88,21 @@ namespace CodyMazeBot.Game {
                 // Must ask for direction
                 await Conversation.AcceptPartialCoordinate(Conversation.IncomingCoordinate.Value);
 
-                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                await Bot.SendMessage(Conversation.TelegramId,
                     string.Format(Strings.AcceptCoordinateWaitForDirection),
                     parseMode: ParseMode.Html,
                     replyMarkup: new InlineKeyboardMarkup(
                         new InlineKeyboardButton[][] {
-                                new InlineKeyboardButton[] {
+                                [
                                     new InlineKeyboardButton(Strings.DirectionNorth) { CallbackData = "N" },
-                                },
-                                new InlineKeyboardButton[] {
+                                ],
+                                [
                                     new InlineKeyboardButton(Strings.DirectionWest) { CallbackData = "W" },
                                     new InlineKeyboardButton(Strings.DirectionEast) { CallbackData = "E" },
-                                },
-                                new InlineKeyboardButton[] {
+                                ],
+                                [
                                     new InlineKeyboardButton(Strings.DirectionSouth) { CallbackData = "S" },
-                                }
+                                ]
                         }
                     )
                 );

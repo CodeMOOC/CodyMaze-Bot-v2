@@ -51,7 +51,7 @@ namespace CodyMazeBot.Game {
         protected async Task HandleGameCompletion(Update update) {
             Logger.LogInformation("Maze completed with {0} moves", Conversation.CurrentUser.MoveCount);
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(Conversation.TelegramId,
                 Strings.Victory,
                 parseMode: ParseMode.Html
             );
@@ -73,7 +73,7 @@ namespace CodyMazeBot.Game {
             if (Conversation.CurrentUser.MoveCount == 0) {
                 // This is a start move, validate
                 if (!coordinate.IsOnGridBorder()) {
-                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    await Bot.SendMessage(Conversation.TelegramId,
                         Strings.WaitForLocationFirstCoordinateWrong,
                         parseMode: ParseMode.Html);
                     return;
@@ -81,7 +81,7 @@ namespace CodyMazeBot.Game {
 
                 var requiredDirection = coordinate.GetInitialDirection();
                 if (coordinate.Direction != requiredDirection) {
-                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    await Bot.SendMessage(Conversation.TelegramId,
                         string.Format(Strings.WaitForLocationWrongDirection, GetFacingString(requiredDirection)),
                         parseMode: ParseMode.Html
                     );
@@ -103,7 +103,7 @@ namespace CodyMazeBot.Game {
                     }
 
                     if(Conversation.CurrentUser.NextTargetCode == null) {
-                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        await Bot.SendMessage(Conversation.TelegramId,
                             string.Format(
                                 Strings.WrongMoveWithoutCode,
                                 lastCoordinate.Value.CoordinateString,
@@ -112,7 +112,7 @@ namespace CodyMazeBot.Game {
                             parseMode: ParseMode.Html);
                     }
                     else {
-                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        await Bot.SendMessage(Conversation.TelegramId,
                             string.Format(
                                 Strings.WrongMove,
                                 lastCoordinate.Value.CoordinateString,
@@ -129,7 +129,7 @@ namespace CodyMazeBot.Game {
             Logger.LogInformation("Move to {0} valid", coordinate);
             await Conversation.RegisterMove(coordinate);
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(Conversation.TelegramId,
                 string.Format(Strings.CorrectPosition, coordinate.CoordinateString, GetFacingString(coordinate.Direction)),
                 parseMode: ParseMode.Html
             );
@@ -144,7 +144,7 @@ namespace CodyMazeBot.Game {
 
             var shuffledAnswers = PrepareAnswers(question);
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(Conversation.TelegramId,
                 string.Format(Strings.AssignQuiz,
                     category.Title.Localize(),
                     question.QuestionText.Localize(),
@@ -182,7 +182,7 @@ namespace CodyMazeBot.Game {
 
                 await Conversation.AssignNewDestination(target.ToString(), code);
 
-                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                await Bot.SendMessage(Conversation.TelegramId,
                     string.Format(Strings.AssignCode, code),
                     parseMode: ParseMode.Html
                 );
@@ -200,11 +200,11 @@ namespace CodyMazeBot.Game {
                 output += " " + prompt;
             }
 
-            return Bot.SendTextMessageAsync(Conversation.TelegramId, output, parseMode: ParseMode.Html);
+            return Bot.SendMessage(Conversation.TelegramId, output, parseMode: ParseMode.Html);
         }
 
         protected Task CriticalError() {
-            return Bot.SendTextMessageAsync(Conversation.TelegramId, Strings.CriticalError, parseMode: ParseMode.Html);
+            return Bot.SendMessage(Conversation.TelegramId, Strings.CriticalError, parseMode: ParseMode.Html);
         }
 
     }

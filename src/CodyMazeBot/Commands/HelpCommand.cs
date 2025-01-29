@@ -18,9 +18,9 @@ namespace CodyMazeBot.Commands {
         }
 
         public async Task<(BotState? NewState, bool ShortCircuit)> ProcessCommand(Update update) {
-            await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.Help1, parseMode: ParseMode.Html);
-            await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.Help2, parseMode: ParseMode.Html);
-            await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.Help3, parseMode: ParseMode.Html);
+            await _bot.SendMessage(update.Message.Chat.Id, Strings.Help1, parseMode: ParseMode.Html);
+            await _bot.SendMessage(update.Message.Chat.Id, Strings.Help2, parseMode: ParseMode.Html);
+            await _bot.SendMessage(update.Message.Chat.Id, Strings.Help3, parseMode: ParseMode.Html);
 
             return (null, true);
         }

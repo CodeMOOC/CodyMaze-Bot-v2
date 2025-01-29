@@ -22,10 +22,10 @@ namespace CodyMazeBot.Commands {
         }
 
         public async Task<(BotState? NewState, bool ShortCircuit)> ProcessCommand(Update update) {
-            await _bot.SendTextMessageAsync(update.Message.Chat.Id, Strings.LanguageCommandAsk, parseMode: ParseMode.Html,
+            await _bot.SendMessage(update.Message.Chat.Id, Strings.LanguageCommandAsk, parseMode: ParseMode.Html,
                 replyMarkup: new InlineKeyboardMarkup(new InlineKeyboardButton[] {
-                    new InlineKeyboardButton("English") { CallbackData = "en" },
-                    new InlineKeyboardButton("Italiano") { CallbackData = "it" },
+                    new("English") { CallbackData = "en" },
+                    new("Italiano") { CallbackData = "it" },
                 }));
 
             return (BotState.SetLanguage, true);

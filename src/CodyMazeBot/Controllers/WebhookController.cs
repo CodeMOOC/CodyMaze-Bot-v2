@@ -47,7 +47,7 @@ namespace CodyMazeBot.Controllers {
 
             if (update.CallbackQuery != null) {
                 // Approve callback right away
-                await _bot.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+                await _bot.AnswerCallbackQuery(update.CallbackQuery.Id);
             }
 
             if (!await _conversation.LoadUser(update)) {
@@ -67,7 +67,7 @@ namespace CodyMazeBot.Controllers {
             // Message received and not handled neither as command nor in state processor
             if (update.Message != null && !(commandHandled || stateHandled)) {
                 // Huh?
-                await _bot.SendTextMessageAsync(_conversation.TelegramId, Strings.CannotHandle, parseMode: ParseMode.Html);
+                await _bot.SendMessage(_conversation.TelegramId, Strings.CannotHandle, parseMode: ParseMode.Html);
             }
 
             return Ok();

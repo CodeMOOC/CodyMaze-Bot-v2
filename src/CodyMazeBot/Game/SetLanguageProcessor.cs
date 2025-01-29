@@ -27,7 +27,7 @@ namespace CodyMazeBot.Game {
 
                 await Conversation.RestoreState((int)BotState.WaitingForLocation);
 
-                await Bot.SendTextMessageAsync(update.CallbackQuery.From.Id, Strings.LanguageConfirm, parseMode: ParseMode.Html);
+                await Bot.SendMessage(update.CallbackQuery.From.Id, Strings.LanguageConfirm, parseMode: ParseMode.Html);
 
                 return true;
             }

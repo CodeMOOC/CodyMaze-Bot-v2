@@ -1,10 +1,6 @@
 using CodyMazeBot.StoreModels;
 using Google.Cloud.Firestore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CodyMazeBot {
 
@@ -50,7 +46,7 @@ namespace CodyMazeBot {
 
         public async Task StoreEvent(string eventCode, Event evt) {
             var doc = (await GetFirestore()).Document(GetEventPath(eventCode));
-            await doc.SetAsync(evt);
+            await doc.SetAsync(evt, SetOptions.MergeAll);
         }
 
         private string GetCategoryPath(string eventCode, string categoryCode) =>

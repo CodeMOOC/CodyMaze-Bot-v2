@@ -34,7 +34,7 @@ namespace CodyMazeBot.Game {
                 return;
             }
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(Conversation.TelegramId,
                 Strings.QuestionnaireEntry,
                 parseMode: ParseMode.Html
             );
@@ -51,7 +51,7 @@ namespace CodyMazeBot.Game {
                 return;
             }
 
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(Conversation.TelegramId,
                 Strings.QuestionnaireDone,
                 parseMode: ParseMode.Html
             );
@@ -103,7 +103,7 @@ namespace CodyMazeBot.Game {
             switch (question.Kind) {
                 case "string": {
                         if (update.Message == null || string.IsNullOrWhiteSpace(update.Message.Text)) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorString,
                                 parseMode: ParseMode.Html
                             );
@@ -116,28 +116,28 @@ namespace CodyMazeBot.Game {
 
                 case "age": {
                         if (update.Message == null || string.IsNullOrWhiteSpace(update.Message.Text)) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeInvalid,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
                         if (!int.TryParse(update.Message.Text, out var age)) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeInvalid,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
                         if (age < 5) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeTooLow,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
                         if (age > 99) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAgeTooHigh,
                                 parseMode: ParseMode.Html
                             );
@@ -150,21 +150,21 @@ namespace CodyMazeBot.Game {
 
                 case "alternative": {
                         if (update.CallbackQuery == null || update.CallbackQuery.Data == null) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAlternative,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
                         if (!int.TryParse(update.CallbackQuery.Data, out var selectionIndex)) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAlternative,
                                 parseMode: ParseMode.Html
                             );
                             return false;
                         }
                         if (selectionIndex <= 0 || selectionIndex > question.Answers.Length) {
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.QuestionnaireErrorAlternative,
                                 parseMode: ParseMode.Html
                             );
@@ -183,7 +183,7 @@ namespace CodyMazeBot.Game {
             var question = Conversation.ActiveEvent.Questionnaire.Questions[index];
             switch (question.Kind) {
                 case "alternative": {
-                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        await Bot.SendMessage(Conversation.TelegramId,
                             question.Text.Localize(),
                             parseMode: ParseMode.Html,
                             replyMarkup: new InlineKeyboardMarkup(
@@ -203,7 +203,7 @@ namespace CodyMazeBot.Game {
                 case "age":
                 case "string":
                 default:
-                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    await Bot.SendMessage(Conversation.TelegramId,
                         question.Text.Localize(),
                         parseMode: ParseMode.Html
                     );

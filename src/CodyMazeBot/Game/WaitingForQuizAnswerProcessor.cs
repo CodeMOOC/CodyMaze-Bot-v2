@@ -25,7 +25,7 @@ namespace CodyMazeBot.Game {
             if(update.CallbackQuery.Data == "CORRECT") {
                 Logger.LogInformation("Answer correct");
 
-                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                await Bot.SendMessage(Conversation.TelegramId,
                     Strings.CorrectAnswer,
                     parseMode: ParseMode.Html
                 );
@@ -35,7 +35,7 @@ namespace CodyMazeBot.Game {
             else {
                 Logger.LogInformation("Answer wrong");
 
-                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                await Bot.SendMessage(Conversation.TelegramId,
                     Strings.WrongAnswerTryAgain,
                     parseMode: ParseMode.Html
                 );

@@ -33,7 +33,7 @@ namespace CodyMazeBot.Game {
             if (update.Message != null) {
                 var name = update.Message.Text.Trim();
                 if (string.IsNullOrWhiteSpace(update.Message.Text) || name.Length < 3) {
-                    await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                    await Bot.SendMessage(Conversation.TelegramId,
                         Strings.CertificateAskForNameInvalid,
                         parseMode: ParseMode.Html
                     );
@@ -42,7 +42,7 @@ namespace CodyMazeBot.Game {
 
                 await Conversation.SetMemory(MemoryNameKey, name);
 
-                await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                await Bot.SendMessage(Conversation.TelegramId,
                         string.Format(
                             Strings.CertificateAskForNameConfirmation,
                             name
@@ -62,7 +62,7 @@ namespace CodyMazeBot.Game {
                 string name = Conversation.GetMemory<string>(MemoryNameKey);
                 if (name != null) {
                     if (update.CallbackQuery.Data == "YES") {
-                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        await Bot.SendMessage(Conversation.TelegramId,
                             Strings.CertificateGenerationProcessing,
                             parseMode: ParseMode.Html
                         );
@@ -70,7 +70,7 @@ namespace CodyMazeBot.Game {
                         try {
                             using var certStream = await GenerateCertificate(name, DateTime.UtcNow, Conversation.ActiveEvent);
 
-                            await Bot.SendPhotoAsync(Conversation.TelegramId,
+                            await Bot.SendPhoto(Conversation.TelegramId,
                                 new InputFileStream(certStream),
                                 caption: Strings.CertificateGenerationCaption,
                                 parseMode: ParseMode.Html
@@ -78,7 +78,7 @@ namespace CodyMazeBot.Game {
                         }
                         catch (Exception ex) {
                             Logger.LogError(ex, "Failed to generate certificate");
-                            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                            await Bot.SendMessage(Conversation.TelegramId,
                                 Strings.CertificateGenerationError,
                                 parseMode: ParseMode.Html
                             );
@@ -88,7 +88,7 @@ namespace CodyMazeBot.Game {
                         await Conversation.SetState((int)BotState.WomGeneration);
                     }
                     else {
-                        await Bot.SendTextMessageAsync(Conversation.TelegramId,
+                        await Bot.SendMessage(Conversation.TelegramId,
                             Strings.CertificateAskForNameAgain,
                             parseMode: ParseMode.Html
                         );
@@ -100,7 +100,7 @@ namespace CodyMazeBot.Game {
         }
 
         public override async Task HandleStateEntry(Update update) {
-            await Bot.SendTextMessageAsync(Conversation.TelegramId,
+            await Bot.SendMessage(Conversation.TelegramId,
                 Strings.CertificateAskForName,
                 parseMode: ParseMode.Html
             );

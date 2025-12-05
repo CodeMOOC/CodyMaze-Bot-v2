@@ -30,7 +30,7 @@ namespace CodyMazeBot.Controllers {
         public async Task<IActionResult> Process(
             [FromBody] Update update
         ) {
-            if (update.Message == null && update.CallbackQuery == null) {
+            if (update == null || (update.Message == null && update.CallbackQuery == null)) {
                 // Ignore update
                 return Ok();
             }
